@@ -13,14 +13,14 @@ BLACK = (141, 197, 137)
 pygame.init()
 pygame.display.set_caption("Cludo")
 
-tileImg = pygame.image.load("tile_unselected_empty.png")
+tileImg = pygame.image.load("../Image/tile_unselected_empty.png")
 tileImg = pygame.transform.scale(tileImg, (int(WIDTH), int(HEIGHT)))
-tileImgSELECT = pygame.image.load("tile_unselected_selected.png")
+tileImgSELECT = pygame.image.load("../Image/tile_unselected_selected.png")
 tileImgSELECT = pygame.transform.scale(tileImgSELECT, (int(WIDTH), int(HEIGHT)))
-tileImgHover = pygame.image.load("tile_unselected_hover.png")
+tileImgHover = pygame.image.load("../Image/tile_unselected_hover.png")
 tileImgHover = pygame.transform.scale(tileImgHover, (int(WIDTH), int(HEIGHT)))
 
-background = pygame.image.load("background.png")
+background = pygame.image.load("../Image/background.png")
 
 
 screen = pygame.display.set_mode([960, 1000])
