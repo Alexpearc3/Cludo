@@ -23,7 +23,7 @@ tileImgHover = pygame.transform.scale(tileImgHover, (int(WIDTH), int(HEIGHT)))
 background = pygame.image.load("../Image/background.png")
 
 
-screen = pygame.display.set_mode([960, 1000])
+screen = pygame.display.set_mode([960, 1000]) #960 * 1000
 
 
 def grid(x, y):
