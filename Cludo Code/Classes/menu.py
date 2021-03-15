@@ -1,6 +1,8 @@
 import pygame
 import sys
 
+class menu:
+    def __init__(self):
 # initializing the constructor
 pygame.init()
 
