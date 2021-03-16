@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Created new logo">
-      <change afterPath="$PROJECT_DIR$/Cludo Code/Image/notepad_background.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13-Mar-21_4_34_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13-Mar-21_4_34_PM__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" afterDir="false" />
-    </list>
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added icon and background" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -187,7 +182,21 @@
       <option name="project" value="LOCAL" />
       <updated>1615820853693</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Added icon and background">
+      <created>1615863129774</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1615863129774</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Added icon and background">
+      <created>1615863245711</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1615863245711</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -225,6 +234,7 @@
     <MESSAGE value="put dice into class" />
     <MESSAGE value="Added Class Name in the menu class" />
     <MESSAGE value="Created new logo" />
-    <option name="LAST_COMMIT_MESSAGE" value="Created new logo" />
+    <MESSAGE value="Added icon and background" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added icon and background" />
   </component>
 </project>
