@@ -1,3 +1,5 @@
+class clueDo:
+    def __init__(self):
 import pygame as pg
 
 

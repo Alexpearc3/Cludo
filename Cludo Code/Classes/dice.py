@@ -59,3 +59,4 @@ class dice:
     pygame.quit()
     quit()
 
+
