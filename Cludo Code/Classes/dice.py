@@ -8,7 +8,7 @@ class dice:
         self.rolldice()
 
     @staticmethod
-    def rollice():
+    def rolldice():
         dis = pygame.Overlay.display.set_mode((300, 300))
         # dice functionality
         dis = pygame.Overlay.display.set_mode((300, 300))
@@ -56,6 +56,6 @@ class dice:
                         pygame.draw.rect(dis, (0, 0, 0), [170, 150, 15, 15])
 
         pygame.Overlay.display.update()
-
     pygame.quit()
     quit()
+
