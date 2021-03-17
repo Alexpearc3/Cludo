@@ -11,5 +11,6 @@ class weapon_cards:
 
             self.arr_weapon_cards.append(card(img_name))
 
-
+    def get(self):
+        return self.arr_weapon_cards
 

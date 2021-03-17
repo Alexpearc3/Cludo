@@ -11,5 +11,7 @@ class suspect_cards:
 
             self.arr_suspect_cards.append(card(img_name))
 
+    def get(self):
+        return self.arr_suspect_cards
 
 
