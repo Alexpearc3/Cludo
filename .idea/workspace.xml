@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="added deck, updated methods in all  card classes respectivly">
-      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/Player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/menu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/menu.py" afterDir="false" />
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added player class and methods">
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -250,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616013786431</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added player class and methods">
+      <created>1616014455541</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1616014455541</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -290,6 +295,7 @@
     <MESSAGE value="Added icon and background" />
     <MESSAGE value="added Card classes" />
     <MESSAGE value="added deck, updated methods in all  card classes respectivly" />
-    <option name="LAST_COMMIT_MESSAGE" value="added deck, updated methods in all  card classes respectivly" />
+    <MESSAGE value="Added player class and methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added player class and methods" />
   </component>
 </project>

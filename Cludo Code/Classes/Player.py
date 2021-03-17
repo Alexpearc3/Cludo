@@ -8,4 +8,9 @@ class Player:
         do = "what a player do"
 
     def drawCard(self):
-        self.cards.append(deck.drawCard())
+        draw = deck.drawCard()
+        if not draw:
+            return draw
+        else:
+            self.cards.append()
+        return True

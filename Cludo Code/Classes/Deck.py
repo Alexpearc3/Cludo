@@ -52,3 +52,5 @@ class Deck:
             draw = self.all_cards[i]
             self.all_cards.remove(i)
             return draw
+        else:
+            return False
