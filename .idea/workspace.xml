@@ -4,7 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added icon and background" />
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added icon and background">
+      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/card.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13-Mar-21_4_34_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13-Mar-21_4_34_PM__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15-Mar-21_12_00_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15-Mar-21_12_00_AM__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/deck.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -39,6 +50,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Alex\Desktop\Cludo\Cludo Code\Classes" />
       <recent name="C:\Users\ASUS\PycharmProjects\Cludo\Cludo Code\Classes" />
       <recent name="C:\Users\ASUS\PycharmProjects\Cludo\Cludo Code" />
     </key>
