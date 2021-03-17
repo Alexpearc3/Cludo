@@ -3,6 +3,7 @@ import sys
 
 class menu:
     def __init__(self):
+        do="dowhat"
 # initializing the constructor
 pygame.init()
 

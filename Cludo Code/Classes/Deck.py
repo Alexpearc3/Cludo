@@ -46,3 +46,9 @@ class Deck:
                 i = random.randint(0, len(self.room_cards))
                 self.all_cards.append(self.room_cards[i])
                 self.room_cards.remove(i)
+    def drawCard(self):
+        if len(self.all_Cards) != 0:
+            i = random.randint(0, len(self.all_Cards))
+            draw = self.all_cards[i]
+            self.all_cards.remove(i)
+            return draw
