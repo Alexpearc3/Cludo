@@ -1,18 +1,18 @@
-import card as card
+import card
 
 
-class suspect_cards:
+class Suspect_cards:
     suspect_list = ('Miss Scarlet', 'Mrs White', 'Colonel Mustard', 'Reverend Green', 'Professor Plum', 'Mrs Peacock')
-    arr_suspect_cards = []
+    suspect_cards = []
 
     def __init__(self):
         for l in self.suspect_list:
-            img_name = '../Image/' + l + '.jpg'
-
-            self.arr_suspect_cards.append(card(self.procStr(img_name)))
+            img_name = '../Image/' + self.procStr(l) + '.jpg'
+            c = card.Card
+            self.suspect_cards.append(c.init())
 
     def get(self):
-        return self.arr_suspect_cards
+        return self.suspect_cards
 
     def getSuspects(self):
         return self.suspect_list
@@ -26,7 +26,7 @@ class suspect_cards:
         return newStr
 
 #test/ example implementation
-sc = suspect_cards
-for l in sc.getSuspects(sc):
-    print(l)
+# sc = Suspect_cards
+# for l in sc.getSuspects(sc):
+#     print(l)
 

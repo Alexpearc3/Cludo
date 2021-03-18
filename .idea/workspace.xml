@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added player class and methods">
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Corrected attributes and methods for Card classes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/card.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/card.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" afterDir="false" />
@@ -59,8 +61,8 @@
       <recent name="C:\Users\ASUS\PycharmProjects\Cludo\Cludo Code\Classes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.suspect_cards">
-    <configuration name="cluedo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.Deck">
+    <configuration name="Deck" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -72,7 +74,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -167,11 +169,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Deck" />
         <item itemvalue="Python.suspect_cards" />
-        <item itemvalue="Python.weapon_cards" />
         <item itemvalue="Python.room_cards" />
+        <item itemvalue="Python.weapon_cards" />
         <item itemvalue="Python.dice" />
-        <item itemvalue="Python.cluedo" />
       </list>
     </recent_temporary>
   </component>
@@ -271,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616018223145</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Corrected attributes and methods for Card classes">
+      <created>1616023491939</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1616023491939</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -312,6 +321,7 @@
     <MESSAGE value="added Card classes" />
     <MESSAGE value="added deck, updated methods in all  card classes respectivly" />
     <MESSAGE value="Added player class and methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added player class and methods" />
+    <MESSAGE value="Corrected attributes and methods for Card classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Corrected attributes and methods for Card classes" />
   </component>
 </project>

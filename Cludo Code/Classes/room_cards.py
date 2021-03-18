@@ -1,26 +1,26 @@
 import string
 
-import card as card
+import card
 
 
-class room_cards:
+class Room_cards:
     room_list = ('Billiard room', 'Study', 'Hall', 'Lounge', 'Dining room', 'Ballroom', 'Conservatory', 'Library', 'Kitchen')
-    #arr_room_cards = []
+    room_cards = []
 
     def __init__(self):
-        self.arr_room_cards = []
+        self.room_cards = []
         for l in self.room_list:
-            img_name = '../Image/' + l + '.jpg'
-
-            self.arr_room_cards.append(card(self.procStr(img_name)))
+            img_name = '../Image/' + self.procStr(l) + '.jpg'
+            c = card.Card
+            self.room_cards.append(c.init(self.procStr(img_name)))
 
     def get(self):
-        return self.arr_room_cards
+        return self.room_cards
 
     def getRooms(self):
         return self.room_list
 
-    def procStr(self,str):
+    def procStr(self, str):
         newStr = ""
         for c in str:
             if c == " ":
@@ -29,6 +29,6 @@ class room_cards:
         return newStr
 
 #test/ example implementation
-rc = room_cards
-for l in rc.getRooms(rc):
-    print(l)
+# rc = Room_cards
+# for l in rc.getRooms(rc):
+#     print(l)

@@ -1,18 +1,18 @@
-import card as card
+import card
 
 
-class weapon_cards:
+class Weapon_cards:
     weapon_list = ('Wrench', 'Candlestick', 'Lead pipe', 'Rope', 'Revolver', 'Knife')
-    arr_weapon_cards = []
+    weapon_cards = []
 
     def __init__(self):
         for l in self.weapon_list:
-            img_name = '../Image/' + l + '.jpg'
-
-            self.arr_weapon_cards.append(card(self.procStr(img_name)))
+            img_name = '../Image/' + self.procStr(l) + '.jpg'
+            c = card.Card
+            self.weapon_cards.append(c.init(self.procStr(img_name)))
 
     def get(self):
-        return self.arr_weapon_cards
+        return self.weapon_cards
 
     def getWeapons(self):
         return self.weapon_list
@@ -25,6 +25,6 @@ class weapon_cards:
             newStr += c.lower()
         return newStr
 #test/ example implementation
-wc = weapon_cards
-for l in wc.getWeapons(wc):
-    print(l)
+# wc = Weapon_cards
+# for l in wc.getWeapons(wc):
+#     print(l)
