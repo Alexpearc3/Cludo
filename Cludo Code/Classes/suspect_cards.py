@@ -3,15 +3,16 @@ import card
 
 class Suspect_cards:
     suspect_list = ('Miss Scarlet', 'Mrs White', 'Colonel Mustard', 'Reverend Green', 'Professor Plum', 'Mrs Peacock')
-    suspect_cards = []
-    def init(self):
-        for card_name in self.getNames(self):
-            # print(card_name)
-            img_name = '../Image/' + self.procStr(self, card_name) + '.jpg'
-            self.setCards(self, self.procStr(self, img_name), card_name)
+
+    #def init(self):
+
 
     def __init__(self):
-
+        self.suspect_cards = []
+        for card_name in self.getNames():
+            # print(card_name)
+            img_name = '../Image/' + self.procStr(card_name) + '.jpg'
+            self.setCards(self.procStr(img_name), card_name)
         do = "smth"
         # for l in self.getRoomNames():
         #     img_name = '../Image/' + self.procStr(l) + '.jpg'
@@ -37,7 +38,7 @@ class Suspect_cards:
         return newStr
 
     def removeCard(self, i):
-        self.suspect_cards.remove(self, i)
+        self.suspect_cards.remove(i)
 
 
 # test/ example implementation

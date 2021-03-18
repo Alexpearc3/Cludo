@@ -6,18 +6,22 @@ import card as card
 
 
 class Deck:
+    suspect_cards = []
+    room_cards = []
+    weapon_cards = []
+    envelope = []
+    all_cards = []
+
     def init(self):
-        rc = roomCards.Room_cards
-        rc.init(rc)
-        sc = susCards.Suspect_cards
-        sc.init(sc)
-        wc = weaponCards.Weapon_cards
-        wc.init(wc)
+        rc = roomCards.Room_cards()
+        sc = susCards.Suspect_cards()
+        wc = weaponCards.Weapon_cards()
         self.room_cards = roomCards.Room_cards.getCards(rc)
         self.suspect_cards = susCards.Suspect_cards.getCards(sc)
         self.weapon_cards = weaponCards.Weapon_cards.getCards(wc)
 
     def __init__(self):
+        self.rc = roomCards.Room_cards
         self.weapon_cards = []
         self.suspect_cards = []
         self.room_cards = []
@@ -69,42 +73,42 @@ class Deck:
         return self.all_cards
 
 # test/ example implementation
-# d = Deck
-# d.init(d)
-# print("--room cards--")
-# for card in d.room_cards:
-#     print(card.card_name)
-# print(" ")
-#
-# print("--suspect cards--")
-# for card in d.suspect_cards:
-#     print(card.card_name)
-# print(" ")
-#
-# print("--weapon cards--")
-# for card in d.weapon_cards:
-#     print(card.card_name)
-# print(" ")
-#
-# d.initEnvelope(d)
-# print("--enveloped cards--")
-# for card in d.envelope:
-#     print(card.card_name)
-# print(" ")
-#
-# print("--All remaining cards shuffled --")
-# d.shuffle(d)
-# for card in d.all_cards:
-#     print(card.card_name)
-# print(" ")
-#
-# print("--draws cards--")
-# cards = [d.drawCard(d),d.drawCard(d),d.drawCard(d),d.drawCard(d)]
-# for card in cards:
-#     print(card.card_name)
-# print(" ")
-#
-# print("--all cards after drawing cards--")
-# for card in d.all_cards:
-#     print(card.card_name)
-# print(" ")
+d = Deck
+d.init(d)
+print("--room cards--")
+for card in d.room_cards:
+    print(card.card_name)
+print(" ")
+
+print("--suspect cards--")
+for card in d.suspect_cards:
+    print(card.card_name)
+print(" ")
+
+print("--weapon cards--")
+for card in d.weapon_cards:
+    print(card.card_name)
+print(" ")
+
+d.initEnvelope(d)
+print("--enveloped cards--")
+for card in d.envelope:
+    print(card.card_name)
+print(" ")
+
+print("--All remaining cards shuffled --")
+d.shuffle(d)
+for card in d.all_cards:
+    print(card.card_name)
+print(" ")
+
+print("--draws cards--")
+cards = [d.drawCard(d),d.drawCard(d),d.drawCard(d),d.drawCard(d)]
+for card in cards:
+    print(card.card_name)
+print(" ")
+
+print("--all cards after drawing cards--")
+for card in d.all_cards:
+    print(card.card_name)
+print(" ")
