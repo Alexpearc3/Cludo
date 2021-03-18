@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Corrected attributes and methods for Card classes">
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="fixing bugs in deck work in progress">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/card.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/card.py" afterDir="false" />
@@ -170,8 +173,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.Deck" />
-        <item itemvalue="Python.suspect_cards" />
         <item itemvalue="Python.room_cards" />
+        <item itemvalue="Python.suspect_cards" />
         <item itemvalue="Python.weapon_cards" />
         <item itemvalue="Python.dice" />
       </list>
