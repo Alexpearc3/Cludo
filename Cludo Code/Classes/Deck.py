@@ -75,7 +75,6 @@ class Deck:
 #test/ example implementation
 d = Deck
 d.init(d)
-d.initEnvelope(d)
 print("--room cards--")
 for card in d.room_cards:
     print(card.card_name)
@@ -91,18 +90,25 @@ for card in d.weapon_cards:
     print(card.card_name)
 print(" ")
 
+d.initEnvelope(d)
 print("--enveloped cards--")
 for card in d.envelope:
-    print("enveloped", " ", card.card_name)
+    print(card.card_name)
 print(" ")
 
-print("--All cards shuffled - enveloped cards--")
+print("--All remaining cards shuffled --")
 d.shuffle(d)
 for card in d.all_cards:
     print(card.card_name)
 print(" ")
 
-print("--draw a card--")
-cards = [d.drawCard(d)]
+print("--draws cards--")
+cards = [d.drawCard(d),d.drawCard(d),d.drawCard(d),d.drawCard(d)]
 for card in cards:
-    print("Draw", card.card_name)
+    print(card.card_name)
+print(" ")
+
+print("--all cards after drawing cards--")
+for card in d.all_cards:
+    print(card.card_name)
+print(" ")

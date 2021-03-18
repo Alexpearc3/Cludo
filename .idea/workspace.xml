@@ -7,13 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="fixing bugs in deck work in progress">
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Deck and card classes complete.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/card.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/card.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Player.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -283,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616023491939</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Deck and card classes complete.">
+      <created>1616085076054</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1616085076054</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -325,6 +329,7 @@
     <MESSAGE value="added deck, updated methods in all  card classes respectivly" />
     <MESSAGE value="Added player class and methods" />
     <MESSAGE value="Corrected attributes and methods for Card classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Corrected attributes and methods for Card classes" />
+    <MESSAGE value="Deck and card classes complete." />
+    <option name="LAST_COMMIT_MESSAGE" value="Deck and card classes complete." />
   </component>
 </project>
