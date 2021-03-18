@@ -73,42 +73,42 @@ class Deck:
         return self.all_cards
 
 # test/ example implementation
-d = Deck
-d.init(d)
-print("--room cards--")
-for card in d.room_cards:
-    print(card.card_name)
-print(" ")
-
-print("--suspect cards--")
-for card in d.suspect_cards:
-    print(card.card_name)
-print(" ")
-
-print("--weapon cards--")
-for card in d.weapon_cards:
-    print(card.card_name)
-print(" ")
-
-d.initEnvelope(d)
-print("--enveloped cards--")
-for card in d.envelope:
-    print(card.card_name)
-print(" ")
-
-print("--All remaining cards shuffled --")
-d.shuffle(d)
-for card in d.all_cards:
-    print(card.card_name)
-print(" ")
-
-print("--draws cards--")
-cards = [d.drawCard(d),d.drawCard(d),d.drawCard(d),d.drawCard(d)]
-for card in cards:
-    print(card.card_name)
-print(" ")
-
-print("--all cards after drawing cards--")
-for card in d.all_cards:
-    print(card.card_name)
-print(" ")
+# d = Deck
+# d.init(d)
+# print("--room cards--")
+# for card in d.room_cards:
+#     print(card.card_name)
+# print(" ")
+#
+# print("--suspect cards--")
+# for card in d.suspect_cards:
+#     print(card.card_name)
+# print(" ")
+#
+# print("--weapon cards--")
+# for card in d.weapon_cards:
+#     print(card.card_name)
+# print(" ")
+#
+# d.initEnvelope(d)
+# print("--enveloped cards--")
+# for card in d.envelope:
+#     print(card.card_name)
+# print(" ")
+#
+# print("--All remaining cards shuffled --")
+# d.shuffle(d)
+# for card in d.all_cards:
+#     print(card.card_name)
+# print(" ")
+#
+# print("--draws cards--")
+# cards = [d.drawCard(d),d.drawCard(d),d.drawCard(d),d.drawCard(d)]
+# for card in cards:
+#     print(card.card_name)
+# print(" ")
+#
+# print("--all cards after drawing cards--")
+# for card in d.all_cards:
+#     print(card.card_name)
+# print(" ")

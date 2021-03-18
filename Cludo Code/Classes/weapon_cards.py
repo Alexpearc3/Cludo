@@ -4,9 +4,6 @@ import card
 class Weapon_cards:
     weapon_list = ('Wrench', 'Candlestick', 'Lead pipe', 'Rope', 'Revolver', 'Knife')
 
-    #def init(self):
-
-
     def __init__(self):
         self.weapon_cards = []
         for card_name in self.getNames():
@@ -14,12 +11,6 @@ class Weapon_cards:
             img_name = '../Image/' + self.procStr(card_name) + '.jpg'
 
             self.setCards(self.procStr(img_name), card_name)
-        do = "smth"
-        # for l in self.getRoomNames():
-        #     img_name = '../Image/' + self.procStr(l) + '.jpg'
-        #     print(img_name)
-        #     c = card.Card
-        #     self.room_cards.append(c(self.procStr(img_name)))
 
     def getNames(self):
         return self.weapon_list

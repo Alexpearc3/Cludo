@@ -36,20 +36,6 @@ for card in d.all_cards:
     print(card.card_name)
 print(" ")
 
-# print("--draws cards--")
-# cards = []
-# while d.isCard():
-#     cards.append(d.drawCard())
-# for card in cards:
-#     print(card.card_name)
-# print(" ")
-#
-# print("--all cards after drawing cards--")
-# for card in d.all_cards:
-#     print(card.card_name)
-# print(" ")
-#
-#
 Pl = player.Player
 pla = [Pl("Shakir", "bhagdad", 911), Pl("michelle", "shakirs", 1), Pl("Alex", "yourmum", 69), Pl("Tom", "???", 1337),
        Pl("Abby", "Toilet paper", 1234)]
