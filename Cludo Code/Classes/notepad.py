@@ -60,7 +60,7 @@ def notepad():
     # infinite loop
     while True:
         # background
-        notepad_background_img = "../Image/notepad_background 2.png"
+        notepad_background_img = "../Image/notepad_background.png"
         notepad_background = pygame.image.load(notepad_background_img)
         screen.blit(notepad_background, (0, 0))
 
