@@ -4,23 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added icon and background">
-      <change beforePath="$PROJECT_DIR$/.idea/Cludo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cludo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13-Mar-21_4_34_PM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_13-Mar-21_4_34_PM__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15-Mar-21_12_00_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15-Mar-21_12_00_AM__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" afterDir="false" />
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added player class and methods">
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -56,7 +57,7 @@
       <recent name="C:\Users\ASUS\PycharmProjects\Cludo\Cludo Code\Classes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.cluedo">
+  <component name="RunManager" selected="Python.dice">
     <configuration name="cluedo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -164,11 +165,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.dice" />
         <item itemvalue="Python.cluedo" />
         <item itemvalue="Python.notepad" />
         <item itemvalue="Python.room" />
         <item itemvalue="Python.menu" />
-        <item itemvalue="Python.dice" />
       </list>
     </recent_temporary>
   </component>
@@ -233,7 +234,28 @@
       <option name="project" value="LOCAL" />
       <updated>1615863287472</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="added Card classes">
+      <created>1616007384080</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1616007384080</updated>
+    </task>
+    <task id="LOCAL-00009" summary="added deck, updated methods in all  card classes respectivly">
+      <created>1616013786431</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1616013786431</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Added player class and methods">
+      <created>1616014455541</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1616014455541</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -271,6 +293,9 @@
     <MESSAGE value="Added Class Name in the menu class" />
     <MESSAGE value="Created new logo" />
     <MESSAGE value="Added icon and background" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added icon and background" />
+    <MESSAGE value="added Card classes" />
+    <MESSAGE value="added deck, updated methods in all  card classes respectivly" />
+    <MESSAGE value="Added player class and methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added player class and methods" />
   </component>
 </project>
