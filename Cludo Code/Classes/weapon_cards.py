@@ -2,24 +2,15 @@ import card
 
 
 class Weapon_cards:
-    weapon_cards = []
     weapon_list = ('Wrench', 'Candlestick', 'Lead pipe', 'Rope', 'Revolver', 'Knife')
 
-    def init(self):
-        for card_name in self.getNames(self):
-            # print(card_name)
-            img_name = '../Image/' + self.procStr(self, card_name) + '.jpg'
-
-            self.setCards(self, self.procStr(self, img_name), card_name)
-
     def __init__(self):
+        self.weapon_cards = []
+        for card_name in self.getNames():
+            # print(card_name)
+            img_name = '../Image/' + self.procStr(card_name) + '.jpg'
 
-        do = "smth"
-        # for l in self.getRoomNames():
-        #     img_name = '../Image/' + self.procStr(l) + '.jpg'
-        #     print(img_name)
-        #     c = card.Card
-        #     self.room_cards.append(c(self.procStr(img_name)))
+            self.setCards(self.procStr(img_name), card_name)
 
     def getNames(self):
         return self.weapon_list
@@ -39,7 +30,7 @@ class Weapon_cards:
         return newStr
 
     def removeCard(self, i):
-        self.weapon_cards.remove(self, i)
+        self.weapon_cards.remove(i)
 
 # test/ example implementation
 # wc = Weapon_cards

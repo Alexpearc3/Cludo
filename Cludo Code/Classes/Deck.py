@@ -6,18 +6,22 @@ import card as card
 
 
 class Deck:
+    suspect_cards = []
+    room_cards = []
+    weapon_cards = []
+    envelope = []
+    all_cards = []
+
     def init(self):
-        rc = roomCards.Room_cards
-        rc.init(rc)
-        sc = susCards.Suspect_cards
-        sc.init(sc)
-        wc = weaponCards.Weapon_cards
-        wc.init(wc)
+        rc = roomCards.Room_cards()
+        sc = susCards.Suspect_cards()
+        wc = weaponCards.Weapon_cards()
         self.room_cards = roomCards.Room_cards.getCards(rc)
         self.suspect_cards = susCards.Suspect_cards.getCards(sc)
         self.weapon_cards = weaponCards.Weapon_cards.getCards(wc)
 
     def __init__(self):
+        self.rc = roomCards.Room_cards
         self.weapon_cards = []
         self.suspect_cards = []
         self.room_cards = []

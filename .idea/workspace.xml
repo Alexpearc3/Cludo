@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added player class and methods">
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="updating classes to be proper">
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/MainTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/MainTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,7 +28,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -57,8 +63,8 @@
       <recent name="C:\Users\ASUS\PycharmProjects\Cludo\Cludo Code\Classes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.dice">
-    <configuration name="cluedo" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.MainTest">
+    <configuration name="Deck" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -70,7 +76,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/Deck.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -79,7 +85,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="dice" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="MainTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -91,7 +97,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/dice.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/MainTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -100,7 +106,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="menu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="room_cards" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -112,7 +118,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/menu.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -121,7 +127,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="notepad" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="suspect_cards" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -133,7 +139,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -142,7 +148,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="room" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="weapon_cards" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -154,7 +160,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/room.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -165,11 +171,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.dice" />
-        <item itemvalue="Python.cluedo" />
-        <item itemvalue="Python.notepad" />
-        <item itemvalue="Python.room" />
-        <item itemvalue="Python.menu" />
+        <item itemvalue="Python.MainTest" />
+        <item itemvalue="Python.Deck" />
+        <item itemvalue="Python.room_cards" />
+        <item itemvalue="Python.weapon_cards" />
+        <item itemvalue="Python.suspect_cards" />
       </list>
     </recent_temporary>
   </component>
@@ -255,7 +261,56 @@
       <option name="project" value="LOCAL" />
       <updated>1616014455541</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Added player class and methods">
+      <created>1616014868611</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1616014868611</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Added player class and methods">
+      <created>1616018223145</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1616018223145</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Corrected attributes and methods for Card classes">
+      <created>1616023491939</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1616023491939</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Deck and card classes complete.">
+      <created>1616085076054</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1616085076054</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Deck and card classes complete.">
+      <created>1616086107174</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1616086107174</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Player.py functional. MainTest.py for testing">
+      <created>1616097848799</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1616097848799</updated>
+    </task>
+    <task id="LOCAL-00017" summary="updating classes to be proper">
+      <created>1616104302671</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1616104302671</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -296,6 +351,10 @@
     <MESSAGE value="added Card classes" />
     <MESSAGE value="added deck, updated methods in all  card classes respectivly" />
     <MESSAGE value="Added player class and methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added player class and methods" />
+    <MESSAGE value="Corrected attributes and methods for Card classes" />
+    <MESSAGE value="Deck and card classes complete." />
+    <MESSAGE value="Player.py functional. MainTest.py for testing" />
+    <MESSAGE value="updating classes to be proper" />
+    <option name="LAST_COMMIT_MESSAGE" value="updating classes to be proper" />
   </component>
 </project>
