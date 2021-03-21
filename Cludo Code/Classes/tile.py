@@ -8,7 +8,7 @@ class tile(object):
         self.room = room
         self.state = state
 
-    def initiateTile():
+    def initiateTile(self):
         """
             there are 27 possible tile states.
 
@@ -46,29 +46,32 @@ class tile(object):
             ww6 = walkway player 6
 
             """
+        #24 * 25
+        rows, columns = 24, 25
 
-        grid = [["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", 1, 1, 1, 1, 1, 1, 1],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1],
-                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", v],
+
+        grid = [["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
                 ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", 1, 1, 1, 1, 1, "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", 1],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1],
-                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", 1],
-                [1, "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1, "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1, 1, "wwe", "wwe", 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 1, 1, "wwe", "wwe", "wwe", 1, 1, 1, 1, "wwe", "wwe", "wwe", 1, 1, 1, 1, 1, 1, 1],
-                [1, 1, 1, 1, 1, 1, 1, 1, 1, "wwe", 1, 1, 1, 1, "wwe", 1, 1, 1, 1, 1, 1, 1, 1, 1]]
+                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "brr"],
+                ["blk", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "brr", "kid", "kid", "kid", "kid", "kid", "kid"],
+                ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe", "brr", "brr", "brr", "kid", "kid", "kid", "kid", "kid", "kid"]]
