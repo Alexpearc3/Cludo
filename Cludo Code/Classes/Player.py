@@ -19,4 +19,5 @@ class Player:
     def accuse(self):
         self.hasAccused = True
 
-
+    def getName(self):
+        return self.name
