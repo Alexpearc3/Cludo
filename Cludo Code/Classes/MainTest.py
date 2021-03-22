@@ -37,7 +37,7 @@ for card in d.all_cards:
 print(" ")
 
 Pl = player.Player
-pla = [Pl("Shakir", "bhagdad", 911), Pl("michelle", "shakirs", 1), Pl("Alex", "yourmum", 69), Pl("Tom", "???", 1337),
+pla = [Pl("Shakir", "baghdad", 911), Pl("michelle", "shakirs", 1), Pl("Alex", "yourmum", 69), Pl("Tom", "???", 1337),
        Pl("Abby", "Toilet paper", 1234)]
 while d.isCard():
     for p in pla:
