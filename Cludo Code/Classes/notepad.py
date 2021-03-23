@@ -1,5 +1,5 @@
 import pygame
-from pygame import mouse
+from pygame import mouse, event
 
 
 def notepad():
@@ -31,15 +31,15 @@ def notepad():
     screen.blit(notepad_background, (0, 0))
 
     # create red line
-    # import fucking room card of fucking stupid Alex
+    # import card information from other classes
     import room_cards
     import suspect_cards
     import weapon_cards
 
     # initialise an object of room_cards and use the method getNames to get room_list
-    room_list = room_cards.Room_cards().getNames() # name of file and name of class
-    suspect_list = suspect_cards.Suspect_cards().getNames() # name of file and name of class
-    weapon_list = weapon_cards.Weapon_cards().getNames() # name of file and name of class
+    room_list = room_cards.Room_cards().getNames()  # name of file and name of class
+    suspect_list = suspect_cards.Suspect_cards().getNames()     # name of file and name of class
+    weapon_list = weapon_cards.Weapon_cards().getNames()     # name of file and name of class
 
     # font
     card_category_font = pygame.font.SysFont('timesnewroman', 24, bold=1)
@@ -55,11 +55,7 @@ def notepad():
     # write items on notepad
     spacing = 113
     for item in general_list:
-        if item == 'Suspect':
-            screen.blit(card_category_font.render(item, True, gray), (70, spacing))
-        elif item == 'Weapon':
-            screen.blit(card_category_font.render(item, True, gray), (70, spacing))
-        elif item == 'Room':
+        if (item == 'Suspect') or (item == 'Weapon') or (item == 'Room'):
             screen.blit(card_category_font.render(item, True, gray), (70, spacing))
         else:
             screen.blit(card_name_font.render(item, True, gray), (85, spacing))
@@ -67,12 +63,23 @@ def notepad():
 
     # quit button
     while True:
-        for ev in pygame.event.get():
-            if ev.type == pygame.QUIT:
-                pygame.quit()
+        spacing_2 = 153
 
+        for even in pygame.event.get():
+
+            if even.type == pygame.QUIT:
+                pygame.quit()
+            if even.type == pygame.MOUSEBUTTONDOWN:
+                for element in general_list:
+                    if 85 < mouse[1] < spacing_2:
+                        pygame.draw.rect(screen, red, (85, spacing_2, 145, 2))
+                        spacing_2 += 29
     # click button - red line
-            # # pygame.draw.rect(screen, red, (x/7, y/5.5, 90, 25))
+    #     spacing_2 = 153
+    # #         pygame.draw.rect(screen, red, (x/5, y/5.9, 145, 2))
+    #     for element in general_list:
+    #         pygame.draw.rect(screen, red, (85, spacing_2, 145, 2))
+    #         spacing_2 += 29
             # if ev.type == pygame.MOUSEBUTTONDOWN:
             #     spacing = 159
             #     for i in card_name_font:
