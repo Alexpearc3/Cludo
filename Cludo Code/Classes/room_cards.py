@@ -12,11 +12,10 @@ class Room_cards:
         for card_name in self.getNames():
             img_name = '../Image/' + self.procStr(card_name) + '.jpg'
             self.setCards(self.procStr(img_name), card_name)
-
-
+    # return a list of card name (room cards name)
     def getNames(self):
         return self.room_list
-
+    # return a list of room cards
     def getCards(self):
         return self.room_cards
 

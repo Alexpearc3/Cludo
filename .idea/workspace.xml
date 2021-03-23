@@ -7,15 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="updating classes to be proper">
-      <change beforePath="$PROJECT_DIR$/.idea/Cludo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cludo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15-Mar-21_12_00_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_15-Mar-21_12_00_AM__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM__Default_Changelist_.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Default_Changelist_.xml" afterDir="false" />
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Updated notepad.py">
+      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/Button.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Player.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/tile.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/tile.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +38,7 @@
   </component>
   <component name="ProjectId" id="1pi0h5VJuy4bnCab6wYp2hkuU6l" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -175,9 +172,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.notepad" />
+        <item itemvalue="Python.room_cards" />
         <item itemvalue="Python.MainTest" />
         <item itemvalue="Python.Deck" />
-        <item itemvalue="Python.room_cards" />
         <item itemvalue="Python.weapon_cards" />
       </list>
     </recent_temporary>
@@ -320,7 +317,21 @@
       <option name="project" value="LOCAL" />
       <updated>1616105226080</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Updated notepad.py">
+      <created>1616434292920</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1616434292920</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Updated notepad.py">
+      <created>1616461831690</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1616461831690</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -365,6 +376,7 @@
     <MESSAGE value="Deck and card classes complete." />
     <MESSAGE value="Player.py functional. MainTest.py for testing" />
     <MESSAGE value="updating classes to be proper" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating classes to be proper" />
+    <MESSAGE value="Updated notepad.py" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated notepad.py" />
   </component>
 </project>
