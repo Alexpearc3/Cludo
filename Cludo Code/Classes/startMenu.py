@@ -7,10 +7,12 @@ import numpy as np
 class StartMenu():
     def __init__(self):
         pygame.init()
+        self.running, self.playing = True, False
         self.run_screen = True
         self.cursor = pygame.rect(0, 0, 20, 20)
         self.window = pygame.display.set_mode(((self.display_width, self.display_height)))
         self.display = pygame.Surface((self.display_width, self.display_height))
+
     def draw_text(self, text, size, x, y):
         font = pygame.font.Font(self.font_name, size)
         text_surface = font.render(text, True, self.WHITE)
@@ -38,7 +40,14 @@ class StartMenu():
                     self.DOWN_KEY = True
                 if event.key == pygame.K_UP:
                     self.UP_KEY = True
-
+    def screen_loop(self):
+        while self.playing:
+            self.check_events()
+            if self.START_KEY:
+                self.playing = False
+            self.display.fill(0,0,0)
+            self.draw_text('game end')
+            self.window.blit
 class MainMenu(StartMenu):
     def __init__(self):
         StartMenu.__init__(self)
@@ -90,5 +99,17 @@ class MainMenu(StartMenu):
             elif self.state == 'Credits':
                 pass
             self.run_display = False
+    def game_loop(self):
+        while self.playing:
+            self.check_events()
+            if self.START_KEY:
+                self.playing = False
+            self.display.fill(0, 0, 0)
+            self.draw_text('gg bro', 20, 30, 30)
+            self.window.blit(self.display, (0,0))
+            pygame.display.update()
+    while self.running:
+        StartMenu.curr_menu.display_startMenu()
+        MainMenu.game_loop()
 #need to run display.startmenu somewhere idk where
 #i think it needs to be run within a game state
