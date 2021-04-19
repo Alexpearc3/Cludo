@@ -7,6 +7,7 @@ class Player:
         self.position = start_position
         self.pId = player_ID
 
+
     def setCard(self, card):
         self.cards.append(card)
 
