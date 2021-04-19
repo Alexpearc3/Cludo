@@ -3,7 +3,7 @@ import numpy as np
 from random import randrange
 
 from tile import tile
-from newDice import Dice
+#from newDice import Dice
 #from notepad import notepad
 
 BOARDWIDTH = 25
@@ -198,8 +198,8 @@ def isButtonClicked(x, y):
         #roll dice class function goes here!
         print("roll dice")#222 x 81.6
         number = randrange(12)+1
-        diceRoll = Dice(number)
-        diceRoll.rolldice()
+        #diceRoll = Dice(number)
+        #diceRoll.rolldice()
 
     if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6):
         print("next turn")#222 x 81.6
