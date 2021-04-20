@@ -8,20 +8,20 @@ from tile import tile
 
 class board():
         
-    PLAYER1 = False
-    PLAYER2 = False
-    PLAYER3 = False
-    PLAYER4 = False
-    PLAYER5 = False
-    PLAYER6 = False
+    PLAYER1 = True
+    PLAYER2 = True
+    PLAYER3 = True
+    PLAYER4 = True
+    PLAYER5 = True
+    PLAYER6 = True
 
     def __init__(self, PLAYER1 = False, PLAYER2 = False, PLAYER3 = False, PLAYER4 = False, PLAYER5 = False, PLAYER6 = False):
         self.PLAYER1 = PLAYER1
-        self.PLAYER2 = PLAYER2
-        self.PLAYER3 = PLAYER3
-        self.PLAYER4 = PLAYER4
-        self.PLAYER5 = PLAYER5
-        self.PLAYER6 = PLAYER6
+        PLAYER2 = PLAYER2
+        PLAYER3 = PLAYER3
+        PLAYER4 = PLAYER4
+        PLAYER5 = PLAYER5
+        PLAYER6 = PLAYER6
         
     BOARDWIDTH = 25
     BOARDHEIGHT = 24
