@@ -161,11 +161,11 @@ class board():
     imgPlayer6 = pygame.transform.scale(imgPlayer6, (int(imgPlayer6x*.3), int(imgPlayer6y*.3)))
 
     board = tile.initiateBoard(PLAYER1,
-                          PLAYER2,
-                          PLAYER3,
-                          PLAYER4,
-                          PLAYER5,
-                          PLAYER6)
+                               PLAYER2,
+                               PLAYER3,
+                               PLAYER4,
+                               PLAYER5,
+                               PLAYER6)
 
 
 
