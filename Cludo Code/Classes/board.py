@@ -278,7 +278,7 @@ class board():
                     column = (pos[0] - self.GRIDBUFFX) // self.WIDTH
                     row = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
 
-                    isButtonClicked(pos[0], pos[1])
+                    self.isButtonClicked(pos[0], pos[1])
                     
                     # Changes tile to selected / unselected
                     try:
