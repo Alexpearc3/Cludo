@@ -7,19 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="updating classes to be proper">
-      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/menu1.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/menu_main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/menu_run.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Cludo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cludo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM_[Default_Changelist]/notepad_background.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM_[Default_Changelist]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16-Mar-21_2_30_AM__Default_Changelist_.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/cluedo.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/players.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/startMenu.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/startMenu.py" afterDir="false" />
-    </list>
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="updated" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,8 +31,12 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Cludo Code/Classes/notepad.py" root0="SKIP_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1pi0h5VJuy4bnCab6wYp2hkuU6l" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -69,7 +61,7 @@
       <recent name="C:\Users\ASUS\PycharmProjects\Cludo\Cludo Code\Classes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.menu_main">
+  <component name="RunManager" selected="Python.notepad">
     <configuration name="MainTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -177,10 +169,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.notepad" />
         <item itemvalue="Python.menu_main" />
         <item itemvalue="Python.menu_run" />
         <item itemvalue="Python.startMenu" />
-        <item itemvalue="Python.notepad" />
         <item itemvalue="Python.MainTest" />
       </list>
     </recent_temporary>
@@ -323,7 +315,14 @@
       <option name="project" value="LOCAL" />
       <updated>1616105226080</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="updated">
+      <created>1619044729556</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1619044729556</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -368,6 +367,7 @@
     <MESSAGE value="Deck and card classes complete." />
     <MESSAGE value="Player.py functional. MainTest.py for testing" />
     <MESSAGE value="updating classes to be proper" />
-    <option name="LAST_COMMIT_MESSAGE" value="updating classes to be proper" />
+    <MESSAGE value="updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated" />
   </component>
 </project>
