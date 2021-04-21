@@ -9,6 +9,32 @@ class Guess:
     def __init__(self):
         pass
 
+    def check_for_match(self):
+        check = False
+        position = 1
+        while check == False:
+            if Player
+
+
+      #  if (Player.getCards(Player) == list1.active_option or Player.getCards(Player) == list2.active_option or Player.getCards(Player) == list3.active_option):
+#
+ #           if ((Player.getCards(Player) == list1.active_option and Player.getCards(Player) == list2.active_option) or
+  #                  (Player.getCards(Player) == list2.active_option and Player.getCards(
+   #                     Player) == list3.active_option) or
+    #                (Player.getCards(Player) == list1.active_option and Player.getCards(
+     #                   Player) == list3.active_option) or
+      #              (Player.getCards(Player) == list1.active_option and Player.getCards(
+       #                 Player) == list2.active_option and
+        #             Player.getCards(Player) == list3.active_option)):
+        # TO DO: give this player the turn
+
+
+#            pass
+# else:
+#   pass # TO DO show cards auto if they have one card
+# else: #TO DO cycle through players until one has a card to show
+# if # TO DO no player has cards move to next turn
+
 class DropDown():
     def __init__(self, color_menu, color_option, x, y, w, h, font, main, options):
         self.color_menu = color_menu
