@@ -3,7 +3,9 @@ import Deck
 import suspect_cards
 import room_cards
 import weapon_cards
-class clueDo:
+import Player
+
+class Guess:
     def __init__(self):
         pass
 
@@ -56,6 +58,35 @@ class DropDown():
                     return self.active_option
         return -1
 
+class Button:
+
+    def __init__(self, text, pos, font, bg="black", feedback=""):
+        self.x, self.y = pos
+        self.font = pg.font.SysFont(None, font)
+        if feedback == "":
+            self.feedback = "text"
+        else:
+            self.feedback = feedback
+        self.change_text(text, bg)
+
+    def change_text(self, text, bg="black"):
+        self.text = self.font.render(text, 1, pg.Color("Black"))
+        self.size = self.text.get_size()
+        self.surface = pg.Surface(self.size)
+        self.surface.fill(bg)
+        self.surface.blit(self.text, (0, 0))
+        self.rect = pg.Rect(self.x, self.y, self.size[0], self.size[1])
+
+    def show(self):
+        screen.blit(button1.surface, (self.x, self.y))
+
+    def click(self, event):
+        x, y = pg.mouse.get_pos()
+        if event.type == pg.MOUSEBUTTONDOWN:
+            if pg.mouse.get_pressed()[0]:
+                if self.rect.collidepoint(x, y):
+                    self.change_text(self.feedback, bg="red")
+
 d = Deck.Deck()
 sus = suspect_cards.Suspect_cards
 room = room_cards.Room_cards
@@ -64,10 +95,15 @@ pg.init()
 clock = pg.time.Clock()
 screen = pg.display.set_mode((960, 950))
 
+font = pg.font.SysFont(None, 30)
+
 COLOR_INACTIVE = (100, 80, 255)
 COLOR_ACTIVE = (100, 200, 255)
 COLOR_LIST_INACTIVE = (255, 100, 100)
 COLOR_LIST_ACTIVE = (255, 150, 150)
+
+COLOR_ACTIVE_CONFIRM = (0, 200, 0)
+COLOR_INACTIVE_CONFIRM = (100, 80, 255)
 
 list1 = DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
@@ -90,9 +126,17 @@ list3 = DropDown(
     pg.font.SysFont(None, 30),
     "Select Room", room.getNames(room))
 
+button1 = Button(
+    "Accuse",
+    (600, 700),
+    font=50,
+    bg="blue",
+    feedback="Choice Confirmed")
+
 run = True
 while run:
     clock.tick(30)
+    pg.display.update()
 
     event_list = pg.event.get()
     for event in event_list:
@@ -111,10 +155,13 @@ while run:
     if selected_option >= 0:
         list3.main = list3.options[selected_option]
 
+    button1.click(event)
+
     screen.fill((102, 0, 102))
     list1.draw(screen)
     list2.draw(screen)
     list3.draw(screen)
+    button1.show()
     pg.display.flip()
 
 pg.quit()
