@@ -19,7 +19,7 @@ class StartMenu():
         text_rect = text_surface.get_rect()
         text_rect.center = (x, y) #centering text
         #text_surface: actual image
-        self.display.blit(text_surface, text_rect)
+        pygame.display.blit(text_surface, text_rect)
     def draw_cursor(self):
         self.draw_text('^', 15, self.cursor_rect.x, self.cursor_rect.y)
     def blit_screen(self):

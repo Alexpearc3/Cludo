@@ -1,6 +1,9 @@
 import Player as player
 import Deck
+#import startMenu
 
+# sm = startMenu.MainMenu
+# sm.display_startMenu(sm)
 d = Deck.Deck()
 d.init()
 d.initEnvelope()
@@ -46,3 +49,5 @@ while d.isCard():
 for p in pla:
     for card in p.cards:
         print(p.name, "has: ", card.card_name)
+
+print(d.getEnvelope())
