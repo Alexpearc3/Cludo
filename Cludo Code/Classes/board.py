@@ -260,6 +260,13 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             self.screen.blit(self.buttonNotepadSelected, (860, 812))
 
+    def gameLogic(self):
+        #Alex Code Here
+        # if player().getIsTurn and buttonGuess()
+        #   guess
+        #   
+        pass
+    
     def main(self):
         done = False
         clock = pygame.time.Clock()
@@ -336,6 +343,8 @@ class board():
             
             # Draw the grid
             self.drawGrid()
+
+            self.gameLogic()
          
             clock.tick(60)  #set to 30 to half cycle speeds / reduce processing requirements
             pygame.display.flip()
