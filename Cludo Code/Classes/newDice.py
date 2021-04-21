@@ -4,10 +4,7 @@ from random import randrange
 
 from testMultipleWindows2 import Dice
 
-#loading images for buttons unselected
-buttonBack = pygame.image.load("../Image/button_back.png")
-buttonBackx, buttonBacky = buttonBack.get_size()
-buttonBack = pygame.transform.scale(buttonBack, (int(buttonBackx*.4), int(buttonBacky*.4)))
+
 pygame.init()
 pygame.font.init()
 
@@ -17,6 +14,10 @@ screen = pygame.display.set_mode([950, 960])
 
         
 class Dice2():
+    #loading images for buttons unselected
+    buttonBack = pygame.image.load("../Image/button_back.png")
+    buttonBackx, buttonBacky = buttonBack.get_size()
+    buttonBack = pygame.transform.scale(buttonBack, (int(buttonBackx*.4), int(buttonBacky*.4)))
     def __init__(self, number):
         self.randomNumber = number
 
@@ -56,7 +57,7 @@ class Dice2():
             
             
             #enter body here
-            screen.blit(buttonBack, (720, 400))
+            screen.blit(self.buttonBack, (720, 400))
 
             screen.blit(rolledA, (0, 0))
             screen.blit(rnumber, (50, 100))
