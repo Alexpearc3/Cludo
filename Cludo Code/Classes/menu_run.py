@@ -1,5 +1,5 @@
 import pygame
-from menu1 import MainMenu
+from menu1 import *
 
 class Menu_Run():
     def __init__(self):
@@ -7,14 +7,17 @@ class Menu_Run():
         self.running = True #true when game is on
         self.playing = False #when the player is playing the game
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False  # reset keys
-        self.Display_Width = 480
-        self.Display_Height = 270
+        self.Display_Width = 960
+        self.Display_Height = 950
         self.display = pygame.Surface((self.Display_Width, self.Display_Height))#creates the canvas
         self.window = pygame.display.set_mode(((self.Display_Width, self.Display_Height))) #to allow player to see what is drawn
         self.font_name = pygame.font.get_default_font()
         self.BLACK =(0,0,0)
         self.WHITE = (255, 255, 255)
-        self.curr_menu = MainMenu(self) #Menu_Run passes itself into the MainMenu class
+        self.main_menu = MainMenu(self)
+        self.options = OptionsMenu(self)
+        self.credits = CreditsMenu(self)
+        self.curr_menu = self.main_menu #Menu_Run passes itself into the MainMenu class
 
     def menu_loop(self):
         while self.playing:
