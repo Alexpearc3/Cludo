@@ -1,6 +1,6 @@
 import pygame
-import pyttsx3
-import speech_recognition
+# import pyttsx3
+# import speech_recognition
 from numpy.distutils.fcompiler import pg
 from pygame import mouse
 
