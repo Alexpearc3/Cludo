@@ -1,31 +1,19 @@
 import pygame
-import numpy as np
-from random import randrange
 
-from testMultipleWindows2 import Dice
+buttonBack = pygame.image.load("../Image/button_back.png")
+buttonBackx, buttonBacky = buttonBack.get_size()
+buttonBack = pygame.transform.scale(buttonBack, (int(buttonBackx*.4), int(buttonBacky*.4)))
 
-
-pygame.init()
-pygame.font.init()
-
-pygame.display.set_caption("Cludo")
-screen = pygame.display.set_mode([950, 960])
-
-
-        
-class Dice2():
-    #loading images for buttons unselected
-    buttonBack = pygame.image.load("../Image/button_back.png")
-    buttonBackx, buttonBacky = buttonBack.get_size()
-    buttonBack = pygame.transform.scale(buttonBack, (int(buttonBackx*.4), int(buttonBacky*.4)))
-    def __init__(self, number):
+class Dice():
+    def __init__(self, number, s):
         self.randomNumber = number
+        self.screen = s
 
     def isButtonClicked(self, x, y):
         if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6):
             #roll dice class function goes here!
             print("backbutton")
-            Dice(12, screen).rolldice()
+            Dice
     
     
     def rolldice(self):
@@ -35,7 +23,7 @@ class Dice2():
 
         #loading previous turn font style
         clueFont = pygame.font.SysFont("Segoe UI Black", 50)
-        rolledA = clueFont.render("YOU ROLLED A TEST:", False, (50, 50, 50))
+        rolledA = clueFont.render("YOU ROLLED A:", False, (50, 50, 50))
         rnumber = clueFont.render(str(self.randomNumber), False, (50, 50, 50))
 
         clock = pygame.time.Clock()
@@ -57,18 +45,14 @@ class Dice2():
             
             
             #enter body here
-            screen.blit(self.buttonBack, (720, 400))
+            self.screen.blit(buttonBack, (720, 400))
 
-            screen.blit(rolledA, (0, 0))
-            screen.blit(rnumber, (50, 100))
+            self.screen.blit(rolledA, (0, 0))
+            self.screen.blit(rnumber, (50, 100))
             
             
 
             clock.tick(60)  #set to 30 to half cycle speeds / reduce processing requirements
             pygame.display.flip()
-            screen.fill(WHITE)
-        pygame.quit()
-        
-
-new = Dice2(randrange(100)+1)
-new.rolldice()
+            self.screen.fill(WHITE)
+        #pygame.display.quit()
