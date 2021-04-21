@@ -34,7 +34,7 @@ general_list += suspect_list + weapon_list + room_list
 general_list.insert(0, 'Suspect')
 general_list.insert(len(suspect_list) + 1, 'Weapon')
 general_list.insert(-len(room_list), 'Room')
-
+print(general_list)
 # write items on notepad
 spacing = 113
 

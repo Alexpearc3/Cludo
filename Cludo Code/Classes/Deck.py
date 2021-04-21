@@ -73,7 +73,9 @@ class Deck:
         return self.all_cards
 
     def getEnvelope(self):
-        return self.envelope[0], self.envelope[1], self.envelope[2]
+        return self.envelope[0], self.envelope[1], self.envelope[2] #weapon, suspect, rooms
+
+
 
 # test/ example implementation
 # d = Deck
