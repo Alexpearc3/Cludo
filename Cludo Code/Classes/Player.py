@@ -16,7 +16,7 @@ class Player:
     def getCards(self):
         return self.cards
 
-    def setPosition(self, location):
+    def setLocation(self, location):
         self.location = location
 
     def accuse(self):
