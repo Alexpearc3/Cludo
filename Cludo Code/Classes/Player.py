@@ -16,8 +16,8 @@ class Player:
     def getCards(self):
         return self.cards
 
-    def setPosition(self, position):
-        self.position = position
+    def setPosition(self, location):
+        self.location = location
 
     def accuse(self):
         #check envelope
@@ -31,3 +31,5 @@ class Player:
 
     def setWin(self):
         self.hasWon = True
+    def getLocation(self):
+        return self.location
