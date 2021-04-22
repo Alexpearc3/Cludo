@@ -1,9 +1,9 @@
 import pygame
 import numpy as np
 from random import randrange
-
+import Deck
 from tile import tile
-
+import Player
 
 # from newDice import Dice
 # from notepad import notepad
@@ -15,7 +15,9 @@ class board():
     PLAYER4 = True
     PLAYER5 = True
     PLAYER6 = True
-
+    player = Player.Player
+    Players = []
+    deck = Deck.Deck()
     def __init__(self, Players):
         self.PLAYER1 = Players[0]
         self.PLAYER2 = Players[1]
@@ -23,6 +25,19 @@ class board():
         self.PLAYER4 = Players[3]
         self.PLAYER5 = Players[4]
         self.PLAYER6 = Players[5]
+        count = 0
+        for player in Players:
+            print(count)
+            if player != False:
+                self.Players.append(self.player(player, count+1))
+            count += 1
+        self.deck.init()
+        self.deck.initEnvelope()
+        self.deck.shuffle()
+        while self.deck.isCard():
+            for p in self.Players:
+                if self.deck.isCard():
+                    p.setCard(self.deck.drawCard())
 
     BOARDWIDTH = 25
     BOARDHEIGHT = 24

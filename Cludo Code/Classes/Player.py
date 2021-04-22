@@ -1,10 +1,10 @@
 class Player:
 
-    def __init__(self, player_name, start_location, player_ID):
+    def __init__(self, player_name, player_ID):
         do = "what a player do"
         self.cards = []
         self.name = player_name
-        self.location = start_location #2d array value e.g. [0][0] can find room details from tile details
+        self.location = [0][0] #start_location #2d array value e.g. [0][0] can find room details from tile details
         self.pId = player_ID
         self.accusations = 1
         self.hasWon = False
