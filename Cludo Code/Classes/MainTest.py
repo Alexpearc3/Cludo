@@ -40,8 +40,8 @@ for card in d.all_cards:
 print(" ")
 
 Pl = player.Player
-pla = [Pl("Shakir", "baghdad", 911), Pl("michelle", "shakirs", 1), Pl("Alex", "yourmum", 69), Pl("Tom", "???", 1337),
-       Pl("Abby", "Toilet paper", 1234)]
+pla = [Pl("Shakir", "baghdad", 1), Pl("michelle", "shakirs", 2), Pl("Alex", "yourmum", 3), Pl("Tom", "???", 6),
+       Pl("Abby", "Toilet paper", 5)]
 while d.isCard():
     for p in pla:
         if d.isCard():
