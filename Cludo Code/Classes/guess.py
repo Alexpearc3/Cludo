@@ -12,28 +12,51 @@ class Guess:
 
     def check_for_match(self):
         check = False
+        cards = []
+        option1 = list1.active_option
+        option2 = list2.active_option
+        option3 = list3.active_option
+        hand = player.getCards(player)
         Pl = player.Player
         pla = [Pl("Shakir", "baghdad", "1"), Pl("michelle", "shakirs", "2"), Pl("Alex", "yourmum", "3"),
             Pl("Tom", "???", "4"),
             Pl("Abby", "Toilet paper", "5"), Pl("King", "best teacher", "6")]
         while check == False:
-            for p in pla:
-                if (player.getCards(player) == list1.active_option or player.getCards(player) == list2.active_option
-                        or player.getCards(player) == list3.active_option):
-                    if ((player.getCards(player) == list1.active_option and player.getCards(player) == list2.active_option) or
-                        (player.getCards(player) == list2.active_option and player.getCards(
-                        player) == list3.active_option) or
-                        (player.getCards(player) == list1.active_option and player.getCards(
-                        player) == list3.active_option) or
-                        (player.getCards(player) == list1.active_option and player.getCards(
-                        player) == list2.active_option and
-                        player.getCards(player) == list3.active_option)):
-                        check = True # need to pass turn over to that player
+            for play in pla:
+                if hand == option1 or hand == option2 or hand == option3:
+                    if hand == option1 and hand == option2 or hand == option2 \
+                            and hand == option3 or hand == option1 and hand == option3 \
+                            or hand == option1 and hand == option2 and hand == option3:
+                        if hand == option1 and hand == option2:
+                            cards = cards + option1
+                            cards = cards + option2
+                            check = True # need to pass turn over to that player
+                        elif hand == option2 and hand == option3:
+                            cards = cards + option3
+                            cards = cards + option2
+                            check = True
+                        elif hand == option1 and hand == option3:
+                            cards = cards + option1
+                            cards = cards + option3
+                            check = True
+                        elif hand == option1 and hand == option2 and hand == option3:
+                            cards = cards + option1
+                            cards = cards + option2
+                            cards = cards + option3
+                            check = True
                     else:
-                        check = True # auto show card tom?
+                        if hand == option1:
+                            cards = cards + option1
+                            check = True # auto show card tom?
+                        if hand == option2:
+                            cards = cards + option2
+                            check = True
+                        if hand == option3:
+                            cards = cards + option3
+                            check = True
                 else:
                     check = True
-        pass # next turn, no cards shown
+        return cards # next turn, no cards shown
 
 
 class DropDown():

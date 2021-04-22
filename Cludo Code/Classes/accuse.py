@@ -15,8 +15,11 @@ class Guess:
         player.Player.accuse(player)
         if (Deck.getEnvelope(Deck) == list1.active_option, list2.active_option, list3.active_option):
             player.Player.setWin(player)
+            check = True
         else:
+            check = True
             pass #go back to game next players turn
+        return check
 
 
 class DropDown():
