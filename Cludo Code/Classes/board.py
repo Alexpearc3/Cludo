@@ -589,5 +589,5 @@ class board():
 
         return board
     
-# playerList = ["shakir",False,"abby","tom","alex", False]
-# b = board(playerList).main()
+playerList = ["shakir",False,"abby","tom","alex", False]
+b = board(playerList).main()
