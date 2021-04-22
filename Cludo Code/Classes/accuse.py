@@ -10,30 +10,13 @@ class Guess:
         pass
 
 
-    def check_for_match(self):
+    def check_envolope(self):
         check = False
-        Pl = player.Player
-        pla = [Pl("Shakir", "baghdad", "1"), Pl("michelle", "shakirs", "2"), Pl("Alex", "yourmum", "3"),
-            Pl("Tom", "???", "4"),
-            Pl("Abby", "Toilet paper", "5"), Pl("King", "best teacher", "6")]
-        while check == False:
-            for p in pla:
-                if (player.getCards(player) == list1.active_option or player.getCards(player) == list2.active_option
-                        or player.getCards(player) == list3.active_option):
-                    if ((player.getCards(player) == list1.active_option and player.getCards(player) == list2.active_option) or
-                        (player.getCards(player) == list2.active_option and player.getCards(
-                        player) == list3.active_option) or
-                        (player.getCards(player) == list1.active_option and player.getCards(
-                        player) == list3.active_option) or
-                        (player.getCards(player) == list1.active_option and player.getCards(
-                        player) == list2.active_option and
-                        player.getCards(player) == list3.active_option)):
-                        check = True # need to pass turn over to that player
-                    else:
-                        check = True # auto show card tom?
-                else:
-                    check = True
-        pass # next turn, no cards shown
+        player.Player.accuse(player)
+        if (Deck.getEnvelope(Deck) == list1.active_option, list2.active_option, list3.active_option):
+            player.Player.setWin(player)
+        else:
+            pass #go back to game next players turn
 
 
 class DropDown():
@@ -137,7 +120,7 @@ list1 = DropDown(
     [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
     500, 50, 200, 50,
     pg.font.SysFont(None, 30),
-    "Select Suspect", player.Player.getLocation(player))
+    "Select Suspect", sus.getNames(sus))
 
 list2 = DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
@@ -154,7 +137,7 @@ list3 = DropDown(
     "Select Room", room.getNames(room))
 
 button1 = Button(
-    "guess",
+    "Accuse",
     (600, 700),
     font=50,
     bg="blue",
