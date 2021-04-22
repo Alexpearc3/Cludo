@@ -1,4 +1,5 @@
 import pygame
+from board import board
 
 class Menu1:
     def __init__(self, menu_run):
@@ -60,7 +61,9 @@ class MainMenu(Menu1):
         self.cursor_move()
         if self.menu_run.START_KEY:
             if self.state == 'Start':
-                self.menu_run.playing = True #put in toms code her
+                #self.menu_run.playing = True #put in toms code her
+                playerList = ["shakir","Michelle","abby","tom","alex", "Kingsley"]
+                board(playerList).main()
             elif self.state == 'Options':
                 self.menu_run.curr_menu = self.menu_run.options
             elif self.state == 'Credits':

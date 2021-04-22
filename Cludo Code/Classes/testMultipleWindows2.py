@@ -45,7 +45,7 @@ class Dice():
             
             
             #enter body here
-            self.screen.blit(buttonBack, (720, 400))
+            #self.screen.blit(buttonBack, (720, 400))
 
             self.screen.blit(rolledA, (0, 0))
             self.screen.blit(rnumber, (50, 100))

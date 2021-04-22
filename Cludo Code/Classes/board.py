@@ -3,6 +3,7 @@ import numpy as np
 from random import randrange
 import Deck
 from tile import tile
+from testMultipleWindows2 import Dice
 import Player
 
 # from newDice import Dice
@@ -238,8 +239,7 @@ class board():
             # roll dice class function goes here!
             print("roll dice")  # 222 x 81.6
             number = randrange(12) + 1
-            # diceRoll = Dice(number)
-            # diceRoll.rolldice()
+            Dice(number, self.screen).rolldice()
 
         if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6):
             print("next turn")  # 222 x 81.6
@@ -255,6 +255,7 @@ class board():
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
             print("menu")
+            done = True
 
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             # notepad.notepad()
@@ -372,7 +373,7 @@ class board():
             clock.tick(60)  # set to 30 to half cycle speeds / reduce processing requirements
             pygame.display.flip()
 
-        pygame.quit()
+        #pygame.quit()
 
 
 
@@ -588,5 +589,5 @@ class board():
 
         return board
     
-playerList = ["shakir",False,"abby","tom","alex", False]
-b = board(playerList).main()
+# playerList = ["shakir",False,"abby","tom","alex", False]
+# b = board(playerList).main()
