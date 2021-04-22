@@ -480,22 +480,22 @@ class board():
              "brr", "brr", "brr", "kid", "kid", "kid", "kid", "kid", "kid"]]
         for p in self.Players:
 
-            if p.getName != False and p.getPlayerID == 1:
+            if p.getName != False and p.getPlayerID() == 1:
                 grid[0][16] = "ww1"
 
-            if p.getName != False and p.getPlayerID == 2:
+            if p.getName != False and p.getPlayerID() == 2:
                 grid[7][23] = "ww2"
 
-            if p.getName != False and p.getPlayerID == 3:
+            if p.getName != False and p.getPlayerID() == 3:
                 grid[24][14] = "ww3"
 
-            if p.getName != False and p.getPlayerID == 4:
+            if p.getName != False and p.getPlayerID() == 4:
                 grid[24][9] = "ww4"
 
-            if p.getName != False and p.getPlayerID == 5:
+            if p.getName != False and p.getPlayerID() == 5:
                 grid[5][0] = "ww5"
 
-            if p.getName != False and p.getPlayerID == 6:
+            if p.getName != False and p.getPlayerID() == 6:
                 grid[18][0] = "ww6"
 
         rows, columns = 25, 24
