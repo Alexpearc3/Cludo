@@ -2,7 +2,6 @@ import numpy as np
 import pygame as py
 import copy
 
-
 class tile():
     def __init__(self, room = "blank", door = False, isTile = False, selected = False, hover = False, blank = False , player = 0):
         self.room = room            # name of room, default is blank
@@ -39,178 +38,50 @@ class tile():
     def setSelected(self, boolean):
         self.selected = boolean
     
-    
-    def initiateBoard(player1 = True, player2 = True, player3 = True, player4 = True, player5 = True, player6 = True):
+#sorry tom i moved it, it did not belong here ;)
+    def drawGrid(self, board):
+        for row in range(self.BOARDWIDTH):
+            for column in range(self.BOARDHEIGHT):
+                x, y = pygame.mouse.get_pos()
+                x = x - self.GRIDBUFFX
+                y = y - self.GRIDBUFFY
 
-        """
-            there are 27 possible tile states.
+                if self.board[row, column].getPlayer() == 1:
+                    self.screen.blit(self.tileImgP1,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-            str = study (room)
-            har = hall (room)
-            lor = lounge (room)
-            drr = dining room (room)
-            kir = kitchen (room)
-            brr = ball room (room)
-            cvr = conservatory (room)
-            bir = billiards room (room)
-            lir = library (room)
+                elif self.board[row, column].getPlayer() == 2:
+                    self.screen.blit(self.tileImgP2,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-            std = study (door)
-            had = hall (door)
-            lod = lounge (door)
-            drd = dining room (door)
-            kid = kitchen (door)
-            brd = ball room (door)
-            cvd = conservatory (door)
-            bid = billiards room (door)
-            lid = library (door)
+                elif self.board[row, column].getPlayer() == 3:
+                    self.screen.blit(self.tileImgP3,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-            wwe = walkway empty
-            wwh = walkway hover
-            wws = walkway select
-            
-            blk = blank
+                elif self.board[row, column].getPlayer() == 4:
+                    self.screen.blit(self.tileImgP4,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-            ww1 = walkway player 1
-            ww2 = walkway player 2
-            ww3 = walkway player 3
-            ww4 = walkway player 4
-            ww5 = walkway player 5
-            ww6 = walkway player 6
+                elif self.board[row, column].getPlayer() == 5:
+                    self.screen.blit(self.tileImgP5,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-            """
+                elif self.board[row, column].getPlayer() == 6:
+                    self.screen.blit(self.tileImgP6,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-        grid = [["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "brr"],
-                ["blk", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "brr", "kid", "kid", "kid", "kid", "kid", "kid"],
-                ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe", "brr", "brr", "brr", "kid", "kid", "kid", "kid", "kid", "kid"]]
+                # selected tile
+                elif self.board[row, column].getSelected() and self.board[row, column].getIsTile():
+                    self.screen.blit(self.tileImgSELECT,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-        if player1 == True:
-            grid[0][16] = "ww1"
-            
-        if player2 == True:
-            grid[7][23] = "ww2"
-            
-        if player3 == True:
-            grid[24][14] = "ww3"
-            
-        if player4 == True:
-            grid[24][9] = "ww4"
-            
-        if player5 == True:
-            grid[5][0] = "ww5"
-            
-        if player6 == True:
-            grid[18][0] = "ww6"
+                # hover tile
+                elif (np.ceil(x / self.WIDTH) == column + 1 and np.ceil(y / self.WIDTH) == row + 1 and self.board[
+                    row, column].getIsTile()):
+                    self.screen.blit(self.tileImgHover,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-        rows, columns = 25, 24
-
-        board = np.empty((rows, columns), dtype = object)
-
-        for row in range(25):
-            for column in range(24):
-            
-                # rooms
-                if grid[row][column] == "str":
-                    board[row, column] = tile(room = "study")
-
-                if grid[row][column] == "har":
-                    board[row, column] = tile(room = "hall")
-                    
-                if grid[row][column] == "lor":
-                    board[row, column] = tile(room = "lounge")
-
-                if grid[row][column] == "drr":
-                    board[row, column] = tile(room = "dinning room")
-                
-                if grid[row][column] == "kir":
-                    board[row, column] = tile(room = "kitchen")
-                    
-                if grid[row][column] == "brr":
-                    board[row, column] = tile(room = "ball room")
-
-                if grid[row][column] == "cvr":
-                    board[row, column] = tile(room = "conservator")
-             
-                if grid[row][column] == "bir":
-                    board[row, column] = tile(room = "billiards room")
-                    
-                if grid[row][column] == "lir":
-                    board[row, column] = tile(room = "library")
-
-                # doors
-                if grid[row][column] == "std":
-                    board[row, column] = tile(room = "study", door = True)
-                
-                if grid[row][column] == "had":
-                    board[row, column] = tile(room = "hall", door = True)
-                    
-                if grid[row][column] == "lod":
-                    board[row, column] = tile(room = "lounge", door = True)
-
-                if grid[row][column] == "drd":
-                    board[row, column] = tile(room = "dinning room", door = True)
-                
-                if grid[row][column] == "kid":
-                    board[row, column] = tile(room = "kitchen", door = True)
-                    
-                if grid[row][column] == "brd":
-                    board[row, column] = tile(room = "ball room", door = True)
-
-                if grid[row][column] == "cvd":
-                    board[row, column] = tile(room = "conservator", door = True)
-                
-                if grid[row][column] == "bid":
-                    board[row, column] = tile(room = "billiards room", door = True)
-                    
-                if grid[row][column] == "lid":
-                    board[row, column] = tile(room = "library", door = True)
-
-                # walkways
-                if grid[row][column] == "wwe":
-                    board[row, column] = tile(room = "tile", isTile = True)
-
-                if grid[row][column] == "ww1":
-                    board[row, column] = tile(room = "tile", isTile = True, player = 1)
-
-                if grid[row][column] == "ww2":
-                    board[row, column] = tile(room = "tile", isTile = True, player = 2)
-                    
-                if grid[row][column] == "ww3":
-                    board[row, column] = tile(room = "tile", isTile = True, player = 3)
-
-                if grid[row][column] == "ww4":
-                    board[row, column] = tile(room = "tile", isTile = True, player = 4)
-                    
-                if grid[row][column] == "ww5":
-                    board[row, column] = tile(room = "tile", isTile = True, player = 5)
-
-                if grid[row][column] == "ww6":
-                    board[row, column] = tile(room = "tile", isTile = True, player = 6)
-
-                # blank cells
-                if grid[row][column] == "blk":
-                    board[row, column] = tile(blank = True)
-
-        return board
+                # unselected tile
+                elif self.board[row, column].getIsTile():
+                    self.screen.blit(self.tileImg,
+                                     (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
