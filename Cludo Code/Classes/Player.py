@@ -31,5 +31,9 @@ class Player:
 
     def setWin(self):
         self.hasWon = True
+
     def getLocation(self):
         return self.location
+
+    def getPlayerID(self):
+        return self.pId

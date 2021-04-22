@@ -10,7 +10,7 @@ class dice:
     @staticmethod
     def rolldice():
         dis = pygame.Overlay.display.set_mode((300, 300))
-        # dice functionality
+        #dice functionality
         dis = pygame.Overlay.display.set_mode((300, 300))
         pygame.Overlay.display.set_caption("dice")
         end = False
@@ -58,5 +58,4 @@ class dice:
         pygame.Overlay.display.update()
     pygame.quit()
     quit()
-
 
