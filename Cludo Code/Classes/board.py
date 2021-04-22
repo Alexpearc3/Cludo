@@ -3,7 +3,7 @@ import numpy as np
 from random import randrange
 import Deck
 from tile import tile
-from testMultipleWindows2 import Dice
+from dice import Dice
 import Player
 
 # from newDice import Dice
@@ -20,6 +20,7 @@ class board():
     Players = []
     deck = Deck.Deck()
     board = np.empty((25, 24), dtype=object)
+    
     def __init__(self, Players):
         self.PLAYER1 = Players[0]
         self.PLAYER2 = Players[1]
@@ -27,6 +28,7 @@ class board():
         self.PLAYER4 = Players[3]
         self.PLAYER5 = Players[4]
         self.PLAYER6 = Players[5]
+        self.done = False
         count = 0
         for player in Players:
             self.Players.append(self.player(player, count+1))
@@ -255,7 +257,7 @@ class board():
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
             print("menu")
-            done = True
+            self.done = True
 
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             # notepad.notepad()
@@ -297,10 +299,10 @@ class board():
         pygame.display.set_icon(self.imgPlayer1)
 
         # game loop
-        while not done:
+        while not self.done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:  # If user clicked close
-                    done = True  # Flag that we are done so we exit this loop
+                    this.done = True  # Flag that we are done so we exit this loop
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # User clicks the mouse. Get the position
@@ -589,5 +591,5 @@ class board():
 
         return board
     
-playerList = ["shakir",False,"abby","tom","alex", False]
-b = board(playerList).main()
+#playerList = ["shakir",False,"abby","tom","alex", False]
+#b = board(playerList).main()
