@@ -4,6 +4,7 @@ import suspect_cards
 import room_cards
 import weapon_cards
 import Player as player
+import dropdown
 
 class Guess:
     def __init__(self):
@@ -59,60 +60,14 @@ class Guess:
         return cards # next turn, no cards shown
 
 
-class DropDown():
-    def __init__(self, color_menu, color_option, x, y, w, h, font, main, options):
-        self.color_menu = color_menu
-        self.color_option = color_option
-        self.rect = pg.Rect(x, y, w, h)
-        self.font = font
-        self.main = main
-        self.options = options
-        self.draw_menu = False
-        self.menu_active = False
-        self.active_option = -1
-
-    def draw(self, surf):
-        pg.draw.rect(surf, self.color_menu[self.menu_active], self.rect, 0)
-        msg = self.font.render(self.main, 1, (0, 0, 0))
-        surf.blit(msg, msg.get_rect(center=self.rect.center))
-
-        if self.draw_menu:
-            for i, text in enumerate(self.options):
-                rect = self.rect.copy()
-                rect.y += (i + 1) * self.rect.height
-                pg.draw.rect(surf, self.color_option[1 if i == self.active_option else 0], rect, 0)
-                msg = self.font.render(text, 1, (0, 0, 0))
-                surf.blit(msg, msg.get_rect(center=rect.center))
-
-    def update(self, event_list):
-        mpos = pg.mouse.get_pos()
-        self.menu_active = self.rect.collidepoint(mpos)
-
-        self.active_option = -1
-        for i in range(len(self.options)):
-            rect = self.rect.copy()
-            rect.y += (i + 1) * self.rect.height
-            if rect.collidepoint(mpos):
-                self.active_option = i
-                break
-
-        if not self.menu_active and self.active_option == -1:
-            self.draw_menu = False
-
-        for event in event_list:
-            if event.type == pg.MOUSEBUTTONDOWN and event.button == 1:
-                if self.menu_active:
-                    self.draw_menu = not self.draw_menu
-                elif self.draw_menu and self.active_option >= 0:
-                    self.draw_menu = False
-                    return self.active_option
-        return -1
-
 class Button:
 
-    def __init__(self, text, pos, font, bg="black", feedback=""):
+    def __init__(self, text, color, pos, width, height, font, bg="black", feedback=""):
         self.x, self.y = pos
+        self.width = width
+        self.height = height
         self.font = pg.font.SysFont(None, font)
+        self.color = color
         if feedback == "":
             self.feedback = "text"
         else:
@@ -127,8 +82,19 @@ class Button:
         self.surface.blit(self.text, (0, 0))
         self.rect = pg.Rect(self.x, self.y, self.size[0], self.size[1])
 
-    def show(self):
-        screen.blit(button1.surface, (self.x, self.y))
+
+    def show(self, screen, outline=None):
+       # screen.blit(button1.surface, (self.x, self.y))
+       if outline:
+           pg.draw.rect(win, outline, (self.x - 2, self.y - 2, self.width + 4, self.height + 4), 0)
+
+       pg.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), 0)
+
+       if self.text != '':
+           font = pg.font.SysFont(None, 40)
+           text = font.render(self.text, 1, (0, 0, 0))
+           screen.blit(text, (
+               self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
 
     def click(self, event):
         x, y = pg.mouse.get_pos()
@@ -155,21 +121,23 @@ COLOR_LIST_ACTIVE = (255, 150, 150)
 COLOR_ACTIVE_CONFIRM = (0, 200, 0)
 COLOR_INACTIVE_CONFIRM = (100, 80, 255)
 
-list1 = DropDown(
+list1 = dropdown.DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
     [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
     500, 50, 200, 50,
     pg.font.SysFont(None, 30),
-    "Select Suspect", player.Player.getLocation(player))
+    "Select Suspect", sus.getNames(sus))
 
-list2 = DropDown(
+    #player.Player.getLocation(player))
+
+list2 = dropdown.DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
     [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
     275, 50, 200, 50,
     pg.font.SysFont(None, 30),
     "Select Weapon", wea.getNames(wea))
 
-list3 = DropDown(
+list3 = dropdown.DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
     [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
     50, 50, 200, 50,
@@ -177,8 +145,8 @@ list3 = DropDown(
     "Select Room", room.getNames(room))
 
 button1 = Button(
-    "guess",
-    (600, 700),
+    "guess", COLOR_INACTIVE,
+    (600, 700), 100, 50,
     font=50,
     bg="blue",
     feedback="Choice Confirmed")
@@ -211,7 +179,7 @@ while run:
     list1.draw(screen)
     list2.draw(screen)
     list3.draw(screen)
-    button1.show()
+    button1.show(screen)
     pg.display.flip()
 
 pg.quit()
