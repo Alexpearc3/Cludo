@@ -117,3 +117,6 @@ def innit():
 
 class Notepad:
     notepad()
+
+n = Notepad.notpad
+n.runNotepad()

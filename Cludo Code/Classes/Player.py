@@ -4,10 +4,12 @@ class Player:
         do = "what a player do"
         self.cards = []
         self.name = player_name
-        self.location = [0][0] #start_location #2d array value e.g. [0][0] can find room details from tile details
+        self.locationX = 0 #start_location #2d array value e.g. [0][0] can find room details from tile details
+        self.locationY = 0
         self.pId = player_ID
         self.accusations = 1
         self.hasWon = False
+        self.moves = 0
 
 
     def setCard(self, card):
@@ -16,8 +18,9 @@ class Player:
     def getCards(self):
         return self.cards
 
-    def setLocation(self, location):
-        self.location = location
+    def setLocation(self, x, y):
+        self.locationX = x
+        self.locationY = y
 
     def accuse(self):
         #check envelope
@@ -33,7 +36,13 @@ class Player:
         self.hasWon = True
 
     def getLocation(self):
-        return self.location
+        return self.locationX, self.locationY
 
     def getPlayerID(self):
         return self.pId
+
+    def setMoves(self, moves):
+        self.moves = moves
+
+    def getMoves(self):
+        return self.moves
