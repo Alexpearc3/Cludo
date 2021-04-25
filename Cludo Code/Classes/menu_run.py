@@ -15,10 +15,12 @@ class Menu_Run():
         self.font_name = pygame.font.get_default_font()
         self.BLACK =(0,0,0)
         self.WHITE = (255, 255, 255)
-        self.main_menu = MainMenu(self)
+
         self.options = OptionsMenu(self)
         self.credits = CreditsMenu(self)
         self.custo = CustoMenu(self)
+        self.main_menu = MainMenu(self, self.custo)
+        self.plName = PlayerNamesMenu(self, self.custo)
         self.curr_menu = self.main_menu #Menu_Run passes itself into the MainMenu class
 
     def menu_loop(self):
@@ -31,6 +33,7 @@ class Menu_Run():
             self.window.blit(self.display, (0,0)) #aliging display with the window
             pygame.display.update()
             self.reset_keys()
+    #checks the events in terms of what keypresses are taken in
     def check_events(self):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -45,6 +48,13 @@ class Menu_Run():
                     self.DOWN_KEY = True
                 if event.key == pygame.K_UP:
                     self.UP_KEY = True
+                if self.curr_menu == self.plName:
+                    if event.key == pygame.K_BACKSPACE:
+                        #get all the characters - 1
+                        self.plName.plNameEntry = self.plName.plNameEntry[:-1]
+                    else:
+                        self.plName.plNameEntry += event.unicode
+
     def reset_keys(self): #self is reference to menu_run so we have access to all the variables
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False
     def draw_text(self, text, size, x, y):

@@ -1,5 +1,5 @@
 import pygame
-
+from board import board
 
 class Menu1:
     def __init__(self, menu_run):
@@ -9,6 +9,7 @@ class Menu1:
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)#20 x 20 square as cursor
         self.offset = -100
 
+
     def draw_cursor(self):
         self.menu_run.draw_text('^', 15, self.cursor_rect.x, self.cursor_rect.y)
     def blit_screen(self):
@@ -17,10 +18,13 @@ class Menu1:
         self.menu_run.reset_keys()
     def getBoardType(self, CustoMenu):
         return CustoMenu.boardType
+    def getPlayerNum(self, CustoMenu):
+        return self.CustoMenu.playerNum
 
 class MainMenu(Menu1):
-    def __init__(self, menu_run):
+    def __init__(self, menu_run, CustoMenu):
         Menu1.__init__(self, menu_run) #allows us to use variables from Menu1
+        self.CustoMenu = CustoMenu
         self.state = 'Start'  # cursor points at start game when it launches
         self.startx, self.starty = self.mid_width, self.mid_height + 30
         self.optionsx, self.optionsy = self.mid_width, self.mid_height + 70
@@ -39,6 +43,7 @@ class MainMenu(Menu1):
             self.menu_run.draw_text('credits', 20, self.creditsx, self.creditsy)
             self.draw_cursor()
             self.blit_screen()  # put it all on screen
+
     def cursor_move(self):
         if self.menu_run.DOWN_KEY:
             if self.state == 'Start':
@@ -65,7 +70,9 @@ class MainMenu(Menu1):
         if self.menu_run.START_KEY:
             if self.state == 'Start':
                 #Dice(12, pygame.display.set_mode([950, 960])).rolldice()
-                self.menu_run.playing = True #put in toms code her
+                #self.menu_run.playing = True #put in toms code her
+                playerList = self.CustoMenu.playerArr
+                b = board(playerList).main()
                 #Notepad_Main.notepadRun()
             elif self.state == 'Options':
                 self.menu_run.curr_menu = self.menu_run.options
@@ -160,9 +167,11 @@ class CustoMenu(Menu1):
         self.sixx, self.sixy = (self.menu_run.Display_Width / 2 + 173, self.menu_run.Display_Height - 760)
         self.Ax, self.Ay = (self.menu_run.Display_Width / 2 + 95, self.menu_run.Display_Height - 700)
         self.Bx, self.By = (self.menu_run.Display_Width / 2 + 95, self.menu_run.Display_Height - 675)
+        self.changeNamesx, self.changeNamesy = (self.menu_run.Display_Width / 2 + 130, self.menu_run.Display_Height - 575)
         self.cursor_rect.midtop = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 860)
-        self.playerNum = 6
+
         self.boardType = 1
+
     def display_menu(self):
         self.run_display = True
         while self.run_display:
@@ -175,19 +184,21 @@ class CustoMenu(Menu1):
             self.menu_run.draw_text("Customisation", 40, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 900)
             self.menu_run.draw_text("choose number of players:", 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 860)
             self.menu_run.draw_text("1", 20, self.menu_run.Display_Width/2 + 150, self.oney)
-            self.menu_run.draw_text("2", 20, self.menu_run.Display_Width / 2 + 150, self.menu_run.Display_Height - 840)
-            self.menu_run.draw_text("3", 20, self.menu_run.Display_Width / 2 + 150, self.menu_run.Display_Height - 820)
-            self.menu_run.draw_text("4", 20, self.menu_run.Display_Width / 2 + 150, self.menu_run.Display_Height - 800)
-            self.menu_run.draw_text("5", 20, self.menu_run.Display_Width / 2 + 150, self.menu_run.Display_Height - 780)
-            self.menu_run.draw_text("6", 20, self.menu_run.Display_Width / 2 + 150, self.menu_run.Display_Height - 760)
+            self.menu_run.draw_text("2", 20, self.menu_run.Display_Width / 2 + 150, self.twoy)
+            self.menu_run.draw_text("3", 20, self.menu_run.Display_Width / 2 + 150, self.threey)
+            self.menu_run.draw_text("4", 20, self.menu_run.Display_Width / 2 + 150, self.foury)
+            self.menu_run.draw_text("5", 20, self.menu_run.Display_Width / 2 + 150, self.fivey)
+            self.menu_run.draw_text("6", 20, self.menu_run.Display_Width / 2 + 150, self.sixy)
             self.menu_run.draw_text("Board type:", 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 700)
-            self.menu_run.draw_text("A", 20, self.menu_run.Display_Width / 2 + 70, self.menu_run.Display_Height - 700)
-            self.menu_run.draw_text("B", 20, self.menu_run.Display_Width / 2 + 70, self.menu_run.Display_Height - 675)
+            self.menu_run.draw_text("A", 20, self.menu_run.Display_Width / 2 + 70, self.Ay)
+            self.menu_run.draw_text("B", 20, self.menu_run.Display_Width / 2 + 70, self.By)
+            self.menu_run.draw_text("change player names", 20, self.menu_run.Display_Width / 2, self.changeNamesy)
             self.draw_cursor()
             self.blit_screen()
+
     def input_check(self):
         if self.menu_run.BACK_KEY:
-            self.menu_run.curr_menu = self.menu_run.main_menu
+            self.menu_run.curr_menu = self.menu_run.options
             self.run_display = False
         elif self.menu_run.DOWN_KEY:
             #cursor is at one rn
@@ -215,6 +226,9 @@ class CustoMenu(Menu1):
             elif self.state == 'B':
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
                 self.state = 'A'
+            elif self.state == 'changeNames':
+                self.cursor_rect.midtop = (self.changeNamesx, self.changeNamesy)
+                self.state = 'one'
         elif self.menu_run.UP_KEY:
                 # cursor is at one rn
             if self.state == 'one':
@@ -246,34 +260,148 @@ class CustoMenu(Menu1):
             if self.state == 'one':
                 self.playerNum = 1
                 self.playerArr = ['', False, False, False, False, False]
+                print(self.playerNum)
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'two':
                 self.playerNum = 2
                 self.playerArr = ['', '', False, False, False, False]
+                print(self.playerNum)
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'three':
                 self.playerNum = 3
                 self.playerArr = ['', '', '', False, False, False]
+                print(self.playerNum)
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'four':
                 self.playerNum = 4
                 self.playerArr = ['', '', '', '', False, False]
+                print(self.playerNum)
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'five':
                 self.playerNum = 5
                 self.playerArr = ['', '', '', '', '', False]
+                print(self.playerNum)
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'six':
                 self.playerNum = 6
                 self.playerArr = ['', '', '', '', '', '']
+                print(self.playerNum)
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'A':
                 self.boardType = 1
+                self.cursor_rect.midtop = (self.changeNamesx, self.changeNamesy)
+                self.state = 'changeNames'
             elif self.state == 'B':
                 self.boardType = 2
+                self.cursor_rect.midtop = (self.changeNamesx, self.changeNamesy)
+                self.state = 'changeNames'
+            elif self.state == 'changeNames':
+                self.menu_run.curr_menu = self.menu_run.plName
+            self.run_display = False
+
+
+class PlayerNamesMenu(Menu1):
+    def __init__(self, menu_run, CustoMenu):
+        Menu1.__init__(self, menu_run)
+        self.CustoMenu = CustoMenu
+        self.plNum = 1
+        self.state = 'pl1'
+        self.plNameEntry = ''
+        self.name1 = 'Miss Scarlet'
+        self.name2 = ''
+        self.name3 = ''
+        self.name4 = ''
+        self.name5 = ''
+        self.name6 = ''
+        self.endMsg = ''
+        self.base_font = pygame.font.Font(None, 20)
+                                #x,y coordinates. size of rect
+        self.inputRect1 = pygame.Rect(self.menu_run.Display_Width / 2 -50, self.menu_run.Display_Height - 860, 140, 32)
+
+    def display_menu(self):
+        self.run_display = True
+        while self.run_display:
+            self.menu_run.check_events()
+            self.input_check()
+            self.menu_run.display.fill(self.menu_run.BLACK)
+            self.menu_run.draw_text("Player Names", 40, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 900)
+            self.menu_run.draw_text(("Enter Player " + str(self.plNum) + " name"), 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 860)
+            self.menu_run.draw_text(self.name1, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 780)
+            self.menu_run.draw_text(self.name2, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 750)
+            self.menu_run.draw_text(self.name3, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 720)
+            self.menu_run.draw_text(self.name4, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 690)
+            self.menu_run.draw_text(self.name5, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 660)
+            self.menu_run.draw_text(self.name6, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 630)
+            self.menu_run.draw_text(self.endMsg, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 600)
+            print(self.CustoMenu.playerNum )
+            pygame.draw.rect(self.menu_run.display, (255, 0, 0), self.inputRect1, 2)
+            text_surface1 = self.base_font.render(self.plNameEntry, True, (255, 255, 255))
+            self.menu_run.display.blit(text_surface1, (self.inputRect1.x +5, self.inputRect1.y + 5))
+            self.inputRect1.w = max(100, text_surface1.get_width() + 10)
+            print(self.plNameEntry)
+            self.blit_screen()
+    def input_check(self):
+
+        if self.menu_run.START_KEY and self.state == 'pl1':
+            self.name1 = self.plNameEntry[:-1]
+            self.CustoMenu.playerArr[0] = self.name1
+            self.plNameEntry = ''
+            if self.CustoMenu.playerNum == 1:
+                self.run_display = False
+                self.menu_run.curr_menu = self.menu_run.custo
+            else:
+                self.plNum = 2
+                self.state = 'pl2'
+        elif self.menu_run.START_KEY and self.state == 'pl2':
+            self.name2 = self.plNameEntry[:-1]
+            self.CustoMenu.playerArr[1] = self.name2
+            self.plNameEntry = ''
+            if self.CustoMenu.playerNum  == 2:
+                self.run_display = False
+                self.menu_run.curr_menu = self.menu_run.custo
+            else:
+                self.plNum = 3
+                self.state = 'pl3'
+        elif self.menu_run.START_KEY and self.state == 'pl3':
+            self.name3 = self.plNameEntry[:-1]
+            self.CustoMenu.playerArr[2] = self.name3
+            self.plNameEntry = ''
+            if self.CustoMenu.playerNum  == 3:
+                self.run_display = False
+                self.menu_run.curr_menu = self.menu_run.custo
+            else:
+                self.plNum = 4
+                self.state = 'pl4'
+        elif self.menu_run.START_KEY and self.state == 'pl4':
+            self.name4 = self.plNameEntry[:-1]
+            self.CustoMenu.playerArr[3] = self.name4
+            self.plNameEntry = ''
+            if self.CustoMenu.playerNum == 4:
+                self.run_display = False
+                self.menu_run.curr_menu = self.menu_run.custo
+            else:
+                self.plNum = 5
+                self.state = 'pl5'
+        elif self.menu_run.START_KEY and self.state == 'pl5':
+            self.name5 = self.plNameEntry[:-1]
+            self.CustoMenu.playerArr[4] = self.name5
+            self.plNameEntry = ''
+            if self.CustoMenu.playerNum  == 5:
+                self.run_display = False
+                self.menu_run.curr_menu = self.menu_run.custo
+            else:
+                self.plNum = 6
+                self.state = 'pl6'
+        elif self.menu_run.START_KEY and self.state == 'pl6':
+            self.name6 = self.plNameEntry[:-1]
+            self.CustoMenu.playerArr[5] = self.name6
+            self.endMsg = 'confirm and exit?'
+            self.state ='end'
+        elif self.menu_run.START_KEY and self.state == 'end':
+            self.menu_run.curr_menu = self.menu_run.custo
