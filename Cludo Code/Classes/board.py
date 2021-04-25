@@ -5,17 +5,17 @@ import Deck
 from tile import tile
 import Player
 
+
 # from newDice import Dice
 # from notepad import notepad
 
 
 class board():
-
     player = Player.Player
     Players = []
     deck = Deck.Deck()
-    
-    #passing through players array as well as customisation setting (1 or 2)
+
+    # passing through players array as well as customisation setting (1 or 2)
     def __init__(self, Players, customNo):
         self.customNo = customNo
         self.PLAYER1 = Players[0]
@@ -29,11 +29,10 @@ class board():
         playerTList = Players
         count = 0
         for player in Players:
-            self.Players.append(self.player(player, count+1))
+            self.Players.append(self.player(player, count + 1))
             count += 1
         # for p in self.Players:
         #     print(p.getPlayerID()) works
-
 
     BOARDWIDTH = 25
     BOARDHEIGHT = 24
@@ -91,7 +90,7 @@ class board():
     background_altx, background_alty = background_alt.get_size()
     background_alt = pygame.transform.scale(background_alt, (int(background_altx * .933), int(background_alty * .933)))
 
-    #loading image for logo
+    # loading image for logo
     title = pygame.image.load("../Image/cluedo-logo.png")
     title = pygame.transform.scale(title, ((int(563 * .45)), (int(200 * .45))))
 
@@ -132,12 +131,12 @@ class board():
     buttonNextTurnSelected = pygame.image.load("../Image/button_next_turn_selected.png")
     buttonNextTurnSelectedx, buttonNextTurnSelectedy = buttonNextTurnSelected.get_size()
     buttonNextTurnSelected = pygame.transform.scale(buttonNextTurnSelected, (
-    int(buttonNextTurnSelectedx * .4), int(buttonNextTurnSelectedy * .4)))
+        int(buttonNextTurnSelectedx * .4), int(buttonNextTurnSelectedy * .4)))
 
     buttonRollDiceSelected = pygame.image.load("../Image/button_roll_dice_selected.png")
     buttonRollDiceSelectedx, buttonRollDiceSelectedy = buttonRollDiceSelected.get_size()
     buttonRollDiceSelected = pygame.transform.scale(buttonRollDiceSelected, (
-    int(buttonRollDiceSelectedx * .4), int(buttonRollDiceSelectedy * .4)))
+        int(buttonRollDiceSelectedx * .4), int(buttonRollDiceSelectedy * .4)))
 
     buttonMenuSelected = pygame.image.load("../Image/button_menu_selected.png")
     buttonMenuSelectedx, buttonMenuSelectedy = buttonMenuSelected.get_size()
@@ -183,8 +182,6 @@ class board():
     imgPlayer6 = pygame.image.load("../Image/player_6.png")
     imgPlayer6x, imgPlayer6y = imgPlayer6.get_size()
     imgPlayer6 = pygame.transform.scale(imgPlayer6, (int(imgPlayer6x * .3), int(imgPlayer6y * .3)))
-
-
 
     def grid(self, x, y):
         self.screen.blit(self.tileImg, (x, y))
@@ -236,9 +233,6 @@ class board():
                     self.screen.blit(self.tileImg,
                                      (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-
-
-
     def movePlayer(self, moves):
         player = self.getCurrentPlayer()
         player.setMoves(moves)
@@ -247,45 +241,42 @@ class board():
         self.selectTiles(possibleMoves, x, y)
         self.setPlayer(player)
 
-
         print(possibleMoves)
 
     def selectTiles(self, possibleMoves, x, y):
         print(possibleMoves)
         for i in range(len(possibleMoves)):
             if possibleMoves[i] != False:
-                if i <= 1: #check if possible move is in x direction
+                if i <= 1:  # check if possible move is in x direction
                     tile = self.getTile(possibleMoves[i], y)
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
-                    self.setTile(tile, possibleMoves[i], y )
-                else: #possible move is in y direction
+                    self.setTile(tile, possibleMoves[i], y)
+                else:  # possible move is in y direction
                     print(i)
                     tile = self.getTile(x, possibleMoves[i])
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
-                    self.setTile(tile, x, possibleMoves[i] )
-
-
+                    self.setTile(tile, x, possibleMoves[i])
 
     def lookAround(self, x, y):
-        possibleMoves = [x-1, x+1, y-1, y+1]
+        possibleMoves = [x - 1, x + 1, y - 1, y + 1]
         print(x, " ", y)
-        if possibleMoves[0] < 0 or not self.getTile(possibleMoves[0], y).getIsTile(): # cant go left
+        if possibleMoves[0] < 0 or not self.getTile(possibleMoves[0], y).getIsTile():  # cant go left
             print("cant go left")
             possibleMoves[0] = False
 
-        if possibleMoves[1] > self.BOARDWIDTH or not self.getTile(possibleMoves[1], y).getIsTile(): #cant go right
+        if possibleMoves[1] > self.BOARDWIDTH or not self.getTile(possibleMoves[1], y).getIsTile():  # cant go right
             print("cant go right")
             possibleMoves[1] = False
 
-        if possibleMoves[2] < 0 or not self.getTile(x, possibleMoves[2]).getIsTile(): #cant go up
+        if possibleMoves[2] < 0 or not self.getTile(x, possibleMoves[2]).getIsTile():  # cant go up
             print("cant go up")
             possibleMoves[2] = False
 
-        if possibleMoves[3] > self.BOARDHEIGHT or not self.getTile(x, possibleMoves[3]).getIsTile(): #cant go down
+        if possibleMoves[3] > self.BOARDHEIGHT or not self.getTile(x, possibleMoves[3]).getIsTile():  # cant go down
             print("cant go down")
-            print(x," ", possibleMoves[3], self.getTile(x, possibleMoves[3]).getIsTile() )
+            print(x, " ", possibleMoves[3], self.getTile(x, possibleMoves[3]).getIsTile())
             possibleMoves[3] = False
 
         return possibleMoves
@@ -302,12 +293,12 @@ class board():
             # roll dice class function goes here!
             print("roll dice")  # 222 x 81.6
             number = randrange(12) + 1
-            moves = 12 #Dice(number, self.screen).rolldice()
+            moves = 12  # Dice(number, self.screen).rolldice()
             self.movePlayer(moves)
 
         if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6):
             print("next turn")  # 222 x 81.6
-            isTurnComplete = True   
+            isTurnComplete = True
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
             print("guess")  # 222 x 81.6
@@ -349,7 +340,6 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             self.screen.blit(self.buttonNotepadSelected, (860, 812))
 
-
     def gameLogic(self, turn):
         # Alex Code Here
         # if player().getIsTurn and buttonGuess()
@@ -357,7 +347,7 @@ class board():
         # been reworking other code to fit
         turnCounter = 0
         return None
-    
+
     def getCurrentPlayer(self):
         return self.Players[self.playersTurn]
 
@@ -366,9 +356,9 @@ class board():
             if self.Players[i].getPlayerID() == player.getPlayerID():
                 self.Players[i] = player
 
-    def movePlayerTile(self,x,y):
+    def movePlayerTile(self, x, y):
         print(self.getTile(x, y).getPossibleMove())
-        print(x,"here ", y)
+        print(x, "here ", y)
         if self.getTile(x, y).getPossibleMove() == True:
             print("cunt")
             currentPlayer = self.getCurrentPlayer()
@@ -381,10 +371,10 @@ class board():
 
             print("fuk")
             tile = self.getTile(x, y)
-            tile.setPlayer(self.playersTurn+1)
+            tile.setPlayer(self.playersTurn + 1)
             tile.setSelected(False)
             tile.setPossibleMove(False)
-            print(self.getTile(x,y).getPlayer())
+            print(self.getTile(x, y).getPlayer())
             self.setTile(tile, x, y)
             currentPlayer.setMoves(currentPlayer.getMoves() - 1)
 
@@ -407,7 +397,7 @@ class board():
         self.deck.shuffle()
         while self.deck.isCard():
             for p in self.Players:
-                if p.getName() != False:  #or can use if p.getPlayerID() in playerIds:
+                if p.getName() != False:  # or can use if p.getPlayerID() in playerIds:
                     if self.deck.isCard():
                         p.setCard(self.deck.drawCard())
         for p in self.Players:
@@ -446,8 +436,6 @@ class board():
 
                     except:
                         pass
-
-
 
             # Set the screen background
             self.screen.fill(self.GREEN)
@@ -511,14 +499,7 @@ class board():
                 else:
                     self.playersTurn += 1
 
-
-
-        #pygame.quit()
-
-
-
-
-
+        # pygame.quit()
 
     # can we use initiate board to move the positions of a player when a new tile is selected to move to?
     def initiateBoard(self):
@@ -531,7 +512,6 @@ class board():
 
         """
             there are 27 possible tile states.
-
             str = study (room)
             har = hall (room)
             lor = lounge (room)
@@ -541,7 +521,6 @@ class board():
             cvr = conservatory (room)
             bir = billiards room (room)
             lir = library (room)
-
             std = study (door)
             had = hall (door)
             lod = lounge (door)
@@ -551,53 +530,74 @@ class board():
             cvd = conservatory (door)
             bid = billiards room (door)
             lid = library (door)
-
             wwe = walkway empty
             wwh = walkway hover
             wws = walkway select
-
             blk = blank
-
             ww1 = walkway player 1
             ww2 = walkway player 2
             ww3 = walkway player 3
             ww4 = walkway player 4
             ww5 = walkway player 5
             ww6 = walkway player 6
-
             """
 
-        grid = [["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
-                ["blk", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe", "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
+        grid = [
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har",
+             "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
+            ["blk", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe",
+             "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe",
+             "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
         for p in self.Players:
 
             if p.getName != False and p.getPlayerID() == 1:
                 grid[0][16] = "ww1"
                 p.setLocation(16, 0)
-
 
             if p.getName != False and p.getPlayerID() == 2:
                 grid[7][23] = "ww2"
@@ -709,6 +709,7 @@ class board():
                     board[row, column] = tile(blank=True)
 
         return board
-    
-playerList = ["shakir",False,"abby","tom","alex", False,]
+
+
+playerList = ["shakir", False, "abby", "tom", "alex", False, ]
 b = board(playerList, 2).main()
