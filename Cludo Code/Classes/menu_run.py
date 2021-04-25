@@ -1,6 +1,7 @@
 import pygame
 from menu1 import *
 
+
 class Menu_Run():
     def __init__(self):
         pygame.init()
@@ -17,6 +18,7 @@ class Menu_Run():
         self.main_menu = MainMenu(self)
         self.options = OptionsMenu(self)
         self.credits = CreditsMenu(self)
+        self.custo = CustoMenu(self)
         self.curr_menu = self.main_menu #Menu_Run passes itself into the MainMenu class
 
     def menu_loop(self):

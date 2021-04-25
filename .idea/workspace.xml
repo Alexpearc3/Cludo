@@ -9,7 +9,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added icon and background">
       <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/accuse.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/guess.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/guess.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +36,7 @@
   </component>
   <component name="ProjectId" id="1pi0h5VJuy4bnCab6wYp2hkuU6l" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="false" id="Update" />
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectViewState">
@@ -62,7 +62,7 @@
       <recent name="C:\Users\ASUS\PycharmProjects\Cludo\Cludo Code\Classes" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.accuse">
+  <component name="RunManager" selected="Python.menu_main">
     <configuration name="accuse" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -170,9 +170,9 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.menu_main" />
         <item itemvalue="Python.accuse" />
         <item itemvalue="Python.guess" />
-        <item itemvalue="Python.menu_main" />
         <item itemvalue="Python.menu_run" />
         <item itemvalue="Python.startMenu" />
       </list>
@@ -323,7 +323,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619044100775</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Added icon and background">
+      <created>1619308918923</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1619308918923</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
