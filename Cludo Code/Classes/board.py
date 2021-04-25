@@ -3,7 +3,6 @@ import numpy as np
 from random import randrange
 import Deck
 from tile import tile
-from testMultipleWindows2 import Dice
 import Player
 
 # from newDice import Dice
@@ -19,6 +18,7 @@ class board():
     player = Player.Player
     Players = []
     deck = Deck.Deck()
+    []
     #board = np.empty((25, 24), dtype=object)
     def __init__(self, Players):
         self.PLAYER1 = Players[0]
@@ -28,6 +28,7 @@ class board():
         self.PLAYER5 = Players[4]
         self.PLAYER6 = Players[5]
         self.playersTurn = 0
+        playerTList = Players
         count = 0
         for player in Players:
             self.Players.append(self.player(player, count+1))
@@ -228,18 +229,11 @@ class board():
                     self.screen.blit(self.tileImg,
                                      (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-                    if board[row, column].getPossibleMove():
-                        currentPlayer = self.getCurrentPlayer(self.playersTurn)
-                        j, k = currentPlayer.getLocation() # j,k = x y. actual x y is where we are moving to
-                        tile = self.getTile(j, k)
-                        tile.setSelected(False)
-                        tile.setPossibleMove(False)
-                        tile.setPlayer(0)
-                        tile = self.getTile(x, y)
-                        tile.setPlayer(self.playersTurn)#here
+
+
 
     def movePlayer(self, moves):
-        player = self.getCurrentPlayer(self.playersTurn)
+        player = self.getCurrentPlayer()
         player.setMoves(moves)
         x, y = player.getLocation()
         possibleMoves = self.lookAround(x, y)
@@ -386,16 +380,27 @@ class board():
 
 
         return None
-    def getCurrentPlayer(self, pId):
-        for player in self.Players:
-            if player.getPlayerID() == pId:
-                return player
+    def getCurrentPlayer(self):
+        return self.Players[self.playersTurn]
 
     def setPlayer(self, player):
         for i in range(len(self.Players)):
             if self.Players[i].getPlayerID() == player.getPlayerID():
                 self.Players[i] = player
+    def movePlayerTile(self,x,y):
 
+        if board[x, y].getPossibleMove():
+            currentPlayer = self.getCurrentPlayer()
+            j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
+            tile = self.getTile(j, k)
+            tile.setSelected(False)
+            tile.setPossibleMove(False)
+            tile.setPlayer(0)
+            tile = self.getTile(x, y)
+            tile.setPlayer(self.playersTurn)
+            currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+            self.setPlayer(currentPlayer)
+            self.movePlayer(currentPlayer.getMoves())
 
     def main(self):
         done = False
@@ -428,8 +433,9 @@ class board():
 
         # game loop
         while not done:
-            playerObj = self.getCurrentPlayer(playerIds[self.playersTurn])
-
+            playerObj = self.getCurrentPlayer()
+            if playerObj.getName() == False:
+                turnComplete = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:  # If user clicked close
                     done = True  # Flag that we are done so we exit this loop
@@ -440,13 +446,13 @@ class board():
                     # Change the x/y screen coordinates to grid coordinates
                     column = (pos[0] - self.GRIDBUFFX) // self.WIDTH
                     row = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
-
                     turnComplete = self.isButtonClicked(pos[0], pos[1], playerObj)
 
                     # Changes tile to selected / unselected
                     try:
                         self.board[int(row), int(column)].setSelected(
                             not self.board[int(row), int(column)].getSelected())
+                        self.movePlayerTile(row, column)
                     except:
                         pass
 
