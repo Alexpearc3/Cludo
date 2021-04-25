@@ -254,12 +254,12 @@ class board():
         print(possibleMoves)
         for i in range(len(possibleMoves)):
             if possibleMoves[i] != False:
-                if i <= 1:
+                if i <= 1: #check if possible move is in x direction
                     tile = self.getTile(possibleMoves[i], y)
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
                     self.setTile(tile, possibleMoves[i], y )
-                else:
+                else: #possible move is in y direction
                     print(i)
                     tile = self.getTile(x, possibleMoves[i])
                     tile.setPossibleMove(True)
