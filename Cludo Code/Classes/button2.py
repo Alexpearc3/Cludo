@@ -5,7 +5,7 @@ import room_cards
 import weapon_cards
 import Player as player
 import dropdown
-from accuse import Accuse
+
 
 class Button:
         def __init__(self, color, x, y, width, height, text=''):
@@ -30,14 +30,12 @@ class Button:
                 self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
 
         def event(self, screen, event):
+            pos = pg.mouse.get_pos()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                if self.rectg.collidepoint(pos):
+                    self.color = (250, 10, 0)
+                    self.text = "Confirmed"
+                    self.draw(screen, outline=None)
+                    return True
 
-                pos = pg.mouse.get_pos()
-                if event.type == pg.MOUSEBUTTONDOWN:
-                    if self.rectg.collidepoint(pos):
-                        self.color = (250, 10, 0)
-                        self.text = "Confirmed"
-                        self.draw(screen, outline=None)
-                        Accuse.check_envolope()
-                        return True
-
-                return False
+            return False

@@ -5,6 +5,7 @@ import room_cards
 import weapon_cards
 import Player as player
 import dropdown
+import button
 
 class Guess:
     def __init__(self):
@@ -60,48 +61,6 @@ class Guess:
         return cards # next turn, no cards shown
 
 
-class Button:
-
-    def __init__(self, text, color, pos, width, height, font, bg="black", feedback=""):
-        self.x, self.y = pos
-        self.width = width
-        self.height = height
-        self.font = pg.font.SysFont(None, font)
-        self.color = color
-        if feedback == "":
-            self.feedback = "text"
-        else:
-            self.feedback = feedback
-        self.change_text(text, bg)
-
-    def change_text(self, text, bg="black"):
-        self.text = self.font.render(text, 1, pg.Color("Black"))
-        self.size = self.text.get_size()
-        self.surface = pg.Surface(self.size)
-        self.surface.fill(bg)
-        self.surface.blit(self.text, (0, 0))
-        self.rect = pg.Rect(self.x, self.y, self.size[0], self.size[1])
-
-
-    def show(self, screen, outline=None):
-       # screen.blit(button1.surface, (self.x, self.y))
-       if outline:
-           pg.draw.rect(win, outline, (self.x - 2, self.y - 2, self.width + 4, self.height + 4), 0)
-
-       pg.draw.rect(screen, self.color, (self.x, self.y, self.width, self.height), 0)
-
-       if self.text != '':
-           font = pg.font.SysFont(None, 40)
-           text = font.render(self.text, 1, (0, 0, 0))
-           screen.blit(text, (
-               self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
-
-    def click(self, event):
-        x, y = pg.mouse.get_pos()
-        if event.type == pg.MOUSEBUTTONDOWN:
-            if pg.mouse.get_pressed()[0]:
-                if self.rect.collidepoint(x, y):
-                    self.change_text(self.feedback, bg="red")
 
 d = Deck.Deck()
 sus = suspect_cards.Suspect_cards
@@ -124,32 +83,30 @@ COLOR_INACTIVE_CONFIRM = (100, 80, 255)
 list1 = dropdown.DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
     [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
-    500, 50, 200, 50,
+    650, 100, 200, 50,
     pg.font.SysFont(None, 30),
     "Select Suspect", sus.getNames(sus))
-
-    #player.Player.getLocation(player))
+    #player.Player.getLocation(player)) this should theoretically get the player location and auto select it
 
 list2 = dropdown.DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
     [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
-    275, 50, 200, 50,
+    375, 100, 200, 50,
     pg.font.SysFont(None, 30),
     "Select Weapon", wea.getNames(wea))
 
 list3 = dropdown.DropDown(
     [COLOR_INACTIVE, COLOR_ACTIVE],
     [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
-    50, 50, 200, 50,
+    100, 100, 200, 50,
     pg.font.SysFont(None, 30),
     "Select Room", room.getNames(room))
 
-button1 = Button(
-    "guess", COLOR_INACTIVE,
-    (600, 700), 100, 50,
-    font=50,
-    bg="blue",
-    feedback="Choice Confirmed")
+button1 = button.Button(
+    COLOR_INACTIVE,
+        405, 600,
+        150, 50,
+        "Guess")
 
 run = True
 while run:
@@ -173,13 +130,13 @@ while run:
     if selected_option >= 0:
         list3.main = list3.options[selected_option]
 
-    button1.click(event)
 
     screen.fill((102, 0, 102))
     list1.draw(screen)
     list2.draw(screen)
     list3.draw(screen)
-    button1.show(screen)
+    button1.draw(screen)
+    button1.event(screen, event)
     pg.display.flip()
 
 pg.quit()
