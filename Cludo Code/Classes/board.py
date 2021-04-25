@@ -33,6 +33,8 @@ class board():
         for player in Players:
             self.Players.append(self.player(player, count+1))
             count += 1
+        # for p in self.Players:
+        #     print(p.getPlayerID()) works
 
 
     BOARDWIDTH = 25
@@ -244,18 +246,20 @@ class board():
         print(possibleMoves)
 
     def selectTiles(self, possibleMoves, x, y):
+        print(possibleMoves)
         for i in range(len(possibleMoves)):
             if possibleMoves[i] != False:
                 if i <= 1:
                     tile = self.getTile(possibleMoves[i], y)
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
-                    self.setTile(tile, possibleMoves[i], y)
+                    self.setTile(tile, y, possibleMoves[i])
                 else:
+                    print(i)
                     tile = self.getTile(x, possibleMoves[i])
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
-                    self.setTile(tile, x, possibleMoves[i])
+                    self.setTile(tile,possibleMoves[i], x )
 
 
 
@@ -357,21 +361,31 @@ class board():
         for i in range(len(self.Players)):
             if self.Players[i].getPlayerID() == player.getPlayerID():
                 self.Players[i] = player
-    def movePlayerTile(self,x,y):
 
-        if board[x, y].getPossibleMove() == True:
+    def movePlayerTile(self,x,y):
+        print(self.getTile(x, y).getPossibleMove())
+        print(x," ", y)
+        if self.getTile(x, y).getPossibleMove() == True:
+            print("cunt")
             currentPlayer = self.getCurrentPlayer()
             j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
             tile = self.getTile(j, k)
             tile.setSelected(False)
             tile.setPossibleMove(False)
             tile.setPlayer(0)
+            self.setTile(tile, j, k)
 
+            print("fuk")
             tile = self.getTile(x, y)
-            tile.setPlayer(self.playersTurn)
+            tile.setPlayer(self.playersTurn+1)
+            tile.setSelected(False)
+            tile.setPossibleMove(False)
+            print(self.getTile(x,y).getPlayer())
             self.setTile(tile, x, y)
             currentPlayer.setMoves(currentPlayer.getMoves() - 1)
-            self.setPlayer(currentPlayer)
+
+            self.setPlayer(currentPlayer.getPlayerId())
+            print(currentPlayer.getPlayerId())
             self.movePlayer(currentPlayer.getMoves())
 
     def main(self):
@@ -422,9 +436,10 @@ class board():
 
                     # Changes tile to selected / unselected
                     try:
+                        self.movePlayerTile(int(row), int(column))
                         self.board[int(row), int(column)].setSelected(
                             not self.board[int(row), int(column)].getSelected())
-                        self.movePlayerTile(int(row), int(column))
+
                     except:
                         pass
 

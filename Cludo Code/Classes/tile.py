@@ -45,7 +45,7 @@ class tile():
     def setPossibleMove(self, possibleMove):
         self.possibleMove = possibleMove
 
-    def setPlayer(self,i):
+    def setPlayer(self, i):
         self.player = i
 
 
