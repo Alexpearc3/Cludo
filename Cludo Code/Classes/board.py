@@ -18,8 +18,7 @@ class board():
     player = Player.Player
     Players = []
     deck = Deck.Deck()
-    []
-    #board = np.empty((25, 24), dtype=object)
+
     def __init__(self, Players):
         self.PLAYER1 = Players[0]
         self.PLAYER2 = Players[1]
@@ -28,6 +27,7 @@ class board():
         self.PLAYER5 = Players[4]
         self.PLAYER6 = Players[5]
         self.playersTurn = 0
+        self.board = np.empty((25, 24), dtype=object)
         playerTList = Players
         count = 0
         for player in Players:
@@ -239,36 +239,6 @@ class board():
         possibleMoves = self.lookAround(x, y)
         self.selectTiles(possibleMoves, x, y)
         self.setPlayer(player)
-        # for m in range(moves): #broken dont use
-        #     print (m)
-        #
-        #     # possibles moves = [left,right,up,down)
-        #     #                   [x-1, x+1, y-1, y+1]
-        #     for i in range(len(possibleMoves)):
-        #         #print(i)
-        #         if possibleMoves[i] != False:
-        #             if i == 0 and self.getTile(x-1, y).getPossibleMove != True:
-        #                 x -= 1
-        #                 possibleMoves = self.lookAround(x, y)
-        #                 self.selectTiles(possibleMoves, x, y)
-        #             if i == 1 and self.getTile(x+1, y).getPossibleMove != True:
-        #                 x += 1
-        #                 possibleMoves = self.lookAround(x, y)
-        #                 self.selectTiles(possibleMoves, x, y)
-        #
-        #             if i == 2 and self.getTile(x, y-1).getPossibleMove != True:
-        #                 y -= 1
-        #                 possibleMoves = self.lookAround(x, y)
-        #                 self.selectTiles(possibleMoves, x, y)
-        #
-        #             if i == 3 and self.getTile(x, y+1).getPossibleMove != True:
-        #                 y += 1
-        #                 possibleMoves = self.lookAround(x, y)
-        #                 self.selectTiles(possibleMoves, x, y)
-
-
-            #possibleMoves = self.lookAround(x, y)
-            #self.selectTiles(possibleMoves, x, y)
 
 
         print(possibleMoves)
@@ -389,15 +359,17 @@ class board():
                 self.Players[i] = player
     def movePlayerTile(self,x,y):
 
-        if board[x, y].getPossibleMove():
+        if board[x, y].getPossibleMove() == True:
             currentPlayer = self.getCurrentPlayer()
             j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
             tile = self.getTile(j, k)
             tile.setSelected(False)
             tile.setPossibleMove(False)
             tile.setPlayer(0)
+
             tile = self.getTile(x, y)
             tile.setPlayer(self.playersTurn)
+            self.setTile(tile, x, y)
             currentPlayer.setMoves(currentPlayer.getMoves() - 1)
             self.setPlayer(currentPlayer)
             self.movePlayer(currentPlayer.getMoves())
@@ -452,7 +424,7 @@ class board():
                     try:
                         self.board[int(row), int(column)].setSelected(
                             not self.board[int(row), int(column)].getSelected())
-                        self.movePlayerTile(row, column)
+                        self.movePlayerTile(int(row), int(column))
                     except:
                         pass
 

@@ -48,5 +48,6 @@ class tile():
     def setPlayer(self,i):
         self.player = i
 
+
     
 #sorry tom i moved it, it did not belong here ;)
