@@ -8,18 +8,16 @@ import Player
 # from newDice import Dice
 # from notepad import notepad
 
+
 class board():
-    PLAYER1 = True
-    PLAYER2 = True
-    PLAYER3 = True
-    PLAYER4 = True
-    PLAYER5 = True
-    PLAYER6 = True
+
     player = Player.Player
     Players = []
     deck = Deck.Deck()
-
-    def __init__(self, Players):
+    
+    #passing through players array as well as customisation setting (1 or 2)
+    def __init__(self, Players, customNo):
+        self.customNo = customNo
         self.PLAYER1 = Players[0]
         self.PLAYER2 = Players[1]
         self.PLAYER3 = Players[2]
@@ -83,10 +81,17 @@ class board():
     tileImgP6 = pygame.image.load("../Image/tile_player6.png")
     tileImgP6 = pygame.transform.scale(tileImgP6, (int(WIDTH), int(HEIGHT)))
 
-    # loading images for background and title
+    # loading images for background
     background = pygame.image.load("../Image/background.png")
     backgroundx, backgroundy = background.get_size()
     background = pygame.transform.scale(background, (int(backgroundx * .933), int(backgroundy * .933)))
+
+    # loading images for alt background
+    background_alt = pygame.image.load("../Image/background_alternative.png")
+    background_altx, background_alty = background_alt.get_size()
+    background_alt = pygame.transform.scale(background_alt, (int(background_altx * .933), int(background_alty * .933)))
+
+    #loading image for logo
     title = pygame.image.load("../Image/cluedo-logo.png")
     title = pygame.transform.scale(title, ((int(563 * .45)), (int(200 * .45))))
 
@@ -302,7 +307,7 @@ class board():
 
         if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6):
             print("next turn")  # 222 x 81.6
-            isTurnComplete = True
+            isTurnComplete = True   
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
             print("guess")  # 222 x 81.6
@@ -351,9 +356,8 @@ class board():
         #   guess
         # been reworking other code to fit
         turnCounter = 0
-
-
         return None
+    
     def getCurrentPlayer(self):
         return self.Players[self.playersTurn]
 
@@ -563,57 +567,31 @@ class board():
 
             """
 
-        grid = [
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har",
-             "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "brr"],
-            ["blk", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe",
-             "wwe", "wwe", "brr", "kid", "kid", "kid", "kid", "kid", "kid"],
-            ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe",
-             "brr", "brr", "brr", "kid", "kid", "kid", "kid", "kid", "kid"]]
+        grid = [["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
+                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
+                ["blk", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
+                ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe", "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
         for p in self.Players:
 
             if p.getName != False and p.getPlayerID() == 1:
@@ -678,31 +656,31 @@ class board():
 
                 # doors
                 if grid[row][column] == "std":
-                    board[row, column] = tile(room="study", door=True, isTile=True)
+                    board[row, column] = tile(room="study", door=True, isTile=False)
 
                 if grid[row][column] == "had":
-                    board[row, column] = tile(room="hall", door=True, isTile=True)
+                    board[row, column] = tile(room="hall", door=True, isTile=False)
 
                 if grid[row][column] == "lod":
-                    board[row, column] = tile(room="lounge", door=True, isTile=True)
+                    board[row, column] = tile(room="lounge", door=True, isTile=False)
 
                 if grid[row][column] == "drd":
-                    board[row, column] = tile(room="dinning room", door=True, isTile=True)
+                    board[row, column] = tile(room="dinning room", door=True, isTile=False)
 
                 if grid[row][column] == "kid":
-                    board[row, column] = tile(room="kitchen", door=True, isTile=True)
+                    board[row, column] = tile(room="kitchen", door=True, isTile=False)
 
                 if grid[row][column] == "brd":
-                    board[row, column] = tile(room="ball room", door=True, isTile=True)
+                    board[row, column] = tile(room="ball room", door=True, isTile=False)
 
                 if grid[row][column] == "cvd":
-                    board[row, column] = tile(room="conservator", door=True, isTile=True)
+                    board[row, column] = tile(room="conservator", door=True, isTile=False)
 
                 if grid[row][column] == "bid":
-                    board[row, column] = tile(room="billiards room", door=True, isTile=True)
+                    board[row, column] = tile(room="billiards room", door=True, isTile=False)
 
                 if grid[row][column] == "lid":
-                    board[row, column] = tile(room="library", door=True, isTile=True)
+                    board[row, column] = tile(room="library", door=True, isTile=False)
 
                 # walkways
                 if grid[row][column] == "wwe":
@@ -732,5 +710,5 @@ class board():
 
         return board
     
-playerList = ["shakir",False,"abby","tom","alex", False]
-b = board(playerList).main()
+playerList = ["shakir",False,"abby","tom","alex", False,]
+b = board(playerList, 2).main()
