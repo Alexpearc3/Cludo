@@ -3,44 +3,36 @@ import numpy as np
 from random import randrange
 import Deck
 from tile import tile
-from dice import Dice
 import Player
+
 
 # from newDice import Dice
 # from notepad import notepad
 
+
 class board():
-    PLAYER1 = True
-    PLAYER2 = True
-    PLAYER3 = True
-    PLAYER4 = True
-    PLAYER5 = True
-    PLAYER6 = True
     player = Player.Player
     Players = []
     deck = Deck.Deck()
-    board = np.empty((25, 24), dtype=object)
-    
-    def __init__(self, Players):
+
+    # passing through players array as well as customisation setting (1 or 2)
+    def __init__(self, Players, customNo):
+        self.customNo = customNo
         self.PLAYER1 = Players[0]
         self.PLAYER2 = Players[1]
         self.PLAYER3 = Players[2]
         self.PLAYER4 = Players[3]
         self.PLAYER5 = Players[4]
         self.PLAYER6 = Players[5]
-        self.done = False
+        self.playersTurn = 0
+        self.board = np.empty((25, 24), dtype=object)
+        playerTList = Players
         count = 0
         for player in Players:
-            self.Players.append(self.player(player, count+1))
+            self.Players.append(self.player(player, count + 1))
             count += 1
-        self.deck.init()
-        self.deck.initEnvelope()
-        self.deck.shuffle()
-        while self.deck.isCard():
-            for p in self.Players:
-                if self.deck.isCard():
-                    p.setCard(self.deck.drawCard())
-        self.board = self.initiateBoard()
+        # for p in self.Players:
+        #     print(p.getPlayerID()) works
 
     BOARDWIDTH = 25
     BOARDHEIGHT = 24
@@ -88,10 +80,17 @@ class board():
     tileImgP6 = pygame.image.load("../Image/tile_player6.png")
     tileImgP6 = pygame.transform.scale(tileImgP6, (int(WIDTH), int(HEIGHT)))
 
-    # loading images for background and title
+    # loading images for background
     background = pygame.image.load("../Image/background.png")
     backgroundx, backgroundy = background.get_size()
     background = pygame.transform.scale(background, (int(backgroundx * .933), int(backgroundy * .933)))
+
+    # loading images for alt background
+    background_alt = pygame.image.load("../Image/background_alternative.png")
+    background_altx, background_alty = background_alt.get_size()
+    background_alt = pygame.transform.scale(background_alt, (int(background_altx * .933), int(background_alty * .933)))
+
+    # loading image for logo
     title = pygame.image.load("../Image/cluedo-logo.png")
     title = pygame.transform.scale(title, ((int(563 * .45)), (int(200 * .45))))
 
@@ -132,12 +131,12 @@ class board():
     buttonNextTurnSelected = pygame.image.load("../Image/button_next_turn_selected.png")
     buttonNextTurnSelectedx, buttonNextTurnSelectedy = buttonNextTurnSelected.get_size()
     buttonNextTurnSelected = pygame.transform.scale(buttonNextTurnSelected, (
-    int(buttonNextTurnSelectedx * .4), int(buttonNextTurnSelectedy * .4)))
+        int(buttonNextTurnSelectedx * .4), int(buttonNextTurnSelectedy * .4)))
 
     buttonRollDiceSelected = pygame.image.load("../Image/button_roll_dice_selected.png")
     buttonRollDiceSelectedx, buttonRollDiceSelectedy = buttonRollDiceSelected.get_size()
     buttonRollDiceSelected = pygame.transform.scale(buttonRollDiceSelected, (
-    int(buttonRollDiceSelectedx * .4), int(buttonRollDiceSelectedy * .4)))
+        int(buttonRollDiceSelectedx * .4), int(buttonRollDiceSelectedy * .4)))
 
     buttonMenuSelected = pygame.image.load("../Image/button_menu_selected.png")
     buttonMenuSelectedx, buttonMenuSelectedy = buttonMenuSelected.get_size()
@@ -183,8 +182,6 @@ class board():
     imgPlayer6 = pygame.image.load("../Image/player_6.png")
     imgPlayer6x, imgPlayer6y = imgPlayer6.get_size()
     imgPlayer6 = pygame.transform.scale(imgPlayer6, (int(imgPlayer6x * .3), int(imgPlayer6y * .3)))
-
-
 
     def grid(self, x, y):
         self.screen.blit(self.tileImg, (x, y))
@@ -236,15 +233,72 @@ class board():
                     self.screen.blit(self.tileImg,
                                      (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-    def isButtonClicked(self, x, y):
+    def movePlayer(self, moves):
+        player = self.getCurrentPlayer()
+        player.setMoves(moves)
+        x, y = player.getLocation()
+        possibleMoves = self.lookAround(x, y)
+        self.selectTiles(possibleMoves, x, y)
+        self.setPlayer(player)
+
+        print(possibleMoves)
+
+    def selectTiles(self, possibleMoves, x, y):
+        print(possibleMoves)
+        for i in range(len(possibleMoves)):
+            if possibleMoves[i] != False:
+                if i <= 1:  # check if possible move is in x direction
+                    tile = self.getTile(possibleMoves[i], y)
+                    tile.setPossibleMove(True)
+                    tile.setSelected(True)
+                    self.setTile(tile, possibleMoves[i], y)
+                else:  # possible move is in y direction
+                    print(i)
+                    tile = self.getTile(x, possibleMoves[i])
+                    tile.setPossibleMove(True)
+                    tile.setSelected(True)
+                    self.setTile(tile, x, possibleMoves[i])
+
+    def lookAround(self, x, y):
+        possibleMoves = [x - 1, x + 1, y - 1, y + 1]
+        print(x, " ", y)
+        if possibleMoves[0] < 0 or not self.getTile(possibleMoves[0], y).getIsTile():  # cant go left
+            print("cant go left")
+            possibleMoves[0] = False
+
+        if possibleMoves[1] > self.BOARDWIDTH or not self.getTile(possibleMoves[1], y).getIsTile():  # cant go right
+            print("cant go right")
+            possibleMoves[1] = False
+
+        if possibleMoves[2] < 0 or not self.getTile(x, possibleMoves[2]).getIsTile():  # cant go up
+            print("cant go up")
+            possibleMoves[2] = False
+
+        if possibleMoves[3] > self.BOARDHEIGHT or not self.getTile(x, possibleMoves[3]).getIsTile():  # cant go down
+            print("cant go down")
+            print(x, " ", possibleMoves[3], self.getTile(x, possibleMoves[3]).getIsTile())
+            possibleMoves[3] = False
+
+        return possibleMoves
+
+    def getTile(self, x, y):
+        return self.board[y, x]
+
+    def setTile(self, tile, x, y):
+        self.board[y, x] = tile
+
+    def isButtonClicked(self, x, y, player):
+        isTurnComplete = False
         if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6):
             # roll dice class function goes here!
             print("roll dice")  # 222 x 81.6
             number = randrange(12) + 1
-            Dice(number, self.screen).rolldice()
+            moves = 12  # Dice(number, self.screen).rolldice()
+            self.movePlayer(moves)
 
         if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6):
             print("next turn")  # 222 x 81.6
+            isTurnComplete = True
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
             print("guess")  # 222 x 81.6
@@ -257,11 +311,12 @@ class board():
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
             print("menu")
-            self.done = True
+            done = True
 
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             # notepad.notepad()
             print("Notepad")
+        return isTurnComplete
 
     def isButtonSelected(self, x, y):
         if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6):
@@ -285,38 +340,99 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             self.screen.blit(self.buttonNotepadSelected, (860, 812))
 
-    def gameLogic(self):
+    def gameLogic(self, turn):
         # Alex Code Here
         # if player().getIsTurn and buttonGuess()
         #   guess
         # been reworking other code to fit
+        turnCounter = 0
+        return None
 
-        pass
+    def getCurrentPlayer(self):
+        return self.Players[self.playersTurn]
+
+    def setPlayer(self, player):
+        for i in range(len(self.Players)):
+            if self.Players[i].getPlayerID() == player.getPlayerID():
+                self.Players[i] = player
+
+    def movePlayerTile(self, x, y):
+        print(self.getTile(x, y).getPossibleMove())
+        print(x, "here ", y)
+        if self.getTile(x, y).getPossibleMove() == True:
+            print("cunt")
+            currentPlayer = self.getCurrentPlayer()
+            j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
+            tile = self.getTile(j, k)
+            tile.setSelected(False)
+            tile.setPossibleMove(False)
+            tile.setPlayer(0)
+            self.setTile(tile, j, k)
+
+            print("fuk")
+            tile = self.getTile(x, y)
+            tile.setPlayer(self.playersTurn + 1)
+            tile.setSelected(False)
+            tile.setPossibleMove(False)
+            print(self.getTile(x, y).getPlayer())
+            self.setTile(tile, x, y)
+            currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+
+            self.setPlayer(currentPlayer.getPlayerId())
+            print(currentPlayer.getPlayerId())
+            self.movePlayer(currentPlayer.getMoves())
 
     def main(self):
         done = False
         clock = pygame.time.Clock()
         pygame.display.set_icon(self.imgPlayer1)
+        playerIds = []
+        for p in self.Players:
+            if p.getName() != False:
+                playerIds.append(p.getPlayerID())
+        for p in playerIds:
+            print(p)
+        self.deck.init()
+        self.deck.initEnvelope()
+        self.deck.shuffle()
+        while self.deck.isCard():
+            for p in self.Players:
+                if p.getName() != False:  # or can use if p.getPlayerID() in playerIds:
+                    if self.deck.isCard():
+                        p.setCard(self.deck.drawCard())
+        for p in self.Players:
+            for card in p.cards:
+                print(p.name, "has: ", card.card_name)
+
+        self.board = self.initiateBoard()
+
+        turnComplete = False
+        turnCount = 0
+        player = 0
+        maxPlayer = len(playerIds) - 1
 
         # game loop
-        while not self.done:
+        while not done:
+            playerObj = self.getCurrentPlayer()
+            if playerObj.getName() == False:
+                turnComplete = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:  # If user clicked close
-                    this.done = True  # Flag that we are done so we exit this loop
+                    done = True  # Flag that we are done so we exit this loop
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # User clicks the mouse. Get the position
                     pos = pygame.mouse.get_pos()
                     # Change the x/y screen coordinates to grid coordinates
-                    column = (pos[0] - self.GRIDBUFFX) // self.WIDTH
-                    row = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
-
-                    self.isButtonClicked(pos[0], pos[1])
+                    row = (pos[0] - self.GRIDBUFFX) // self.WIDTH
+                    column = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
+                    turnComplete = self.isButtonClicked(pos[0], pos[1], playerObj)
 
                     # Changes tile to selected / unselected
                     try:
-                        self.board[int(row), int(column)].setSelected(
-                            not self.board[int(row), int(column)].getSelected())
+                        self.movePlayerTile(int(row), int(column))
+                        self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
+                        
                     except:
                         pass
 
@@ -370,17 +486,19 @@ class board():
             # Draw the grid
             self.drawGrid(self.board)
 
-            self.gameLogic()
+            self.gameLogic(turnCount)
 
             clock.tick(60)  # set to 30 to half cycle speeds / reduce processing requirements
             pygame.display.flip()
 
-        #pygame.quit()
+            if turnComplete:
+                turnCount += 1
+                if self.playersTurn == maxPlayer:
+                    self.playersTurn = 0
+                else:
+                    self.playersTurn += 1
 
-
-
-
-
+        # pygame.quit()
 
     # can we use initiate board to move the positions of a player when a new tile is selected to move to?
     def initiateBoard(self):
@@ -393,7 +511,6 @@ class board():
 
         """
             there are 27 possible tile states.
-
             str = study (room)
             har = hall (room)
             lor = lounge (room)
@@ -403,7 +520,6 @@ class board():
             cvr = conservatory (room)
             bir = billiards room (room)
             lir = library (room)
-
             std = study (door)
             had = hall (door)
             lod = lounge (door)
@@ -413,20 +529,16 @@ class board():
             cvd = conservatory (door)
             bid = billiards room (door)
             lid = library (door)
-
             wwe = walkway empty
             wwh = walkway hover
             wws = walkway select
-
             blk = blank
-
             ww1 = walkway player 1
             ww2 = walkway player 2
             ww3 = walkway player 3
             ww4 = walkway player 4
             ww5 = walkway player 5
             ww6 = walkway player 6
-
             """
 
         grid = [
@@ -467,38 +579,44 @@ class board():
             ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
              "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
             ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "brr"],
+             "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
             ["blk", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
             ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
             ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
             ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kid", "kid", "kid", "kid", "kid", "kid"],
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
             ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe",
-             "wwe", "wwe", "brr", "kid", "kid", "kid", "kid", "kid", "kid"],
+             "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
             ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe",
-             "brr", "brr", "brr", "kid", "kid", "kid", "kid", "kid", "kid"]]
+             "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
         for p in self.Players:
 
             if p.getName != False and p.getPlayerID() == 1:
                 grid[0][16] = "ww1"
+                p.setLocation(16, 0)
 
             if p.getName != False and p.getPlayerID() == 2:
                 grid[7][23] = "ww2"
+                p.setLocation(23, 7)
 
             if p.getName != False and p.getPlayerID() == 3:
                 grid[24][14] = "ww3"
+                p.setLocation(14, 24)
 
             if p.getName != False and p.getPlayerID() == 4:
                 grid[24][9] = "ww4"
+                p.setLocation(9, 24)
 
             if p.getName != False and p.getPlayerID() == 5:
                 grid[5][0] = "ww5"
+                p.setLocation(0, 5)
 
             if p.getName != False and p.getPlayerID() == 6:
                 grid[18][0] = "ww6"
+                p.setLocation(0, 18)
 
         rows, columns = 25, 24
 
@@ -537,31 +655,31 @@ class board():
 
                 # doors
                 if grid[row][column] == "std":
-                    board[row, column] = tile(room="study", door=True)
+                    board[row, column] = tile(room="study", door=True, isTile=False)
 
                 if grid[row][column] == "had":
-                    board[row, column] = tile(room="hall", door=True)
+                    board[row, column] = tile(room="hall", door=True, isTile=False)
 
                 if grid[row][column] == "lod":
-                    board[row, column] = tile(room="lounge", door=True)
+                    board[row, column] = tile(room="lounge", door=True, isTile=False)
 
                 if grid[row][column] == "drd":
-                    board[row, column] = tile(room="dinning room", door=True)
+                    board[row, column] = tile(room="dinning room", door=True, isTile=False)
 
                 if grid[row][column] == "kid":
-                    board[row, column] = tile(room="kitchen", door=True)
+                    board[row, column] = tile(room="kitchen", door=True, isTile=False)
 
                 if grid[row][column] == "brd":
-                    board[row, column] = tile(room="ball room", door=True)
+                    board[row, column] = tile(room="ball room", door=True, isTile=False)
 
                 if grid[row][column] == "cvd":
-                    board[row, column] = tile(room="conservator", door=True)
+                    board[row, column] = tile(room="conservator", door=True, isTile=False)
 
                 if grid[row][column] == "bid":
-                    board[row, column] = tile(room="billiards room", door=True)
+                    board[row, column] = tile(room="billiards room", door=True, isTile=False)
 
                 if grid[row][column] == "lid":
-                    board[row, column] = tile(room="library", door=True)
+                    board[row, column] = tile(room="library", door=True, isTile=False)
 
                 # walkways
                 if grid[row][column] == "wwe":
@@ -590,6 +708,7 @@ class board():
                     board[row, column] = tile(blank=True)
 
         return board
-    
-#playerList = ["shakir",False,"abby","tom","alex", False]
-#b = board(playerList).main()
+
+
+playerList = ["shakir", False, "abby", "tom", "alex", False, ]
+b = board(playerList, 2).main()
