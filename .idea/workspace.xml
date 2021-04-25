@@ -10,7 +10,6 @@
     <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="update Board.py">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/tile.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/tile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -359,7 +358,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619312468937</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="update Board.py">
+      <created>1619315018620</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1619315018620</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">

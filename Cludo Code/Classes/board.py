@@ -258,13 +258,13 @@ class board():
                     tile = self.getTile(possibleMoves[i], y)
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
-                    self.setTile(tile, y, possibleMoves[i])
+                    self.setTile(tile, possibleMoves[i], y )
                 else:
                     print(i)
                     tile = self.getTile(x, possibleMoves[i])
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
-                    self.setTile(tile,possibleMoves[i], x )
+                    self.setTile(tile, x, possibleMoves[i] )
 
 
 
