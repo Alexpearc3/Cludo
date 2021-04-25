@@ -24,6 +24,7 @@ class board():
         self.PLAYER4 = Players[3]
         self.PLAYER5 = Players[4]
         self.PLAYER6 = Players[5]
+        self.possibleMoves = []
         self.playersTurn = 0
         self.board = np.empty((25, 24), dtype=object)
         playerTList = Players
@@ -233,9 +234,8 @@ class board():
                     self.screen.blit(self.tileImg,
                                      (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-    def movePlayer(self, moves):
+    def movePlayer(self):
         player = self.getCurrentPlayer()
-        player.setMoves(moves)
         x, y = player.getLocation()
         possibleMoves = self.lookAround(x, y)
         self.selectTiles(possibleMoves, x, y)
@@ -261,24 +261,19 @@ class board():
 
     def lookAround(self, x, y):
         possibleMoves = [x - 1, x + 1, y - 1, y + 1]
-        print(x, " ", y)
+
         if possibleMoves[0] < 0 or not self.getTile(possibleMoves[0], y).getIsTile():  # cant go left
-            print("cant go left")
             possibleMoves[0] = False
 
         if possibleMoves[1] > self.BOARDWIDTH or not self.getTile(possibleMoves[1], y).getIsTile():  # cant go right
-            print("cant go right")
             possibleMoves[1] = False
 
         if possibleMoves[2] < 0 or not self.getTile(x, possibleMoves[2]).getIsTile():  # cant go up
-            print("cant go up")
             possibleMoves[2] = False
 
         if possibleMoves[3] > self.BOARDHEIGHT or not self.getTile(x, possibleMoves[3]).getIsTile():  # cant go down
-            print("cant go down")
-            print(x, " ", possibleMoves[3], self.getTile(x, possibleMoves[3]).getIsTile())
             possibleMoves[3] = False
-
+        self.possibleMoves = possibleMoves
         return possibleMoves
 
     def getTile(self, x, y):
@@ -287,17 +282,34 @@ class board():
     def setTile(self, tile, x, y):
         self.board[y, x] = tile
 
-    def isButtonClicked(self, x, y, player):
+    def isButtonClicked(self, x, y):
         isTurnComplete = False
         if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6):
             # roll dice class function goes here!
-            print("roll dice")  # 222 x 81.6
-            number = randrange(12) + 1
-            moves = 12  # Dice(number, self.screen).rolldice()
-            self.movePlayer(moves)
+            currentPlayer = self.getCurrentPlayer()
+            if not currentPlayer.getRolled():
+                print("roll dice")  # 222 x 81.6
+                number = randrange(12) + 1
+
+                moves = 12  # Dice(number, self.screen).rolldice()
+
+                print("current Player ", currentPlayer.getPlayerID())
+                currentPlayer.setMoves(moves)
+                self.setPlayer(currentPlayer)
+                self.movePlayer()
+                currentPlayer = self.getCurrentPlayer()
+                currentPlayer.setRolled(True)
+                self.setPlayer(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6):
             print("next turn")  # 222 x 81.6
+            player = self.getCurrentPlayer()
+            x, y = player.getLocation()
+            self.possibleMoves = self.lookAround(x, y)
+            self.unsetPossibleMoves(x,y)
+            currentPlayer = self.getCurrentPlayer()
+            currentPlayer.setRolled(False)
+            self.setPlayer(currentPlayer)
             isTurnComplete = True
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
@@ -354,20 +366,37 @@ class board():
     def setPlayer(self, player):
         for i in range(len(self.Players)):
             if self.Players[i].getPlayerID() == player.getPlayerID():
+                print("success")
                 self.Players[i] = player
 
+
+    def unsetPossibleMoves(self,x, y):
+        possibleMoves = self.possibleMoves
+        for i in range(len(possibleMoves)):
+            if possibleMoves[i] != False:
+                if i <= 1:  # check if possible move is in x direction
+                    tile = self.getTile(possibleMoves[i], y)
+                    tile.setPossibleMove(False)
+                    tile.setSelected(False)
+                    self.setTile(tile, possibleMoves[i], y)
+                else:  # possible move is in y direction
+                    print(i)
+                    tile = self.getTile(x, possibleMoves[i])
+                    tile.setPossibleMove(False)
+                    tile.setSelected(False)
+                    self.setTile(tile, x, possibleMoves[i])
+
     def movePlayerTile(self, x, y):
-        print(self.getTile(x, y).getPossibleMove())
-        print(x, "here ", y)
-        if self.getTile(x, y).getPossibleMove() == True:
+        currentPlayer = self.getCurrentPlayer()
+        if self.getTile(x, y).getPossibleMove() == True and self.getTile(x, y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
             print("cunt")
-            currentPlayer = self.getCurrentPlayer()
             j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
             tile = self.getTile(j, k)
             tile.setSelected(False)
             tile.setPossibleMove(False)
             tile.setPlayer(0)
             self.setTile(tile, j, k)
+            self.unsetPossibleMoves(j, k)
 
             print("fuk")
             tile = self.getTile(x, y)
@@ -377,10 +406,18 @@ class board():
             print(self.getTile(x, y).getPlayer())
             self.setTile(tile, x, y)
             currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+            currentPlayer.setLocation(x, y)
+            print("here")
+            self.setPlayer(currentPlayer)
+            print("return")
+            print("pid", currentPlayer.getPlayerID())
+            self.movePlayer()
+        if currentPlayer.getMoves() == 0:
+            player = self.getCurrentPlayer()
+            x, y = player.getLocation()
+            self.possibleMoves = self.lookAround(x, y)
+            self.unsetPossibleMoves(x,y)
 
-            self.setPlayer(currentPlayer.getPlayerId())
-            print(currentPlayer.getPlayerId())
-            self.movePlayer(currentPlayer.getMoves())
 
     def main(self):
         done = False
@@ -426,11 +463,16 @@ class board():
                     # Change the x/y screen coordinates to grid coordinates
                     row = (pos[0] - self.GRIDBUFFX) // self.WIDTH
                     column = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
-                    turnComplete = self.isButtonClicked(pos[0], pos[1], playerObj)
+                    turnComplete = self.isButtonClicked(pos[0], pos[1])
+                    currentPlayer = self.getCurrentPlayer()
 
+                    if currentPlayer.getMoves() == 0:
+                        x, y = currentPlayer.getLocation()
+                        self.unsetPossibleMoves(x, y)
                     # Changes tile to selected / unselected
                     try:
                         self.movePlayerTile(int(row), int(column))
+
                         self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
                         
                     except:
@@ -487,16 +529,23 @@ class board():
             self.drawGrid(self.board)
 
             self.gameLogic(turnCount)
-
+            # currentPlayer = self.getCurrentPlayer()
+            # if currentPlayer.getMoves() == 0:
+            #     player = self.getCurrentPlayer()
+            #     x, y = player.getLocation()
+            #     self.possibleMoves = self.lookAround(x, y)
             clock.tick(60)  # set to 30 to half cycle speeds / reduce processing requirements
             pygame.display.flip()
 
             if turnComplete:
                 turnCount += 1
-                if self.playersTurn == maxPlayer:
+                if self.playersTurn > maxPlayer:
                     self.playersTurn = 0
                 else:
                     self.playersTurn += 1
+
+                print("current Player ", turnCount)
+                turnComplete = False
 
         # pygame.quit()
 
@@ -594,27 +643,27 @@ class board():
              "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
         for p in self.Players:
 
-            if p.getName != False and p.getPlayerID() == 1:
+            if p.getName() != False and p.getPlayerID() == 1:
                 grid[0][16] = "ww1"
                 p.setLocation(16, 0)
 
-            if p.getName != False and p.getPlayerID() == 2:
+            if p.getName() != False and p.getPlayerID() == 2:
                 grid[7][23] = "ww2"
                 p.setLocation(23, 7)
 
-            if p.getName != False and p.getPlayerID() == 3:
+            if p.getName() != False and p.getPlayerID() == 3:
                 grid[24][14] = "ww3"
                 p.setLocation(14, 24)
 
-            if p.getName != False and p.getPlayerID() == 4:
+            if p.getName() != False and p.getPlayerID() == 4:
                 grid[24][9] = "ww4"
                 p.setLocation(9, 24)
 
-            if p.getName != False and p.getPlayerID() == 5:
+            if p.getName() != False and p.getPlayerID() == 5:
                 grid[5][0] = "ww5"
                 p.setLocation(0, 5)
 
-            if p.getName != False and p.getPlayerID() == 6:
+            if p.getName() != False and p.getPlayerID() == 6:
                 grid[18][0] = "ww6"
                 p.setLocation(0, 18)
 

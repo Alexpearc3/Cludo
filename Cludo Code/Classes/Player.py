@@ -9,7 +9,8 @@ class Player:
         self.pId = player_ID
         self.accusations = 1
         self.hasWon = False
-        self.moves = 0
+        self.moves = -1
+        self.hasRolled = False
 
 
     def setCard(self, card):
@@ -46,3 +47,9 @@ class Player:
 
     def getMoves(self):
         return self.moves
+
+    def setRolled(self, rolled):
+        self.hasRolled = rolled
+
+    def getRolled(self):
+        return self.hasRolled
