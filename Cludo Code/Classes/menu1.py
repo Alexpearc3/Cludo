@@ -245,30 +245,34 @@ class CustoMenu(Menu1):
         elif self.menu_run.START_KEY:
             if self.state == 'one':
                 self.playerNum = 1
-                self.playerArr =['']
+                self.playerArr = ['', False, False, False, False, False]
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'two':
                 self.playerNum = 2
+                self.playerArr = ['', '', False, False, False, False]
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'three':
                 self.playerNum = 3
+                self.playerArr = ['', '', '', False, False, False]
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'four':
                 self.playerNum = 4
+                self.playerArr = ['', '', '', '', False, False]
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'five':
                 self.playerNum = 5
+                self.playerArr = ['', '', '', '', '', False]
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'six':
                 self.playerNum = 6
+                self.playerArr = ['', '', '', '', '', '']
                 self.state = 'A'
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
-
             elif self.state == 'A':
                 self.boardType = 1
             elif self.state == 'B':
