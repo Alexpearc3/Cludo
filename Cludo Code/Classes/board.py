@@ -431,9 +431,8 @@ class board():
                     # Changes tile to selected / unselected
                     try:
                         self.movePlayerTile(int(row), int(column))
-                        self.board[int(row), int(column)].setSelected(
-                            not self.board[int(row), int(column)].getSelected())
-
+                        self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
+                        
                     except:
                         pass
 
