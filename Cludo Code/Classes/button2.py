@@ -1,23 +1,17 @@
 import pygame as pg
-import Deck
-import suspect_cards
-import room_cards
-import weapon_cards
-import Player as player
-import dropdown
 
 
 class Button:
-        def __init__(self, color, x, y, width, height, text=''):
+        def __init__(self, color, x, y, width, height, text='', pressed = False):
             self.color = color
             self.x = x
             self.y = y
             self.width = width
             self.height = height
             self.text = text
+            self.pressed = pressed
 
         def draw(self, screen, outline=None):
-        # Call this method to draw the button on the screen
             if outline:
                 pg.draw.rect(screen, outline, (self.x - 2, self.y - 2, self.width + 4, self.height + 4), 0)
 
@@ -36,6 +30,8 @@ class Button:
                     self.color = (250, 10, 0)
                     self.text = "Confirmed"
                     self.draw(screen, outline=None)
+                    self.pressed = True
                     return True
 
-            return False
+        # def button_pressed(self):
+        #     return self.pressed

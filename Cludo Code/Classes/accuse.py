@@ -30,26 +30,34 @@ class Accuse:
     COLOR_ACTIVE_CONFIRM = (0, 200, 0)
     COLOR_INACTIVE_CONFIRM = (100, 80, 255)
 
-    def check_envolope(self):
+    def check_envolope(button1, list1, list2, list3):
         check = False
         player.Player.accuse(player)
-        if (Deck.getEnvelope(Deck) == self.list1.active_option, self.list2.active_option, self.list3.active_option):
-            player.Player.setWin(player)
-            check = True
-        else:
-            check = True
-            pass #go back to game next players turn
+        if button1.pressed == True:
+            if (Deck.getEnvelope(Deck) == list1.active_option, list2.active_option, list3.active_option):
+                player.Player.setWin(player)
+                check = True
+            else:
+                check = True
+                pass #go back to game next players turn
         return check
 
-    def set_chosen_cards(self):
-        room = None
-        weapon = None
-        suspect = None
-        if button2.Button.event() == True:
-            room = self.list1.active_option
-            weapon = self.list2.active_option
-            suspect = self.list3.active_option
-        return room, weapon, suspect
+    # def set_chosen_cards(self):
+    #     room = None
+    #     weapon = None
+    #     suspect = None
+    #     if self.button1.event() == True:
+    #         room = self.list1.active_option
+    #         weapon = self.list2.active_option
+    #         suspect = self.list3.active_option
+    #     return room, weapon, suspect
+    #
+
+    # def check_if_pressed(self):
+    #     if self.button1.pressed == True:
+    #         self.check_envolope(self)
+    #     else:
+    #         return False
 
     list1 = dropdown.DropDown(
         [COLOR_INACTIVE, COLOR_ACTIVE],
@@ -109,6 +117,10 @@ class Accuse:
         list3.draw(screen)
         button1.draw(screen)
         button1.event(screen, event)
+
+        if button1.event(screen, event) == True:
+            check_envolope(button1, list1, list2, list3)
+
         pg.display.flip()
 
     pg.quit()
