@@ -368,7 +368,7 @@ class board():
 
     def movePlayerTile(self,x,y):
         print(self.getTile(x, y).getPossibleMove())
-        print(x," ", y)
+        print(x,"here ", y)
         if self.getTile(x, y).getPossibleMove() == True:
             print("cunt")
             currentPlayer = self.getCurrentPlayer()
@@ -434,8 +434,8 @@ class board():
                     # User clicks the mouse. Get the position
                     pos = pygame.mouse.get_pos()
                     # Change the x/y screen coordinates to grid coordinates
-                    column = (pos[0] - self.GRIDBUFFX) // self.WIDTH
-                    row = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
+                    row = (pos[0] - self.GRIDBUFFX) // self.WIDTH
+                    column = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
                     turnComplete = self.isButtonClicked(pos[0], pos[1], playerObj)
 
                     # Changes tile to selected / unselected
