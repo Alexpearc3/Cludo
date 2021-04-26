@@ -62,39 +62,6 @@ def notepad():
         else:
             u = screen.blit(card_name_font.render(item, True, gray), (85, spacing))
         spacing += 29
-
-    # # text to speech
-    # while True:
-    #     pygame.display.update()
-    #     robot_ear = speech_recognition.Recognizer()
-    #     robot_mouth = pyttsx3.init()
-    #     robot_brain = ''
-    #
-    #     robot_mouth.say("You can click on the card names to take note")
-    #     if pygame.init():
-    #         robot_mouth.runAndWait()
-    #         break
-    #
-    #
-    #     with speech_recognition.Microphone() as mic:
-    #         audio = robot_ear.listen(mic)
-    #     try:
-    #         you = robot_ear.recognize_google(audio)
-    #     except:
-    #         you == ""
-    #     print(you)
-    #
-    #     if you == "Hello":
-    #         robot_brain == "Hi"
-    #     elif you == "What's your name?":
-    #         robot_brain == "My name is Cluedo"
-    #     else:
-    #         robot_brain == "I don't understand what you say"
-    #     print(robot_brain)
-    #     robot_mouth.say(robot_brain)
-    #     robot_mouth.runAndWait()
-
-    # button
     while True:
         for ev in pygame.event.get():
             if ev.type == pygame.QUIT:
@@ -113,10 +80,3 @@ def notepad():
 
 def innit():
     notepad()
-
-
-class Notepad:
-    notepad()
-
-n = Notepad.notpad
-n.runNotepad()
