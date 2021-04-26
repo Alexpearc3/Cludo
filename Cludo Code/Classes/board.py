@@ -279,10 +279,14 @@ class board():
         if possibleMoves[2] < 0 or not self.getTile(x, possibleMoves[2]).getIsTile():  # cant go up
             if not self.getTile(x, possibleMoves[2]).getDoor():
                 possibleMoves[2] = False
-
-        if possibleMoves[3] > 24 or not self.getTile(x, possibleMoves[3]).getIsTile():  # cant go down
-            if not self.getTile(x, possibleMoves[3]).getDoor():
-                possibleMoves[3] = False
+        test = True
+        if possibleMoves[3] > 24:  # cant go down
+            possibleMoves[3] = False
+        test = False
+        if test:
+            if not self.getTile(possibleMoves[3], y).getIsTile():
+                if not self.getTile(possibleMoves[3], y).getDoor():
+                    possibleMoves[3] = False
         self.possibleMoves = possibleMoves
         return possibleMoves
 
@@ -397,39 +401,65 @@ class board():
 
     def movePlayerTile(self, x, y):
         currentPlayer = self.getCurrentPlayer()
-        if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,
-                                                                         y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
-            if self.getTile(x, y).getPossibleMove() and not self.getTile(x, y).getDoor():
-                j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
-                tile = self.getTile(j, k)
-                tile.setSelected(False)
-                tile.setPossibleMove(False)
-                tile.setPlayer(0)
-                self.setTile(tile, j, k)
-                self.unsetPossibleMoves(j, k)
+        j, k = currentPlayer.getLocation()
+        if self.getTile(j, k).getRoom() != "blank": # check player is not in a room
+            #check if its a possible move, and not a player and if a player has moves
+            if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+                #check if target is a door
+                if self.getTile(x, y).getPossibleMove() and not self.getTile(x, y).getDoor():
+                    j, k = currentPlayer.getLocation()  # j,k = players x y coords. actual x y is where we are moving to/ target destination
+                    tile = self.getTile(j, k)
+                    tile.setSelected(False)
+                    tile.setPossibleMove(False)
+                    tile.setPlayer(0)
+                    self.setTile(tile, j, k)
+                    self.unsetPossibleMoves(j, k)
 
-                tile = self.getTile(x, y)
-                tile.setPlayer(self.playersTurn + 1)
-                tile.setSelected(False)
-                tile.setPossibleMove(False)
-                print(self.getTile(x, y).getPlayer())
-                self.setTile(tile, x, y)
-                currentPlayer.setMoves(currentPlayer.getMoves() - 1)
-                currentPlayer.setLocation(x, y)
-                self.setPlayer(currentPlayer)
-                self.movePlayer()
-            else:  # door move player off board into rooms[player,player,player...]
-                if self.getTile(x, y).getDoor():
-                    for rooms in self.rooms:
-                        print(rooms.getName())
-                        if rooms.getName() == self.getTile(x, y).getRoom():
-                            rooms.setPlayer(currentPlayer)
+                    tile = self.getTile(x, y)
+                    tile.setPlayer(self.playersTurn + 1)
+                    tile.setSelected(False)
+                    tile.setPossibleMove(False)
+                    print(self.getTile(x, y).getPlayer())
+                    self.setTile(tile, x, y)
+                    currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+                    currentPlayer.setLocation(x, y)
+                    self.setPlayer(currentPlayer)
+                    self.movePlayer()
+                else:  # door, move player off board into rooms[player,player,player...]
+                    if self.getTile(x, y).getDoor():
+                        tile = self.getTile(j, k)
+                        tile.setSelected(False)
+                        tile.setPossibleMove(False)
+                        tile.setPlayer(0)
+                        self.setTile(tile, j, k)
+                        self.unsetPossibleMoves(j, k)
 
-        if currentPlayer.getMoves() == 0:
-            player = self.getCurrentPlayer()
-            x, y = player.getLocation()
-            self.possibleMoves = self.lookAround(x, y)
-            self.unsetPossibleMoves(x, y)
+                        currentPlayer.setLocation(x, y)
+                        self.setPlayer(currentPlayer)
+                        for rooms in self.rooms:
+                            print(rooms.getName())
+                            if rooms.getName() == self.getTile(x, y).getRoom():
+
+                                rooms.setPlayer(self.playersTurn)
+
+            if currentPlayer.getMoves() == 0:
+                player = self.getCurrentPlayer()
+                x, y = player.getLocation()
+                self.possibleMoves = self.lookAround(x, y)
+                self.unsetPossibleMoves(x, y)
+        else: # player is in a room
+            for rooms in self.rooms:
+                print(rooms.getName())
+                if rooms.getName() == self.getTile(x, y).getRoom():
+                    for door in rooms.getDoors():
+                        j, k = door
+                        possibleMoves = self.lookAround(j, k)
+                        self.selectTiles(possibleMoves, j, k)
+
+
+
+
+
 
         # TODO add door funcitonality, Enter and exit through any door/ add hidden walkways/ kill me
 
