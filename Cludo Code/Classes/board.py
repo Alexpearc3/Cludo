@@ -4,6 +4,7 @@ from random import randrange
 import Deck
 from tile import tile
 import Player
+import room
 
 
 # from newDice import Dice
@@ -14,7 +15,7 @@ class board():
     player = Player.Player
     Players = []
     deck = Deck.Deck()
-
+    rooms = []
     # passing through players array as well as customisation setting (1 or 2)
     def __init__(self, Players, customNo):
         self.customNo = customNo
@@ -652,66 +653,143 @@ class board():
         rows, columns = 25, 24
 
         board = np.empty((rows, columns), dtype=object)
-
+        r = room.room
+        roomList = [] # ez fix ignore bs
         for row in range(25):
             for column in range(24):
 
                 # rooms
                 if grid[row][column] == "str":
                     board[row, column] = tile(room="study")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "har":
                     board[row, column] = tile(room="hall")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "lor":
                     board[row, column] = tile(room="lounge")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "drr":
                     board[row, column] = tile(room="dinning room")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "kir":
                     board[row, column] = tile(room="kitchen")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "brr":
                     board[row, column] = tile(room="ball room")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "cvr":
-                    board[row, column] = tile(room="conservator")
+                    board[row, column] = tile(room="conservatory")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "bir":
                     board[row, column] = tile(room="billiards room")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
                 if grid[row][column] == "lir":
                     board[row, column] = tile(room="library")
+                    if not grid[row][column] in roomList:
+                        roomList.append(grid[row][column])
+                        self.rooms.append(r(board[row, column].getRoom()))
 
+        for row in range(25):
+            for column in range(24):
                 # doors
+                print(row,column)
                 if grid[row][column] == "std":
                     board[row, column] = tile(room="study", door=True, isTile=False)
                     print("study door")
 
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
+
                 if grid[row][column] == "had":
                     board[row, column] = tile(room="hall", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 if grid[row][column] == "lod":
                     board[row, column] = tile(room="lounge", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 if grid[row][column] == "drd":
                     board[row, column] = tile(room="dinning room", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 if grid[row][column] == "kid":
                     board[row, column] = tile(room="kitchen", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 if grid[row][column] == "brd":
                     board[row, column] = tile(room="ball room", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 if grid[row][column] == "cvd":
-                    board[row, column] = tile(room="conservator", door=True, isTile=False)
+                    board[row, column] = tile(room="conservatory", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 if grid[row][column] == "bid":
                     board[row, column] = tile(room="billiards room", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 if grid[row][column] == "lid":
                     board[row, column] = tile(room="library", door=True, isTile=False)
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == board[row, column].getRoom():
+                            print("setdoor")
+                            rooms.setDoors(row, column)
 
                 # walkways
                 if grid[row][column] == "wwe":
@@ -739,6 +817,8 @@ class board():
                 if grid[row][column] == "blk":
                     board[row, column] = tile(blank=True)
 
+        for r in self.rooms:
+            print(r.getName(), " doors:", r.getDoors())
         return board
 
 
