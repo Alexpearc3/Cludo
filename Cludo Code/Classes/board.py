@@ -16,6 +16,7 @@ class board():
     Players = []
     deck = Deck.Deck()
     rooms = []
+
     # passing through players array as well as customisation setting (1 or 2)
     def __init__(self, Players, customNo):
         self.customNo = customNo
@@ -267,7 +268,7 @@ class board():
             if not self.getTile(possibleMoves[0], y).getDoor():
                 possibleMoves[0] = False
         test = True
-        if int(possibleMoves[1]) > 23: # cant go right
+        if int(possibleMoves[1]) > 23:  # cant go right
             possibleMoves[1] = False
             test = False
         if test:
@@ -315,7 +316,7 @@ class board():
             player = self.getCurrentPlayer()
             x, y = player.getLocation()
             self.possibleMoves = self.lookAround(x, y)
-            self.unsetPossibleMoves(x,y)
+            self.unsetPossibleMoves(x, y)
             currentPlayer = self.getCurrentPlayer()
             currentPlayer.setRolled(False)
             self.setPlayer(currentPlayer)
@@ -378,8 +379,7 @@ class board():
                 print("success")
                 self.Players[i] = player
 
-
-    def unsetPossibleMoves(self,x, y):
+    def unsetPossibleMoves(self, x, y):
         possibleMoves = self.possibleMoves
         for i in range(len(possibleMoves)):
             if possibleMoves[i] != False:
@@ -397,34 +397,41 @@ class board():
 
     def movePlayerTile(self, x, y):
         currentPlayer = self.getCurrentPlayer()
-        if self.getTile(x, y).getPossibleMove() == True and self.getTile(x, y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
-            j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
-            tile = self.getTile(j, k)
-            tile.setSelected(False)
-            tile.setPossibleMove(False)
-            tile.setPlayer(0)
-            self.setTile(tile, j, k)
-            self.unsetPossibleMoves(j, k)
+        if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,
+                                                                         y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+            if self.getTile(x, y).getPossibleMove() and not self.getTile(x, y).getDoor():
+                j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
+                tile = self.getTile(j, k)
+                tile.setSelected(False)
+                tile.setPossibleMove(False)
+                tile.setPlayer(0)
+                self.setTile(tile, j, k)
+                self.unsetPossibleMoves(j, k)
 
-            tile = self.getTile(x, y)
-            tile.setPlayer(self.playersTurn + 1)
-            tile.setSelected(False)
-            tile.setPossibleMove(False)
-            print(self.getTile(x, y).getPlayer())
-            self.setTile(tile, x, y)
-            currentPlayer.setMoves(currentPlayer.getMoves() - 1)
-            currentPlayer.setLocation(x, y)
-            self.setPlayer(currentPlayer)
-            self.movePlayer()
+                tile = self.getTile(x, y)
+                tile.setPlayer(self.playersTurn + 1)
+                tile.setSelected(False)
+                tile.setPossibleMove(False)
+                print(self.getTile(x, y).getPlayer())
+                self.setTile(tile, x, y)
+                currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+                currentPlayer.setLocation(x, y)
+                self.setPlayer(currentPlayer)
+                self.movePlayer()
+            else:  # door move player off board into rooms[player,player,player...]
+                if self.getTile(x, y).getDoor():
+                    for rooms in self.rooms:
+                        print(rooms.getName())
+                        if rooms.getName() == self.getTile(x, y).getRoom():
+                            rooms.setPlayer(currentPlayer)
 
         if currentPlayer.getMoves() == 0:
             player = self.getCurrentPlayer()
             x, y = player.getLocation()
             self.possibleMoves = self.lookAround(x, y)
-            self.unsetPossibleMoves(x,y)
+            self.unsetPossibleMoves(x, y)
 
-        #TODO add door funcitonality, Enter and exit through any door/ add hidden walkways/ kill me
-
+        # TODO add door funcitonality, Enter and exit through any door/ add hidden walkways/ kill me
 
     def main(self):
         done = False
@@ -480,8 +487,8 @@ class board():
                     try:
                         self.movePlayerTile(int(row), int(column))
 
-                        #self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
-                        
+                        # self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
+
                     except:
                         pass
 
@@ -678,7 +685,7 @@ class board():
 
         board = np.empty((rows, columns), dtype=object)
         r = room.room
-        roomList = [] # ez fix ignore bs
+        roomList = []  # ez fix ignore bs
         for row in range(25):
             for column in range(24):
 
@@ -740,7 +747,7 @@ class board():
         for row in range(25):
             for column in range(24):
                 # doors
-                print(row,column)
+                print(row, column)
                 if grid[row][column] == "std":
                     board[row, column] = tile(room="study", door=True, isTile=False)
 
