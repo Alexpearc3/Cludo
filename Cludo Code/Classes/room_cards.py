@@ -5,7 +5,15 @@ import card
 
 class Room_cards:
     room_list = (
-        'Billiard room', 'Study', 'Hall', 'Lounge', 'Dining room', 'Ballroom', 'Conservatory', 'Library', 'Kitchen')
+        'Billiard room',
+        'Study',
+        'Hall',
+        'Lounge',
+        'Dining room',
+        'Ballroom',
+        'Conservatory',
+        'Library',
+        'Kitchen')
 
     def __init__(self):
         self.room_cards = []

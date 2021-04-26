@@ -2,7 +2,12 @@ import card
 
 
 class Suspect_cards:
-    suspect_list = ('Miss Scarlet', 'Mrs White', 'Colonel Mustard', 'Reverend Green', 'Professor Plum', 'Mrs Peacock')
+    suspect_list = ('Miss Scarlet',
+                    'Mrs White',
+                    'Colonel Mustard',
+                    'Reverend Green',
+                    'Professor Plum',
+                    'Mrs Peacock')
 
     def __init__(self):
         self.suspect_cards = []

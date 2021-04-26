@@ -2,7 +2,12 @@ import card
 
 
 class Weapon_cards:
-    weapon_list = ('Wrench', 'Candlestick', 'Lead pipe', 'Rope', 'Revolver', 'Knife')
+    weapon_list = ('Wrench',
+                   'Candlestick',
+                   'Lead pipe',
+                   'Rope',
+                   'Revolver',
+                   'Knife')
 
     def __init__(self):
         self.weapon_cards = []
