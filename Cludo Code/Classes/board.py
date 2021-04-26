@@ -16,6 +16,7 @@ class board():
     Players = []
     deck = Deck.Deck()
     rooms = []
+
     # passing through players array as well as customisation setting (1 or 2)
     def __init__(self, Players, customNo):
         self.customNo = customNo
@@ -235,14 +236,7 @@ class board():
                     self.screen.blit(self.tileImg,
                                      (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-    def movePlayer(self):
-        player = self.getCurrentPlayer()
-        x, y = player.getLocation()
-        possibleMoves = self.lookAround(x, y)
-        self.selectTiles(possibleMoves, x, y)
-        self.setPlayer(player)
 
-        print(possibleMoves)
 
     def selectTiles(self, possibleMoves, x, y):
         print(possibleMoves)
@@ -267,7 +261,7 @@ class board():
             if not self.getTile(possibleMoves[0], y).getDoor():
                 possibleMoves[0] = False
         test = True
-        if int(possibleMoves[1]) > 23: # cant go right
+        if int(possibleMoves[1]) > 23:  # cant go right
             possibleMoves[1] = False
             test = False
         if test:
@@ -278,10 +272,14 @@ class board():
         if possibleMoves[2] < 0 or not self.getTile(x, possibleMoves[2]).getIsTile():  # cant go up
             if not self.getTile(x, possibleMoves[2]).getDoor():
                 possibleMoves[2] = False
-
-        if possibleMoves[3] > 24 or not self.getTile(x, possibleMoves[3]).getIsTile():  # cant go down
-            if not self.getTile(x, possibleMoves[3]).getDoor():
-                possibleMoves[3] = False
+        test = True
+        if possibleMoves[3] > 24:  # cant go down
+            possibleMoves[3] = False
+        test = False
+        if test:
+            if not self.getTile(possibleMoves[3], y).getIsTile():
+                if not self.getTile(possibleMoves[3], y).getDoor():
+                    possibleMoves[3] = False
         self.possibleMoves = possibleMoves
         return possibleMoves
 
@@ -315,7 +313,7 @@ class board():
             player = self.getCurrentPlayer()
             x, y = player.getLocation()
             self.possibleMoves = self.lookAround(x, y)
-            self.unsetPossibleMoves(x,y)
+            self.unsetPossibleMoves(x, y)
             currentPlayer = self.getCurrentPlayer()
             currentPlayer.setRolled(False)
             self.setPlayer(currentPlayer)
@@ -378,8 +376,7 @@ class board():
                 print("success")
                 self.Players[i] = player
 
-
-    def unsetPossibleMoves(self,x, y):
+    def unsetPossibleMoves(self, x, y):
         possibleMoves = self.possibleMoves
         for i in range(len(possibleMoves)):
             if possibleMoves[i] != False:
@@ -399,36 +396,91 @@ class board():
                 c.setSelected(False)
                 c.setPossibleMove(False)
 
+    def movePlayer(self):
+        player = self.getCurrentPlayer()
+        x, y = player.getLocation()
+        if self.getTile(x, y).getRoom() == "tile":
+            possibleMoves = self.lookAround(x, y)
+            self.selectTiles(possibleMoves, x, y)
+            self.setPlayer(player)
+
+            print(possibleMoves)
+        else:
+            for rooms in self.rooms:
+                print("motherfucker")
+                if rooms.getName() == self.getTile(x, y).getRoom():
+                    for door in rooms.getDoors():
+                        j, k = door
+                        possibleMoves = self.lookAround(j, k)
+                        self.selectTiles(possibleMoves, j, k)
+
     def movePlayerTile(self, x, y):
         currentPlayer = self.getCurrentPlayer()
-        if self.getTile(x, y).getPossibleMove() == True and self.getTile(x, y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
-            j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
-            tile = self.getTile(j, k)
-            tile.setSelected(False)
-            tile.setPossibleMove(False)
-            tile.setPlayer(0)
-            self.setTile(tile, j, k)
-            self.unsetPossibleMoves(j, k)
+        j, k = currentPlayer.getLocation()
+        if self.getTile(j, k).getRoom() == "tile": # check player is not in a room
+            #check if its a possible move, and not a player and if a player has moves
+            if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+                #check if target is a door
+                if self.getTile(x, y).getPossibleMove() and not self.getTile(x, y).getDoor():
+                    j, k = currentPlayer.getLocation()  # j,k = players x y coords. actual x y is where we are moving to/ target destination
+                    tile = self.getTile(j, k)
+                    tile.setSelected(False)
+                    tile.setPossibleMove(False)
+                    tile.setPlayer(0)
+                    self.setTile(tile, j, k)
+                    self.unsetPossibleMoves(j, k)
 
-            tile = self.getTile(x, y)
-            tile.setPlayer(self.playersTurn + 1)
-            tile.setSelected(False)
-            tile.setPossibleMove(False)
-            print(self.getTile(x, y).getPlayer())
-            self.setTile(tile, x, y)
-            currentPlayer.setMoves(currentPlayer.getMoves() - 1)
-            currentPlayer.setLocation(x, y)
-            self.setPlayer(currentPlayer)
-            self.movePlayer()
+                    tile = self.getTile(x, y)
+                    tile.setPlayer(currentPlayer.getPlayerID())
+                    tile.setSelected(False)
+                    tile.setPossibleMove(False)
+                    print(self.getTile(x, y).getPlayer())
+                    self.setTile(tile, x, y)
+                    currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+                    currentPlayer.setLocation(x, y)
+                    self.setPlayer(currentPlayer)
+                    self.movePlayer()
+                else:  # door, move player off board into rooms[player,player,player...]
+                    if self.getTile(x, y).getDoor():
+                        tile = self.getTile(j, k)
+                        tile.setSelected(False)
+                        tile.setPossibleMove(False)
+                        tile.setPlayer(0)
+                        self.setTile(tile, j, k)
+                        self.unsetPossibleMoves(j, k)
 
-        if currentPlayer.getMoves() == 0:
-            player = self.getCurrentPlayer()
-            x, y = player.getLocation()
-            self.possibleMoves = self.lookAround(x, y)
-            self.unsetPossibleMoves(x,y)
+                        currentPlayer.setLocation(x, y)
+                        self.setPlayer(currentPlayer)
+                        for rooms in self.rooms:
+                            if rooms.getName() == self.getTile(x, y).getRoom():
 
-        #TODO add door funcitonality, Enter and exit through any door/ add hidden walkways/ kill me
+                                rooms.setPlayer(self.playersTurn)
 
+            if currentPlayer.getMoves() == 0:
+                player = self.getCurrentPlayer()
+                x, y = player.getLocation()
+                self.possibleMoves = self.lookAround(x, y)
+                self.unsetPossibleMoves(x, y)
+        else: # player is in a room move to a tile
+            if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+                tile = self.getTile(x, y)
+                tile.setPlayer(currentPlayer.getPlayerID())
+                tile.setSelected(False)
+                tile.setPossibleMove(False)
+                print(self.getTile(x, y).getPlayer())
+                self.setTile(tile, x, y)
+                currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+                currentPlayer.setLocation(x, y)
+                self.setPlayer(currentPlayer)
+                self.movePlayer()
+
+
+
+
+
+
+
+        # TODO DOne
 
     def main(self):
         done = False
@@ -483,10 +535,9 @@ class board():
                     # Changes tile to selected / unselected
                     try:
                         self.movePlayerTile(int(row), int(column))
-                        print(row, column)
 
-                        #self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
-                        
+                        # self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
+
                     except:
                         pass
 
@@ -602,31 +653,57 @@ class board():
             ww6 = walkway player 6
             """
 
-        grid = [["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["str", "str", "str", "str", "str", "str", "std", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "had", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lod", "lor", "lor", "lor", "lor", "lor", "lor"],
-                ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "had", "had", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lid", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drd", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["blk", "lir", "lir", "lid", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bid", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drd", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bid", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
-                ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-                ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brd", "brr", "brr", "brr", "brr", "brd", "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-                ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
-                ["blk", "cvr", "cvr", "cvr", "cvd", "wwe", "wwe", "wwe", "brd", "brr", "brr", "brr", "brr", "brr", "brr", "brd", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
-                ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe", "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
+        grid = [
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har",
+             "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "std", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "had", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
+             "wwe", "wwe", "lod", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "had", "had", "har", "har",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lid", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drd", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "lir", "lir", "lid", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bid", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drd", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
+             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bid", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
+             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brd", "brr", "brr", "brr", "brr", "brd",
+             "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
+            ["blk", "cvr", "cvr", "cvr", "cvd", "wwe", "wwe", "wwe", "brd", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brd", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
+             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe",
+             "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe",
+             "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
 
         for p in self.Players:
 
@@ -658,7 +735,7 @@ class board():
 
         board = np.empty((rows, columns), dtype=object)
         r = room.room
-        roomList = [] # ez fix ignore bs
+        roomList = []  # ez fix ignore bs
         for row in range(25):
             for column in range(24):
 
@@ -720,16 +797,15 @@ class board():
         for row in range(25):
             for column in range(24):
                 # doors
-                print(row,column)
+                print(row, column)
                 if grid[row][column] == "std":
                     board[row, column] = tile(room="study", door=True, isTile=False)
-                    print("study door")
 
                     for rooms in self.rooms:
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "had":
                     board[row, column] = tile(room="hall", door=True, isTile=False)
@@ -737,7 +813,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "lod":
                     board[row, column] = tile(room="lounge", door=True, isTile=False)
@@ -745,7 +821,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "drd":
                     board[row, column] = tile(room="dinning room", door=True, isTile=False)
@@ -753,7 +829,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "kid":
                     board[row, column] = tile(room="kitchen", door=True, isTile=False)
@@ -761,7 +837,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "brd":
                     board[row, column] = tile(room="ball room", door=True, isTile=False)
@@ -769,7 +845,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "cvd":
                     board[row, column] = tile(room="conservatory", door=True, isTile=False)
@@ -777,7 +853,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "bid":
                     board[row, column] = tile(room="billiards room", door=True, isTile=False)
@@ -785,7 +861,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 if grid[row][column] == "lid":
                     board[row, column] = tile(room="library", door=True, isTile=False)
@@ -793,7 +869,7 @@ class board():
                         print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
-                            rooms.setDoors(row, column)
+                            rooms.setDoors(column, row)
 
                 # walkways
                 if grid[row][column] == "wwe":
