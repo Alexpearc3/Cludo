@@ -5,7 +5,9 @@ from numpy.distutils.fcompiler import pg
 from pygame import mouse
 
 class Notepad:
-    def notepad():
+    def __init__(self):
+        self.var = 0
+    def notepad(self):
         # initializing the constructor
         pygame.init()
 
@@ -78,5 +80,5 @@ class Notepad:
                 pygame.display.update()
 
 
-    def innit():
-        notepad()
+    def innit(self):
+        Notepad.notepad(self)
