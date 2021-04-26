@@ -9,9 +9,9 @@
   <component name="ChangeListManager">
     <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="update Board.py">
       <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/notepad2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/board.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/menu1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/menu1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -353,7 +353,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619477121183</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="update Board.py">
+      <created>1619477706549</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1619477706549</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">

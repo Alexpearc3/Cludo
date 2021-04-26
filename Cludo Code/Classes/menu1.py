@@ -1,6 +1,6 @@
 import pygame
 from board import board
-
+from notepad import Notepad
 class Menu1:
     def __init__(self, menu_run):
         self.menu_run = menu_run
@@ -71,8 +71,9 @@ class MainMenu(Menu1):
             if self.state == 'Start':
                 #Dice(12, pygame.display.set_mode([950, 960])).rolldice()
                 #self.menu_run.playing = True #put in toms code her
-                playerList = self.CustoMenu.playerArr
-                b = board(playerList).main()
+                # playerList = self.CustoMenu.playerArr
+                # b = board(playerList, 1).main()
+                Notepad.notepad(self)
                 #Notepad_Main.notepadRun()
             elif self.state == 'Options':
                 self.menu_run.curr_menu = self.menu_run.options
@@ -313,12 +314,13 @@ class PlayerNamesMenu(Menu1):
         self.plNum = 1
         self.state = 'pl1'
         self.plNameEntry = ''
+        #'Miss Scarlet', 'Mrs White', 'Colonel Mustard', 'Reverend Green', 'Professor Plum', 'Mrs Peacock'
         self.name1 = 'Miss Scarlet'
-        self.name2 = ''
-        self.name3 = ''
-        self.name4 = ''
-        self.name5 = ''
-        self.name6 = ''
+        self.name2 = 'Mrs White'
+        self.name3 = 'Colonel Mustard'
+        self.name4 = 'Reverend Green'
+        self.name5 = 'Professor Plum'
+        self.name6 = 'Mrs Peacock'
         self.endMsg = ''
         self.base_font = pygame.font.Font(None, 20)
                                 #x,y coordinates. size of rect
