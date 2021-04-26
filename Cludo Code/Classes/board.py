@@ -391,6 +391,10 @@ class board():
                     tile.setPossibleMove(False)
                     tile.setSelected(False)
                     self.setTile(tile, x, possibleMoves[i])
+        for r in self.board:
+            for c in r:
+                c.setSelected(False)
+                c.setPossibleMove(False)
 
     def movePlayer(self):
         player = self.getCurrentPlayer()
