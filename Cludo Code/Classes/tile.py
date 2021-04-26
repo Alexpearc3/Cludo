@@ -36,7 +36,6 @@ class tile():
     def getPlayer(self):
         return self.player
 
-
     def setSelected(self, boolean):
         self.selected = boolean
 

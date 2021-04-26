@@ -261,18 +261,26 @@ class board():
 
     def lookAround(self, x, y):
         possibleMoves = [x - 1, x + 1, y - 1, y + 1]
-
+        print(possibleMoves)
         if possibleMoves[0] < 0 or not self.getTile(possibleMoves[0], y).getIsTile():  # cant go left
-            possibleMoves[0] = False
-
-        if possibleMoves[1] > self.BOARDWIDTH or not self.getTile(possibleMoves[1], y).getIsTile():  # cant go right
+            if not self.getTile(possibleMoves[0], y).getDoor():
+                possibleMoves[0] = False
+        test = True
+        if int(possibleMoves[1]) > 23: # cant go right
             possibleMoves[1] = False
+            test = False
+        if test:
+            if not self.getTile(possibleMoves[1], y).getIsTile():
+                if not self.getTile(possibleMoves[1], y).getDoor():
+                    possibleMoves[1] = False
 
         if possibleMoves[2] < 0 or not self.getTile(x, possibleMoves[2]).getIsTile():  # cant go up
-            possibleMoves[2] = False
+            if not self.getTile(x, possibleMoves[2]).getDoor():
+                possibleMoves[2] = False
 
-        if possibleMoves[3] > self.BOARDHEIGHT or not self.getTile(x, possibleMoves[3]).getIsTile():  # cant go down
-            possibleMoves[3] = False
+        if possibleMoves[3] > 24 or not self.getTile(x, possibleMoves[3]).getIsTile():  # cant go down
+            if not self.getTile(x, possibleMoves[3]).getDoor():
+                possibleMoves[3] = False
         self.possibleMoves = possibleMoves
         return possibleMoves
 
@@ -291,7 +299,7 @@ class board():
                 print("roll dice")  # 222 x 81.6
                 number = randrange(12) + 1
 
-                moves = 12  # Dice(number, self.screen).rolldice()
+                moves = number  # Dice(number, self.screen).rolldice()
 
                 print("current Player ", currentPlayer.getPlayerID())
                 currentPlayer.setMoves(moves)
@@ -389,7 +397,6 @@ class board():
     def movePlayerTile(self, x, y):
         currentPlayer = self.getCurrentPlayer()
         if self.getTile(x, y).getPossibleMove() == True and self.getTile(x, y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
-            print("cunt")
             j, k = currentPlayer.getLocation()  # j,k = x y. actual x y is where we are moving to
             tile = self.getTile(j, k)
             tile.setSelected(False)
@@ -398,7 +405,6 @@ class board():
             self.setTile(tile, j, k)
             self.unsetPossibleMoves(j, k)
 
-            print("fuk")
             tile = self.getTile(x, y)
             tile.setPlayer(self.playersTurn + 1)
             tile.setSelected(False)
@@ -407,16 +413,16 @@ class board():
             self.setTile(tile, x, y)
             currentPlayer.setMoves(currentPlayer.getMoves() - 1)
             currentPlayer.setLocation(x, y)
-            print("here")
             self.setPlayer(currentPlayer)
-            print("return")
-            print("pid", currentPlayer.getPlayerID())
             self.movePlayer()
+
         if currentPlayer.getMoves() == 0:
             player = self.getCurrentPlayer()
             x, y = player.getLocation()
             self.possibleMoves = self.lookAround(x, y)
             self.unsetPossibleMoves(x,y)
+
+        #TODO add door funcitonality, Enter and exit through any door/ add hidden walkways/ kill me
 
 
     def main(self):
@@ -473,7 +479,7 @@ class board():
                     try:
                         self.movePlayerTile(int(row), int(column))
 
-                        self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
+                        #self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
                         
                     except:
                         pass
@@ -759,5 +765,5 @@ class board():
         return board
 
 
-playerList = ["shakir", False, "abby", "tom", "alex", False, ]
+playerList = ["shakir", "bob", "abby", "tom", "alex", False, ]
 b = board(playerList, 2).main()
