@@ -1,6 +1,4 @@
 import pygame
-# import pyttsx3
-# import speech_recognition
 from numpy.distutils.fcompiler import pg
 from pygame import mouse
 import room_cards
@@ -24,8 +22,9 @@ class Notepad:
 
         # size of window
         x = 960
-        y = 950
+        y = 960
         screen = pygame.display.set_mode((x, y))
+
         # title of window
         pygame.display.set_caption('Notepad')
         # icon of window
@@ -35,20 +34,10 @@ class Notepad:
         icon = pygame.image.load(icon_img)
         pygame.display.set_icon(icon)
 
-
-
-
-
-
-        # create red line
-        # import card information from other classes
-
         # initialise an object of room_cards and use the method getNames to get room_list
         room_list = room_cards.Room_cards().getNames()  # name of file and name of class
         suspect_list = suspect_cards.Suspect_cards().getNames()  # name of file and name of class
         weapon_list = weapon_cards.Weapon_cards().getNames()  # name of file and name of class
-
-
 
         # create a list includes suspects, rooms, weapons
         self.general_list += suspect_list + weapon_list + room_list
@@ -63,7 +52,7 @@ class Notepad:
         flag = True
         while flag == True:
             screen = screenx
-            screen.blit(self.notepad_background, (0, 0))
+            screen.blit(self.notepad_background, (960/3.5, 0))
             #screen.fill(self.notepad_background)
             screen = self.drawNotePad(self.lines, screen, red)
 
@@ -77,7 +66,7 @@ class Notepad:
                     for item in self.general_list:
                         if ev.button == 1 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
-                            self.lines.append([75, spacing, 155, 2])
+                            self.lines.append([75+280, spacing, 155, 2])
                         if ev.button == 3 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
                             for j in range(len(self.lines)):
@@ -90,10 +79,9 @@ class Notepad:
                 pygame.display.update()
 
     def drawNotePad(self, lines, screen, red):
-
+        pygame.display.init()
         # define the RGB value
         gray = (130, 130, 130)
-        pygame.display.init()
         red = (255, 0, 0)
         white = (255, 255, 255)
         card_category_font = pygame.font.SysFont('timesnewroman', 24, bold=1)
@@ -102,9 +90,9 @@ class Notepad:
         spacing = 113
         for item in self.general_list:
             if (item == 'Suspect') or (item == 'Weapon') or (item == 'Room'):
-                screen.blit(card_category_font.render(item, True, gray), (70, spacing))
+                screen.blit(card_category_font.render(item, True, gray), (70+280, spacing))
             else:
-                u = screen.blit(card_name_font.render(item, True, gray), (85, spacing))
+                screen.blit(card_name_font.render(item, True, gray), (85+280, spacing))
             spacing += 29
 
         if len(lines) > 0:

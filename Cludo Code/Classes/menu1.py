@@ -74,6 +74,7 @@ class MainMenu(Menu1):
                 # playerList = self.CustoMenu.playerArr
                 # b = board(playerList, 1).main()
                 Notepad.notepad(self)
+
                 #Notepad_Main.notepadRun()
             elif self.state == 'Options':
                 self.menu_run.curr_menu = self.menu_run.options
