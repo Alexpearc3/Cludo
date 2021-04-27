@@ -1,6 +1,7 @@
+
 class Player:
 
-    def __init__(self, player_name, player_ID):
+    def __init__(self, player_name, player_ID, notepad):
         do = "what a player do"
         self.cards = []
         self.name = player_name
@@ -11,6 +12,7 @@ class Player:
         self.hasWon = False
         self.moves = -1
         self.hasRolled = False
+        self.notepad = notepad
 
 
     def setCard(self, card):
@@ -53,3 +55,6 @@ class Player:
 
     def getRolled(self):
         return self.hasRolled
+
+    def getNotepad(self):
+        return self.notepad
