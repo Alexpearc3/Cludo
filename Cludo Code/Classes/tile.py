@@ -60,5 +60,5 @@ class tile():
         self.player = i
 
     def getHiddenPassage(self):
-        return self.hiddenDoor
+        return self.hiddenPassage
 

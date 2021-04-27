@@ -468,17 +468,26 @@ class board():
                 self.possibleMoves = self.lookAround(x, y)
                 self.unsetPossibleMoves(x, y)
         else: # player is in a room move to a tile
-            if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
-                tile = self.getTile(x, y)
-                tile.setPlayer(currentPlayer.getPlayerID())
-                tile.setSelected(False)
-                tile.setPossibleMove(False)
-                print(self.getTile(x, y).getPlayer())
-                self.setTile(tile, x, y)
-                currentPlayer.setMoves(currentPlayer.getMoves() - 1)
-                currentPlayer.setLocation(x, y)
+            t = self.getTile(x, y)
+            if not t.getHiddenPassage():
+                if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+                    tile = self.getTile(x, y)
+                    tile.setPlayer(currentPlayer.getPlayerID())
+                    tile.setSelected(False)
+                    tile.setPossibleMove(False)
+                    print(self.getTile(x, y).getPlayer())
+                    self.setTile(tile, x, y)
+                    currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+                    currentPlayer.setLocation(x, y)
+                    self.setPlayer(currentPlayer)
+                    self.movePlayer()
+            else:
+                passageLocation = self.getTile(x, y).getHiddenPassage()
+                j,k = passageLocation
+                currentPlayer.setLocation(j, k)
                 self.setPlayer(currentPlayer)
                 self.movePlayer()
+
 
 
     def main(self):
@@ -848,14 +857,18 @@ class board():
                 if grid[row][column] == "cvh":
                     board[row, column] = tile(room="conservatory", hiddenPassage = [23, 5])
 
+
                 if grid[row][column] == "kih":
                     board[row, column] = tile(room="kitchen", hiddenPassage = [0, 3])
+
 
                 if grid[row][column] == "sth":
                     board[row, column] = tile(room="study", hiddenPassage = [18, 24])
 
+
                 if grid[row][column] == "loh":
                     board[row, column] = tile(room="lounge", hiddenPassage = [1, 20])
+
                 
 
                 # walkways

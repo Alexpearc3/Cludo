@@ -4,6 +4,7 @@ class room:
         self.name = name
         self.doors = []
         self.players = []
+        self.hiddenPassage = False
 
     def getDoors(self):
         return self.doors
@@ -20,6 +21,11 @@ class room:
     def setPlayers(self, player):
         self.players.append(player)
 
+    def getHiddenPassage(self):
+        return self.hiddenDoor
+
+    def setHiddenPassage(self, hiddenPassage):
+        self.hiddenPassage = hiddenPassage
 
 
 
