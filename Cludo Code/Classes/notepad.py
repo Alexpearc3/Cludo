@@ -23,8 +23,8 @@ class Notepad:
         pygame.init()
 
         # size of window
-        x = 400
-        y = 900
+        x = 960
+        y = 950
         screen = pygame.display.set_mode((x, y))
         # title of window
         pygame.display.set_caption('Notepad')
@@ -61,15 +61,16 @@ class Notepad:
 
         red = (255, 0, 0)
         flag = True
-        while True:
+        while flag == True:
             screen = screenx
             screen.blit(self.notepad_background, (0, 0))
             #screen.fill(self.notepad_background)
             screen = self.drawNotePad(self.lines, screen, red)
-            flag = False
+
             for ev in pygame.event.get():
                 if ev.type == pygame.QUIT:
-                    pygame.quit()
+                    #pygame.quit()
+                    flag = False
                 if ev.type == pygame.MOUSEBUTTONDOWN:
                     spacing = 154
                     Mouse = pygame.mouse.get_pos()
