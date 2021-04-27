@@ -53,7 +53,7 @@ class Notepad:
             screen = screenx
             screen.blit(self.notepad_background, (960 / 3.5, 0))
             # screen.fill(self.notepad_background)
-            screen = self.drawNotePad(self.lines, screen, red)
+            screen = self.drawNotePad(self.lines, screen)
 
             for ev in pygame.event.get():
                 if ev.type == pygame.QUIT:
@@ -87,7 +87,7 @@ class Notepad:
                         spacing += 29
                 pygame.display.update()
 
-    def drawNotePad(self, lines, screen, red):
+    def drawNotePad(self, lines, screen):
         pygame.display.init()
         # define the RGB value
         gray = (130, 130, 130)
