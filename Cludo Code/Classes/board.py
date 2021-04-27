@@ -29,11 +29,11 @@ class board():
         self.possibleMoves = []
         self.playersTurn = 0
         self.board = np.empty((25, 24), dtype=object)
-        newNotepad = notepad.Notepad()
+        #newNotepad = notepad.Notepad()
         playerTList = Players
         count = 0
         for player in Players:
-            self.Players.append(self.player(player, count + 1,newNotepad))
+            self.Players.append(self.player(player, count + 1, notepad.Notepad()))
             count += 1
         # for p in self.Players:
         #     print(p.getPlayerID()) works
