@@ -65,14 +65,24 @@ class Notepad:
                     for item in self.general_list:
                         if ev.button == 1 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
-                            self.lines.append([75 + 280, spacing, 155, 2])
+                            check = True
+                            for ln in self.lines:
+                                x,xSpacing,z,q = ln
+                                if xSpacing == spacing:
+                                    check = False
+                            if check:
+                                self.lines.append([75 + 280, spacing, 155, 2])
                         if ev.button == 3 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
-                            for j in range(len(self.lines)):
-                                x, Xspacing, y, z = self.lines[j]
-                                if Xspacing == spacing:
-                                    print(j)
-                                    self.lines.pop(j)
+                            if (len(self.lines)) != 0:
+                                for j in range(len(self.lines)):
+                                    try:
+                                        x, Xspacing, y, z = self.lines[j]
+                                        if Xspacing == spacing:
+                                            print(j)
+                                            self.lines.pop(j)
+                                    except:
+                                        p = ""
 
                         spacing += 29
                 pygame.display.update()
