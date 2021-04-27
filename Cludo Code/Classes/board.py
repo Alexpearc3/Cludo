@@ -863,7 +863,7 @@ class board():
 
 
                 if grid[row][column] == "sth":
-                    board[row, column] = tile(room="study", hiddenPassage = [18, 24])
+                    board[row, column] = tile(room="study", hiddenPassage = [18, 23])
 
 
                 if grid[row][column] == "loh":
