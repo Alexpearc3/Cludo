@@ -612,7 +612,8 @@ class board():
         # player6 = players[5]
 
         """
-            there are 27 possible tile states.
+            there are 31 possible tile states.
+            
             str = study (room)
             har = hall (room)
             lor = lounge (room)
@@ -641,59 +642,39 @@ class board():
             ww4 = walkway player 4
             ww5 = walkway player 5
             ww6 = walkway player 6
+
+            cvh = conservatory (hidden passage)
+            kih = kitchen (hidden passage)
+            sth = study (hidden passage)
+            loh = lounge (hidden passage)
             """
 
         grid = [
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har",
-             "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "std", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "had", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lod", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "had", "had", "har", "har",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lid", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drd", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["blk", "lir", "lir", "lid", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bid", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drd", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bid", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brd", "brr", "brr", "brr", "brr", "brd",
-             "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
-            ["blk", "cvr", "cvr", "cvr", "cvd", "wwe", "wwe", "wwe", "brd", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brd", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe",
-             "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe",
-             "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "std", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "had", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lod", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "had", "had", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lid", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drd", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "lir", "lir", "lid", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bid", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drd", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bid", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brd", "brr", "brr", "brr", "brr", "brd", "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
+            ["blk", "cvr", "cvr", "cvr", "cvd", "wwe", "wwe", "wwe", "brd", "brr", "brr", "brr", "brr", "brr", "brr", "brd", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe", "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
 
         for p in self.Players:
 
@@ -860,6 +841,20 @@ class board():
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
                             rooms.setDoors(column, row)
+                # hidden passages
+
+                if grid[row][column] == "cvh":
+                    board[row, column] = tile(room="conservatory", hiddenPassage = [23, 5])
+
+                if grid[row][column] == "kih":
+                    board[row, column] = tile(room="kitchen", hiddenPassage = [0, 3])
+
+                if grid[row][column] == "sth":
+                    board[row, column] = tile(room="study", hiddenPassage = [18, 24])
+
+                if grid[row][column] == "loh":
+                    board[row, column] = tile(room="lounge", hiddenPassage = [1, 20])
+                
 
                 # walkways
                 if grid[row][column] == "wwe":
