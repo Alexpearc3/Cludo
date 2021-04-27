@@ -1,6 +1,4 @@
 import pygame
-from numpy.distutils.fcompiler import pg
-from pygame import mouse
 import room_cards
 import suspect_cards
 import weapon_cards
@@ -8,6 +6,7 @@ import weapon_cards
 
 class Notepad:
     lines = []
+
     def __init__(self):
         self.lines = []
         self.general_list = []
@@ -15,6 +14,16 @@ class Notepad:
         self.notepad_background_img = "../Image/notepad_background 2.png"
         self.notepad_background = pygame.image.load(self.notepad_background_img)
 
+        # initialise an object of room_cards and use the method getNames to get room_list
+        room_list = room_cards.Room_cards().getNames()  # name of file and name of class
+        suspect_list = suspect_cards.Suspect_cards().getNames()  # name of file and name of class
+        weapon_list = weapon_cards.Weapon_cards().getNames()  # name of file and name of class
+
+        # create a list includes suspects, rooms, weapons
+        self.general_list += suspect_list + weapon_list + room_list
+        self.general_list.insert(0, 'Suspect')
+        self.general_list.insert(len(suspect_list) + 1, 'Weapon')
+        self.general_list.insert(-len(room_list), 'Room')
 
     def initNotepad(self):
         # initializing the constructor
@@ -34,31 +43,21 @@ class Notepad:
         icon = pygame.image.load(icon_img)
         pygame.display.set_icon(icon)
 
-        # initialise an object of room_cards and use the method getNames to get room_list
-        room_list = room_cards.Room_cards().getNames()  # name of file and name of class
-        suspect_list = suspect_cards.Suspect_cards().getNames()  # name of file and name of class
-        weapon_list = weapon_cards.Weapon_cards().getNames()  # name of file and name of class
-
-        # create a list includes suspects, rooms, weapons
-        self.general_list += suspect_list + weapon_list + room_list
-        self.general_list.insert(0, 'Suspect')
-        self.general_list.insert(len(suspect_list) + 1, 'Weapon')
-        self.general_list.insert(-len(room_list), 'Room')
         self.notepad(screen)
 
-    def notepad(self,screenx):
+    def notepad(self, screenx):
 
         red = (255, 0, 0)
         flag = True
-        while flag == True:
+        while flag:
             screen = screenx
-            screen.blit(self.notepad_background, (960/3.5, 0))
-            #screen.fill(self.notepad_background)
+            screen.blit(self.notepad_background, (960 / 3.5, 0))
+            # screen.fill(self.notepad_background)
             screen = self.drawNotePad(self.lines, screen, red)
 
             for ev in pygame.event.get():
                 if ev.type == pygame.QUIT:
-                    #pygame.quit()
+                    # pygame.quit()
                     flag = False
                 if ev.type == pygame.MOUSEBUTTONDOWN:
                     spacing = 154
@@ -66,7 +65,7 @@ class Notepad:
                     for item in self.general_list:
                         if ev.button == 1 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
-                            self.lines.append([75+280, spacing, 155, 2])
+                            self.lines.append([75 + 280, spacing, 155, 2])
                         if ev.button == 3 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
                             for j in range(len(self.lines)):
@@ -90,18 +89,12 @@ class Notepad:
         spacing = 113
         for item in self.general_list:
             if (item == 'Suspect') or (item == 'Weapon') or (item == 'Room'):
-                screen.blit(card_category_font.render(item, True, gray), (70+280, spacing))
+                screen.blit(card_category_font.render(item, True, gray), (70 + 280, spacing))
             else:
-                screen.blit(card_name_font.render(item, True, gray), (85+280, spacing))
+                screen.blit(card_name_font.render(item, True, gray), (85 + 280, spacing))
             spacing += 29
 
-        if len(lines) > 0:
-            for line in lines:
-                x, y, z, q = line
-                ln = pygame.draw.rect(screen, red, [x, y, z, q])
+        for line in lines:
+            x, y, z, q = line
+            ln = pygame.draw.rect(screen, red, [x, y, z, q])
         return screen
-
-#
-# n = Notepad()
-# n.initNotepad()
-
