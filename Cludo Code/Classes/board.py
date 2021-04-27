@@ -5,7 +5,7 @@ import Deck
 from tile import tile
 import Player
 import room
-
+import notepad
 
 # from newDice import Dice
 # from notepad import notepad
@@ -29,10 +29,11 @@ class board():
         self.possibleMoves = []
         self.playersTurn = 0
         self.board = np.empty((25, 24), dtype=object)
+        newNotepad = notepad.Notepad()
         playerTList = Players
         count = 0
         for player in Players:
-            self.Players.append(self.player(player, count + 1))
+            self.Players.append(self.player(player, count + 1,newNotepad))
             count += 1
         # for p in self.Players:
         #     print(p.getPlayerID()) works
@@ -334,6 +335,9 @@ class board():
 
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             # notepad.notepad()
+            currentPlayer = self.getCurrentPlayer()
+            notepad = currentPlayer.getNotepad()
+            notepad.initNotepad()
             print("Notepad")
         return isTurnComplete
 
