@@ -363,13 +363,6 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             self.screen.blit(self.buttonNotepadSelected, (860, 812))
 
-    def gameLogic(self, turn):
-        # Alex Code Here
-        # if player().getIsTurn and buttonGuess()
-        #   guess
-        # been reworking other code to fit
-        turnCounter = 0
-        return None
 
     def getCurrentPlayer(self):
         return self.Players[self.playersTurn]
@@ -478,13 +471,6 @@ class board():
                 self.setPlayer(currentPlayer)
                 self.movePlayer()
 
-
-
-
-
-
-
-        # TODO DOne
 
     def main(self):
         done = False

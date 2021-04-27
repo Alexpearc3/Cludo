@@ -7,11 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="update Board.py">
-      <change beforePath="$PROJECT_DIR$/.idea/Cludo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cludo.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" afterDir="false" />
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="notepad Complete">
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/board.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -360,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619477706549</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="notepad Complete">
+      <created>1619558865299</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1619558865299</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -417,6 +421,7 @@
     <MESSAGE value="updating classes to be proper" />
     <MESSAGE value="Added icon and background" />
     <MESSAGE value="update Board.py" />
-    <option name="LAST_COMMIT_MESSAGE" value="update Board.py" />
+    <MESSAGE value="notepad Complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="notepad Complete" />
   </component>
 </project>
