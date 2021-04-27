@@ -7,11 +7,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="players now have own instance of notepad">
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="hidden passage update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/board.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/room.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/room.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/tile.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/tile.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -381,7 +380,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619561126245</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="hidden passage update">
+      <created>1619563851234</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1619563851234</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -441,6 +447,7 @@
     <MESSAGE value="notepad Complete" />
     <MESSAGE value="added some comments" />
     <MESSAGE value="players now have own instance of notepad" />
-    <option name="LAST_COMMIT_MESSAGE" value="players now have own instance of notepad" />
+    <MESSAGE value="hidden passage update" />
+    <option name="LAST_COMMIT_MESSAGE" value="hidden passage update" />
   </component>
 </project>

@@ -21,12 +21,6 @@ class room:
     def setPlayers(self, player):
         self.players.append(player)
 
-    def getHiddenPassage(self):
-        return self.hiddenDoor
-
-    def setHiddenPassage(self, hiddenPassage):
-        self.hiddenPassage = hiddenPassage
-
 
 
 

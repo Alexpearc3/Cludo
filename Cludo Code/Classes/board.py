@@ -299,7 +299,7 @@ class board():
             currentPlayer = self.getCurrentPlayer()
             if not currentPlayer.getRolled():
                 print("roll dice")  # 222 x 81.6
-                number = randrange(12) + 1
+                number = randrange(1,12) + 1
 
                 moves = number  # Dice(number, self.screen).rolldice()
 
@@ -454,7 +454,7 @@ class board():
                         tile.setPlayer(0)
                         self.setTile(tile, j, k)
                         self.unsetPossibleMoves(j, k)
-
+                        currentPlayer.setMoves(0)
                         currentPlayer.setLocation(x, y)
                         self.setPlayer(currentPlayer)
                         for rooms in self.rooms:
@@ -480,13 +480,20 @@ class board():
                     currentPlayer.setMoves(currentPlayer.getMoves() - 1)
                     currentPlayer.setLocation(x, y)
                     self.setPlayer(currentPlayer)
+                    self.unsetPossibleMoves(x, y)
                     self.movePlayer()
-            else:
-                passageLocation = self.getTile(x, y).getHiddenPassage()
-                j,k = passageLocation
-                currentPlayer.setLocation(j, k)
-                self.setPlayer(currentPlayer)
-                self.movePlayer()
+
+
+            else: # move player room to room
+                if currentPlayer.getMoves() > 0:
+                    passageLocation = self.getTile(x, y).getHiddenPassage()
+
+                    self.unsetPossibleMoves(x, y)
+                    j,k = passageLocation
+                    currentPlayer.setMoves(0)
+                    currentPlayer.setLocation(j, k)
+                    self.setPlayer(currentPlayer)
+                #self.movePlayer()
 
 
 
