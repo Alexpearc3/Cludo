@@ -28,8 +28,10 @@ class Button:
             if event.type == pg.MOUSEBUTTONDOWN:
                 if self.rectg.collidepoint(pos):
                     self.color = (250, 10, 0)
-                    self.text = "Confirmed"
+                    self.text = "Confirmed - please press exit"
                     self.draw(screen, outline=None)
+                    self.width = 400
+                    self.x = 300
                     self.pressed = True
                     return True
 
