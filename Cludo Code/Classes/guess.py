@@ -10,9 +10,14 @@ import button
 class Guess:
     def __init__(self, players):
         self.players = players
+        self.optionRoom = "ROOM"
+        self.optionWea = "WEAPON"
+        self.optionSus = "SUSPECT"
+        self.playerHandover = ""
 
 
-    def check_for_match(self, list1, list2, list3):
+
+    def check_for_match(self, list1, list2, list3, screen):
         check = False
         cards = []
         option1 = list1.active_option
@@ -21,40 +26,75 @@ class Guess:
         while check == False:
             for player in self.players:
                 hand = player.getCards()
-                #todo write comment
+                #this if statement checks if the next players have the cards being guessed
                 if hand == option1 or hand == option2 or hand == option3:
                     if hand == option1 and hand == option2 or hand == option2 \
                             and hand == option3 or hand == option1 and hand == option3 \
                             or hand == option1 and hand == option2 and hand == option3:
+                        #if 2 or more cards are in the next players hand
                         if hand == option1 and hand == option2:
                             cards = cards + option1
                             cards = cards + option2
                             check = True #todo need to pass turn over to that player
+                            self.playerHandover = player
+                            self.optionRoom = option1
+                            self.optionWea = option2
+                            self.buttonRoom.draw(screen)
+                            self.buttonWea.draw(screen)
+                            self.buttonPla.draw(screen)
                         elif hand == option2 and hand == option3:
                             cards = cards + option3
                             cards = cards + option2
                             check = True
+                            self.playerHandover = player
+                            self.optionSus = option3
+                            self.optionWea = option2
+                            self.buttonSus.draw(screen)
+                            self.buttonWea.draw(screen)
+                            self.buttonPla.draw(screen)
                         elif hand == option1 and hand == option3:
                             cards = cards + option1
                             cards = cards + option3
                             check = True
+                            self.playerHandover = player
+                            self.optionRoom = option1
+                            self.optionSus = option3
+                            self.buttonRoom.draw(screen)
+                            self.buttonSus.draw(screen)
+                            self.buttonPla.draw(screen)
                         elif hand == option1 and hand == option2 and hand == option3:
                             cards = cards + option1
                             cards = cards + option2
                             cards = cards + option3
                             check = True
-                    else:
+                            self.playerHandover = player
+                            self.optionRoom = option1
+                            self.optionWea = option2
+                            self.optionSus = option3
+                            self.buttonRoom.draw(screen)
+                            self.buttonWea.draw(screen)
+                            self.buttonSus.draw(screen)
+                            self.buttonPla.draw(screen)
+                    else:# auto show card at the cluedo space on board
                         if hand == option1:
                             cards = cards + option1
-                            check = True #todo auto show card at the cluedo space on board
+                            check = True
+                            self.optionRoom = option1
+                            self.buttonRoom.draw(screen)
+                            self.buttonSeen.draw(screen)
                         if hand == option2:
                             cards = cards + option2
                             check = True
+                            self.buttonWea.draw(screen)
+                            self.buttonSeen.draw(screen)
                         if hand == option3:
                             cards = cards + option3
                             check = True
-                else:
+                            self.buttonSus.draw(screen)
+                            self.buttonSeen.draw(screen)
+                else:# no one had the cards chosen or player did not choose cards to guess
                     check = True
+                    self.buttonNoToSee.draw(screen)
         return cards #todo next turn, no cards shown
 
     d = Deck.Deck()
@@ -81,7 +121,7 @@ class Guess:
             650, 100, 200, 50,
             pg.font.SysFont(None, 30),
             "Select Suspect", #sus.getNames(sus))
-             player.getRoom()) #this should theoretically get the player location and auto select it
+             player.getRoom()) #this should get the player location and auto select it for the dropdown
 
         list2 = dropdown.DropDown(
             [COLOR_INACTIVE, COLOR_ACTIVE],
@@ -97,13 +137,54 @@ class Guess:
             pg.font.SysFont(None, 30),
             "Select Room", room.getNames(room))
 
+        #this button is the guess button
         button1 = button.Button(
             COLOR_INACTIVE,
                 405, 600,
                 150, 50,
                 "Guess")
 
-        button
+        buttonRoom = button.Button(
+            COLOR_INACTIVE,
+            300, 300,
+            150, 50,
+            "" + self.optionRoom
+        )
+
+        buttonWea = button.Button(
+            COLOR_INACTIVE,
+            400, 300,
+            150, 50,
+            "" + self.optionWea
+        )
+
+        buttonSus = button.Button(
+            COLOR_INACTIVE,
+            500, 300,
+            150, 50,
+            "" + self.optionSus
+        )
+
+        buttonPla = button.Button(
+            COLOR_INACTIVE,
+            400, 200,
+            200, 50,
+            "Player " + self.playerHandover + "Choose a card to display"
+        )
+
+        buttonSeen = button.Button(
+            COLOR_INACTIVE,
+            600, 600,
+            150, 50,
+            "I have seen card"
+        )
+
+        buttonNoToSee = button.Button(
+            COLOR_INACTIVE,
+            600, 600,
+            150, 50,
+            "No card to be shown, continue"
+        )
 
         run = True
         while run:
@@ -134,9 +215,27 @@ class Guess:
             list3.draw(screen)
             button1.draw(screen)
             button1.event(screen, event)
+            buttonWea.eventChoose(screen, event)
+            buttonPla.eventChoose(screen, event)
+            buttonRoom.eventChoose(screen, event)
+            buttonSeen.event(screen)
+            buttonNoToSee.event(screen)
 
             if button1.event(screen, event) == True:
-                self.check_for_match(self, list1, list2, list3)
+                self.check_for_match(self, list1, list2, list3, screen)
+
+            if buttonSus.eventChoose(screen,event) == True:
+                buttonSeen.draw(screen)
+            if buttonWea.eventChoose(screen,event) == True:
+                buttonSeen.draw(screen)
+            if buttonRoom.eventChoose(screen,event) == True:
+                buttonSeen.draw(screen)
+
+            if buttonNoToSee(screen, event) == True:
+                run = False
+            if buttonSeen(screen, event) == True:
+                run = False
+
 
             pg.display.flip()
 

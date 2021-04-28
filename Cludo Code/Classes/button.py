@@ -34,3 +34,10 @@ class Button:
                         return True
 
                 return False
+
+        def eventChoose(self, screen, event):
+                pos = pg.mouse.get_pos()
+                if event.type == pg.MOUSEBUTTONDOWN:
+                    if self.rectg.collidepoint(pos):
+                        self.color = (250, 10, 0)
+                        return True
