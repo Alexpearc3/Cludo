@@ -7,9 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="hidden passage update">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" afterDir="false" />
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="notepad update">
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/Player.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/Player.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/board.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -393,7 +393,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619567041681</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="notepad update">
+      <created>1619567724586</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1619567724586</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -454,6 +461,7 @@
     <MESSAGE value="added some comments" />
     <MESSAGE value="players now have own instance of notepad" />
     <MESSAGE value="hidden passage update" />
-    <option name="LAST_COMMIT_MESSAGE" value="hidden passage update" />
+    <MESSAGE value="notepad update" />
+    <option name="LAST_COMMIT_MESSAGE" value="notepad update" />
   </component>
 </project>

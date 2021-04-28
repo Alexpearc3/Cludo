@@ -13,6 +13,7 @@ class Player:
         self.moves = -1
         self.hasRolled = False
         self.notepad = notepad
+        self.room = False
 
 
     def setCard(self, card):
@@ -58,3 +59,9 @@ class Player:
 
     def getNotepad(self):
         return self.notepad
+
+    def getRoom(self):
+        return self.room
+
+    def setRoom(self, room):
+        self.room = room

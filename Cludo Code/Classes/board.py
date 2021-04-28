@@ -325,8 +325,9 @@ class board():
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
             print("guess")  # 222 x 81.6
             player = self.getCurrentPlayer()
-            x, y = player.getLocation()
-            if self.getTile(x, y).getRoom() != "tile":
+            j, k = player.getLocation()
+            player.setRoom(self.getTile(j, k).getRoom())
+            if self.getTile(j, k).getRoom() != "tile":
                 # call guess
                 g = "guess"
 
@@ -343,6 +344,7 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             # notepad.notepad()
             currentPlayer = self.getCurrentPlayer()
+
             notepad = currentPlayer.getNotepad()
             notepad.initNotepad()
             print("Notepad")
