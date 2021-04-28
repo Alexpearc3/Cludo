@@ -8,13 +8,8 @@ import dropdown
 import button
 
 class Guess:
-    def __init__(self, player1, player2, player3, player4, player5, player6):
-        self.player1 = player1
-        self.player2 = player2
-        self.player3 = player3
-        self.player4 = player4
-        self.player5 = player5
-        self.player6 = player6
+    def __init__(self, players):
+        self.players = players
 
 
     def check_for_match(self, list1, list2, list3):
@@ -23,10 +18,10 @@ class Guess:
         option1 = list1.active_option
         option2 = list2.active_option
         option3 = list3.active_option
-        hand = player.getCards(player)
-        pla = [self.player1, self.player2, self.player3, self.player4, self.player5, self.player6]
         while check == False:
-            for play in pla:
+            for player in self.players:
+                hand = player.getCards()
+                #todo write comment
                 if hand == option1 or hand == option2 or hand == option3:
                     if hand == option1 and hand == option2 or hand == option2 \
                             and hand == option3 or hand == option1 and hand == option3 \
@@ -34,7 +29,7 @@ class Guess:
                         if hand == option1 and hand == option2:
                             cards = cards + option1
                             cards = cards + option2
-                            check = True # need to pass turn over to that player
+                            check = True #todo need to pass turn over to that player
                         elif hand == option2 and hand == option3:
                             cards = cards + option3
                             cards = cards + option2
@@ -51,7 +46,7 @@ class Guess:
                     else:
                         if hand == option1:
                             cards = cards + option1
-                            check = True # auto show card tom?
+                            check = True #todo auto show card at the cluedo space on board
                         if hand == option2:
                             cards = cards + option2
                             check = True
@@ -60,13 +55,13 @@ class Guess:
                             check = True
                 else:
                     check = True
-        return cards # next turn, no cards shown
+        return cards #todo next turn, no cards shown
 
     d = Deck.Deck()
     pg.init()
     font = pg.font.SysFont(None, 30)
 
-    def screenDisplay(self):
+    def screenDisplay(self, player):
         clock = pg.time.Clock()
         screen = pg.display.set_mode((960, 950))
         sus = suspect_cards.Suspect_cards
@@ -85,8 +80,8 @@ class Guess:
             [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
             650, 100, 200, 50,
             pg.font.SysFont(None, 30),
-            "Select Suspect", sus.getNames(sus))
-            # player.Player.getLocation(player)) #this should theoretically get the player location and auto select it
+            "Select Suspect", #sus.getNames(sus))
+             player.getRoom()) #this should theoretically get the player location and auto select it
 
         list2 = dropdown.DropDown(
             [COLOR_INACTIVE, COLOR_ACTIVE],
@@ -107,6 +102,8 @@ class Guess:
                 405, 600,
                 150, 50,
                 "Guess")
+
+        button
 
         run = True
         while run:
