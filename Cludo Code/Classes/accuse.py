@@ -9,8 +9,8 @@ import button2
 
 
 class Accuse:
-    def __init__(self, screen, player1, envelope):
-        self.screen = screen
+    def __init__(self,  player1, envelope):
+
         self.player = player1
         self.envelope = envelope
 
@@ -36,6 +36,7 @@ class Accuse:
         sus = suspect_cards.Suspect_cards
         room = room_cards.Room_cards
         wea = weapon_cards.Weapon_cards
+        screen = pg.display.set_mode([960, 950])
 
         COLOR_INACTIVE = (100, 80, 255)
         COLOR_ACTIVE = (100, 200, 255)
@@ -97,15 +98,15 @@ class Accuse:
 
             background_image = pg.image.load("../Image/accuseBack1.png")
 
-            self.screen.fill((102, 0, 102))
-            self.screen.blit(background_image, [0, 0])
-            list1.draw(self.screen)
-            list2.draw(self.screen)
-            list3.draw(self.screen)
-            button1.draw(self.screen)
-            button1.event(self.screen, event)
+            screen.fill((102, 0, 102))
+            screen.blit(background_image, [0, 0])
+            list1.draw(screen)
+            list2.draw(screen)
+            list3.draw(screen)
+            button1.draw(screen)
+            button1.event(screen, event)
 #calls check envelope when the player has made an accusation
-            if button1.event(self.screen, event) == True:
+            if button1.event(screen, event) == True:
                 self.check_envolope(button1, list1, list2, list3)
 
             pg.display.flip()
