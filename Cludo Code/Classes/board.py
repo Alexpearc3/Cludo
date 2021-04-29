@@ -2,12 +2,14 @@ import pygame
 import numpy as np
 from random import randrange
 import Deck
-from tile import tile
+
 import Player
 import room
 import notepad
 
+from tile import tile
 from accuse import Accuse
+from guess import Guess
 
 from dice import Dice
 
@@ -31,7 +33,7 @@ class board():
         self.playersTurn = 0
         self.board = np.empty((25, 24), dtype=object)
         #newNotepad = notepad.Notepad()
-        playerTList = Players
+        self.playerTList = Players
         count = 0
         for player in Players:
             self.Players.append(self.player(player, count + 1, notepad.Notepad()))
@@ -345,6 +347,7 @@ class board():
             print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
+            Guess(self.screen, self.playerTList).screenDisplay(self.getCurrentPlayer())
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
