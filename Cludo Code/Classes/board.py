@@ -187,6 +187,30 @@ class board():
     imgPlayer6x, imgPlayer6y = imgPlayer6.get_size()
     imgPlayer6 = pygame.transform.scale(imgPlayer6, (int(imgPlayer6x * .3), int(imgPlayer6y * .3)))
 
+    imgPlayer1_current = pygame.image.load("../Image/player_1_current.png")
+    imgPlayer1_currentx, imgPlayer1_currenty = imgPlayer1_current.get_size()
+    imgPlayer1_current = pygame.transform.scale(imgPlayer1_current, (int(imgPlayer1_currentx * .3), int(imgPlayer1_currenty * .3)))
+
+    imgPlayer2_current = pygame.image.load("../Image/player_2_current.png")
+    imgPlayer2_currentx, imgPlayer2_currenty = imgPlayer2_current.get_size()
+    imgPlayer2_current = pygame.transform.scale(imgPlayer2_current, (int(imgPlayer2_currentx * .3), int(imgPlayer2_currenty * .3)))
+
+    imgPlayer3_current = pygame.image.load("../Image/player_3_current.png")
+    imgPlayer3_currentx, imgPlayer3_currenty = imgPlayer3_current.get_size()
+    imgPlayer3_current = pygame.transform.scale(imgPlayer3_current, (int(imgPlayer3_currentx * .3), int(imgPlayer3_currenty * .3)))
+
+    imgPlayer4_current = pygame.image.load("../Image/player_4_current.png")
+    imgPlayer4_currentx, imgPlayer4_currenty = imgPlayer4_current.get_size()
+    imgPlayer4_current = pygame.transform.scale(imgPlayer4_current, (int(imgPlayer4_currentx * .3), int(imgPlayer4_currenty * .3)))
+
+    imgPlayer5_current = pygame.image.load("../Image/player_5_current.png")
+    imgPlayer5_currentx, imgPlayer5_currenty = imgPlayer5_current.get_size()
+    imgPlayer5_current = pygame.transform.scale(imgPlayer5_current, (int(imgPlayer5_currentx * .3), int(imgPlayer5_currenty * .3)))
+
+    imgPlayer6_current = pygame.image.load("../Image/player_6_current.png")
+    imgPlayer6_currentx, imgPlayer6_currenty = imgPlayer6_current.get_size()
+    imgPlayer6_current = pygame.transform.scale(imgPlayer6_current, (int(imgPlayer6_currentx * .3), int(imgPlayer6_currenty * .3)))
+
     def grid(self, x, y):
         self.screen.blit(self.tileImg, (x, y))
 
@@ -321,6 +345,7 @@ class board():
             currentPlayer.setRolled(False)
             self.setPlayer(currentPlayer)
             isTurnComplete = True
+            print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
             print("guess")  # 222 x 81.6
@@ -564,19 +589,54 @@ class board():
             self.screen.blit(self.title, (((950 / 2 - (int(563 * .45) / 2)) - 110), 7))
             self.screen.blit(self.textBoxPreviousTurn, (600, 20))
 
+            if turnComplete:
+                turnCount += 1
+                if self.playersTurn > maxPlayer:
+                    self.playersTurn = 0
+                else:
+                    self.playersTurn += 1
+
+                print("current Player ", turnCount)
+                turnComplete = False
+
+
             # v menu
+            print(turnCount)
             if self.PLAYER1 != False:
-                self.screen.blit(self.imgPlayer1, (730, 100))
+                if self.playersTurn == 0:
+                    self.screen.blit(self.imgPlayer1_current, (730, 100))
+                else: 
+                    self.screen.blit(self.imgPlayer1, (730, 100))
+                    
             if self.PLAYER2 != False:
-                self.screen.blit(self.imgPlayer2, (840, 100))
+                if self.playersTurn == 1:
+                    self.screen.blit(self.imgPlayer2_current, (840, 100))
+                else:
+                    self.screen.blit(self.imgPlayer2, (840, 100))
+                    
             if self.PLAYER3 != False:
-                self.screen.blit(self.imgPlayer3, (730, 200))
+                if self.playersTurn == 2:
+                    self.screen.blit(self.imgPlayer3_current, (730, 200))
+                else:
+                    self.screen.blit(self.imgPlayer3, (730, 200))
+                    
             if self.PLAYER4 != False:
-                self.screen.blit(self.imgPlayer4, (840, 200))
+                if self.playersTurn == 3:
+                    self.screen.blit(self.imgPlayer4_current, (840, 200))
+                else:
+                    self.screen.blit(self.imgPlayer4, (840, 200))
+                    
             if self.PLAYER5 != False:
-                self.screen.blit(self.imgPlayer5, (730, 300))
+                if self.playersTurn == 4:
+                    self.screen.blit(self.imgPlayer5_current, (730, 300))
+                else:
+                    self.screen.blit(self.imgPlayer5, (730, 300))
+                    
             if self.PLAYER6 != False:
-                self.screen.blit(self.imgPlayer6, (840, 300))
+                if self.playersTurn == 5:
+                    self.screen.blit(self.imgPlayer6_current, (840, 300))
+                else:
+                    self.screen.blit(self.imgPlayer6, (840, 300))
 
             self.screen.blit(self.buttonRollDice, (720, 400))
             self.screen.blit(self.buttonNextTurn, (720, 500))
@@ -610,15 +670,7 @@ class board():
 
             pygame.display.flip()
 
-            if turnComplete:
-                turnCount += 1
-                if self.playersTurn > maxPlayer:
-                    self.playersTurn = 0
-                else:
-                    self.playersTurn += 1
 
-                print("current Player ", turnCount)
-                turnComplete = False
 
         # pygame.quit()
 

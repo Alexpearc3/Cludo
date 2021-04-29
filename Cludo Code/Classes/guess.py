@@ -255,4 +255,4 @@ class Guess:
             pg.display.flip()
 
 
-Guess.screenDisplay(Guess)
+#Guess.screenDisplay(Guess)
