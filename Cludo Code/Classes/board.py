@@ -6,7 +6,8 @@ from tile import tile
 import Player
 import room
 import notepad
-import accuse
+
+from accuse import Accuse
 
 from dice import Dice
 
@@ -353,7 +354,7 @@ class board():
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
             print("accuse")  # 222 x 81.6
-            accuse.Accuse(self.getCurrentPlayer(), self.deck.getEnvelope())
+            Accuse(self.screen, self.getCurrentPlayer(), self.deck.getEnvelope()).displayScreen()
 
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
             print("show cards")

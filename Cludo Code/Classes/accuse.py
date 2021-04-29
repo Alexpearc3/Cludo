@@ -9,7 +9,8 @@ import button2
 
 
 class Accuse:
-    def __init__(self, player1, envelope):
+    def __init__(self, screen, player1, envelope):
+        self.screen = screen
         self.player = player1
         self.envelope = envelope
 
@@ -72,7 +73,6 @@ class Accuse:
             "Accuse")
         run = True
         clock = pg.time.Clock()
-        screen = pg.display.set_mode((960, 950))
         while run:
             clock.tick(30)
             pg.display.update()
@@ -97,19 +97,19 @@ class Accuse:
 
             background_image = pg.image.load("../Image/accuseBack1.png")
 
-            screen.fill((102, 0, 102))
-            screen.blit(background_image, [0, 0])
-            list1.draw(screen)
-            list2.draw(screen)
-            list3.draw(screen)
-            button1.draw(screen)
-            button1.event(screen, event)
+            self.screen.fill((102, 0, 102))
+            self.screen.blit(background_image, [0, 0])
+            list1.draw(self.screen)
+            list2.draw(self.screen)
+            list3.draw(self.screen)
+            button1.draw(self.screen)
+            button1.event(self.screen, event)
 #calls check envelope when the player has made an accusation
-            if button1.event(screen, event) == True:
+            if button1.event(self.screen, event) == True:
                 self.check_envolope(button1, list1, list2, list3)
 
             pg.display.flip()
 
 
 
-#Accuse.displayScreen(Accuse)
+#Accuse.displayScreen(Ac cuse)
