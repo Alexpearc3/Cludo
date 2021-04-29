@@ -95,7 +95,7 @@ class Accuse:
             if selected_option >= 0:
                 list3.main = list3.options[selected_option]
 
-            background_image = pg.image.load("../Image/clue_back.png")
+            background_image = pg.image.load("../Image/accuseBack1.png")
 
             screen.fill((102, 0, 102))
             screen.blit(background_image, [0, 0])
