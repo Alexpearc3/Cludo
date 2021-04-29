@@ -8,10 +8,10 @@ class Button:
             self.width = width
             self.height = height
             self.text = text
-            self.pressed =pressed
+            self.pressed = pressed
 
-        def draw(self, screen, outline=None):
         # Call this method to draw the button on the screen
+        def draw(self, screen, outline=None):
             if outline:
                 pg.draw.rect(screen, outline, (self.x - 2, self.y - 2, self.width + 4, self.height + 4), 0)
 
@@ -23,6 +23,7 @@ class Button:
                 screen.blit(text, (
                 self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
 
+        # this function is what happens if a button is pressed
         def event(self, screen, event):
 
                 pos = pg.mouse.get_pos()
@@ -35,9 +36,11 @@ class Button:
 
                 return False
 
+        #this function is for when a player needs to select a card to highlight to show the other player
         def eventChoose(self, screen, event):
                 pos = pg.mouse.get_pos()
                 if event.type == pg.MOUSEBUTTONDOWN:
                     if self.rectg.collidepoint(pos):
                         self.color = (250, 10, 0)
+                        self.draw(screen, outline=None)
                         return True
