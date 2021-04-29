@@ -325,7 +325,7 @@ class board():
             # roll dice class function goes here!
             currentPlayer = self.getCurrentPlayer()
             if not currentPlayer.getRolled():
-                moves = randrange(1,12) + 1
+                moves = randrange(1, 12) + 1
                 Dice(moves, self.screen).rolldice()
                 currentPlayer.setMoves(moves)
                 self.setPlayer(currentPlayer)
@@ -347,13 +347,11 @@ class board():
             print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
-            Guess(self.playerTList).screenDisplay(self.getCurrentPlayer())
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
             if self.getTile(j, k).getRoom() != "tile":
-                # call guess
-                g = "guess"
+                Guess(self.Players).screenDisplay(self.getCurrentPlayer())
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
             print("accuse")  # 222 x 81.6
@@ -487,7 +485,6 @@ class board():
                         self.setPlayer(currentPlayer)
                         for rooms in self.rooms:
                             if rooms.getName() == self.getTile(x, y).getRoom():
-
                                 rooms.setPlayer(self.playersTurn)
 
             if currentPlayer.getMoves() == 0:
@@ -524,7 +521,23 @@ class board():
                 #self.movePlayer()
 
     def AI(self):
-        d = "dick"
+        currentPlayer = self.getCurrentPlayer()
+        moves = randrange(1, 12) + 1
+        currentPlayer.setMoves(moves)
+        self.setPlayer(currentPlayer)
+        self.movePlayer()
+        currentPlayer = self.getCurrentPlayer()
+        currentPlayer.setRolled(True)
+        self.setPlayer(currentPlayer)
+        moves = []
+        for row in range(25):
+            for column in range(24):
+                if board(row, column).getSelected() and c.getPossibleMove():
+                    moves.append([row, column])
+        #todo for move in moves.
+
+
+
 
     def main(self):
         done = False
