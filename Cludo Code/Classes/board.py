@@ -359,8 +359,6 @@ class board():
             print("accuse")  # 222 x 81.6
             Accuse(self.getCurrentPlayer(), self.deck.getEnvelope()).displayScreen()
             
-                      
-
 
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
             print("show cards")
@@ -525,7 +523,8 @@ class board():
                     self.setPlayer(currentPlayer)
                 #self.movePlayer()
 
-
+    def AI(self):
+        d = "dick"
 
     def main(self):
         done = False
@@ -591,6 +590,12 @@ class board():
             self.screen.blit(self.background, (self.GRIDBUFFX, self.GRIDBUFFY))
             self.screen.blit(self.title, (((950 / 2 - (int(563 * .45) / 2)) - 110), 7))
             self.screen.blit(self.textBoxPreviousTurn, (600, 20))
+            
+            if self.getCurrentPlayer().getName() != False:
+                if self.getCurrentPlayer().getName().upper() == "AI":
+                    #run AI Code
+                    self.AI()
+
 
             if turnComplete:
                 turnCount += 1

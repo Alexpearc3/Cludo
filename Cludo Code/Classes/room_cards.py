@@ -18,7 +18,7 @@ class Room_cards:
     def __init__(self):
         self.room_cards = []
         for card_name in self.getNames():
-            img_name = '../Image/' + self.procStr(card_name) + '.jpg'
+            img_name = '../Image/' + self.procStr(card_name) + '.png'
             self.setCards(self.procStr(img_name), card_name)
 
     # returns room_list  'Billiard room', 'Study', 'Hall', 'Lounge', 'Dining room', 'Ballroom', 'Conservatory', 'Library', 'Kitchen'
