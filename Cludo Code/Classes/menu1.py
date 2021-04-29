@@ -18,8 +18,7 @@ class Menu1:
         self.menu_run.reset_keys()
     def getBoardType(self, CustoMenu):
         return CustoMenu.boardType
-    def getPlayerNum(self, CustoMenu):
-        return self.CustoMenu.playerNum
+
 
 class MainMenu(Menu1):
     def __init__(self, menu_run, CustoMenu):
@@ -71,9 +70,11 @@ class MainMenu(Menu1):
             if self.state == 'Start':
                 #Dice(12, pygame.display.set_mode([950, 960])).rolldice()
                 #self.menu_run.playing = True #put in toms code her
-                # playerList = self.CustoMenu.playerArr
-                # b = board(playerList, 1).main()
-                Notepad.notepad(self)
+                playerList = self.CustoMenu.playerArr
+                b = board(playerList, 2).main()
+                #self.CustoMenu.boardType
+                #print("the board type is " + str(self.CustoMenu.boardType))
+                #Notepad.notepad(self)
 
                 #Notepad_Main.notepadRun()
             elif self.state == 'Options':
@@ -173,6 +174,7 @@ class CustoMenu(Menu1):
         self.cursor_rect.midtop = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 860)
 
         self.boardType = 1
+        self.playerArr = ['Miss Scarlet','Mrs White','Colonel Mustard','Reverend Green','Professor Plum','Mrs Peacock']
 
     def display_menu(self):
         self.run_display = True
@@ -297,10 +299,12 @@ class CustoMenu(Menu1):
                 self.cursor_rect.midtop = (self.Ax, self.Ay)
             elif self.state == 'A':
                 self.boardType = 1
+                #print(Menu1.getBoardType(self))
                 self.cursor_rect.midtop = (self.changeNamesx, self.changeNamesy)
                 self.state = 'changeNames'
             elif self.state == 'B':
                 self.boardType = 2
+                #print(Menu1.getBoardType(self))
                 self.cursor_rect.midtop = (self.changeNamesx, self.changeNamesy)
                 self.state = 'changeNames'
             elif self.state == 'changeNames':
@@ -349,8 +353,8 @@ class PlayerNamesMenu(Menu1):
             self.inputRect1.w = max(100, text_surface1.get_width() + 10)
             print(self.plNameEntry)
             self.blit_screen()
-    def input_check(self):
 
+    def input_check(self):
         if self.menu_run.START_KEY and self.state == 'pl1':
             self.name1 = self.plNameEntry[:-1]
             self.CustoMenu.playerArr[0] = self.name1
