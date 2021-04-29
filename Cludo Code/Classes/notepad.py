@@ -46,10 +46,6 @@ class Notepad:
         self.notepad(screen)
 
     def notepad(self, screenx):
-        '''
-        :param screenx: displaying screen of window
-        :return: screen
-        '''
 
         red = (255, 0, 0)
         flag = True
@@ -57,7 +53,7 @@ class Notepad:
             screen = screenx
             screen.blit(self.notepad_background, (960 / 3.5, 0))
             # screen.fill(self.notepad_background)
-            screen = self.drawNotePad(self.lines, screen, red)
+            screen = self.drawNotePad(self.lines, screen)
 
             for ev in pygame.event.get():
                 if ev.type == pygame.QUIT:
@@ -69,24 +65,29 @@ class Notepad:
                     for item in self.general_list:
                         if ev.button == 1 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
-                            self.lines.append([75 + 280, spacing, 155, 2])
+                            check = True
+                            for ln in self.lines:
+                                x,xSpacing,z,q = ln
+                                if xSpacing == spacing:
+                                    check = False
+                            if check:
+                                self.lines.append([75 + 280, spacing, 155, 2])
                         if ev.button == 3 and spacing - 10 <= Mouse[1] <= spacing + 10 and not (
                                 item == 'Mrs Peacock' or item == 'Knife'):
-                            for j in range(len(self.lines)):
-                                x, Xspacing, y, z = self.lines[j]
-                                if Xspacing == spacing:
-                                    print(j)
-                                    self.lines.pop(j)
+                            if (len(self.lines)) != 0:
+                                for j in range(len(self.lines)):
+                                    try:
+                                        x, Xspacing, y, z = self.lines[j]
+                                        if Xspacing == spacing:
+                                            print(j)
+                                            self.lines.pop(j)
+                                    except:
+                                        p = ""
 
                         spacing += 29
                 pygame.display.update()
 
-    def drawNotePad(self, lines, screen, red):
-        '''
-        :param lines: list
-        :param screen: screen of the game window
-        :return:screen
-        '''
+    def drawNotePad(self, lines, screen):
         pygame.display.init()
         # define the RGB value
         gray = (130, 130, 130)

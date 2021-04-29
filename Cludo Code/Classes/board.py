@@ -2,13 +2,16 @@ import pygame
 import numpy as np
 from random import randrange
 import Deck
-from tile import tile
+
 import Player
 import room
 import notepad
 
-# from newDice import Dice
-# from notepad import notepad
+from tile import tile
+from accuse import Accuse
+from guess import Guess
+
+from dice import Dice
 
 
 class board():
@@ -29,11 +32,11 @@ class board():
         self.possibleMoves = []
         self.playersTurn = 0
         self.board = np.empty((25, 24), dtype=object)
-        newNotepad = notepad.Notepad()
-        playerTList = Players
+        #newNotepad = notepad.Notepad()
+        self.playerTList = Players
         count = 0
         for player in Players:
-            self.Players.append(self.player(player, count + 1,newNotepad))
+            self.Players.append(self.player(player, count + 1, notepad.Notepad()))
             count += 1
         # for p in self.Players:
         #     print(p.getPlayerID()) works
@@ -187,6 +190,33 @@ class board():
     imgPlayer6x, imgPlayer6y = imgPlayer6.get_size()
     imgPlayer6 = pygame.transform.scale(imgPlayer6, (int(imgPlayer6x * .3), int(imgPlayer6y * .3)))
 
+    imgPlayer1_current = pygame.image.load("../Image/player_1_current.png")
+    imgPlayer1_currentx, imgPlayer1_currenty = imgPlayer1_current.get_size()
+    imgPlayer1_current = pygame.transform.scale(imgPlayer1_current, (int(imgPlayer1_currentx * .3), int(imgPlayer1_currenty * .3)))
+
+    imgPlayer2_current = pygame.image.load("../Image/player_2_current.png")
+    imgPlayer2_currentx, imgPlayer2_currenty = imgPlayer2_current.get_size()
+    imgPlayer2_current = pygame.transform.scale(imgPlayer2_current, (int(imgPlayer2_currentx * .3), int(imgPlayer2_currenty * .3)))
+
+    imgPlayer3_current = pygame.image.load("../Image/player_3_current.png")
+    imgPlayer3_currentx, imgPlayer3_currenty = imgPlayer3_current.get_size()
+    imgPlayer3_current = pygame.transform.scale(imgPlayer3_current, (int(imgPlayer3_currentx * .3), int(imgPlayer3_currenty * .3)))
+
+    imgPlayer4_current = pygame.image.load("../Image/player_4_current.png")
+    imgPlayer4_currentx, imgPlayer4_currenty = imgPlayer4_current.get_size()
+    imgPlayer4_current = pygame.transform.scale(imgPlayer4_current, (int(imgPlayer4_currentx * .3), int(imgPlayer4_currenty * .3)))
+
+    imgPlayer5_current = pygame.image.load("../Image/player_5_current.png")
+    imgPlayer5_currentx, imgPlayer5_currenty = imgPlayer5_current.get_size()
+    imgPlayer5_current = pygame.transform.scale(imgPlayer5_current, (int(imgPlayer5_currentx * .3), int(imgPlayer5_currenty * .3)))
+
+    imgPlayer6_current = pygame.image.load("../Image/player_6_current.png")
+    imgPlayer6_currentx, imgPlayer6_currenty = imgPlayer6_current.get_size()
+    imgPlayer6_current = pygame.transform.scale(imgPlayer6_current, (int(imgPlayer6_currentx * .3), int(imgPlayer6_currenty * .3)))
+
+    # if True, cards will be visable to players
+    showCardsState = False
+
     def grid(self, x, y):
         self.screen.blit(self.tileImg, (x, y))
 
@@ -237,8 +267,7 @@ class board():
                     self.screen.blit(self.tileImg,
                                      (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-
-
+    # selects tiles and sets possiblemove on tiles where a player can move to
     def selectTiles(self, possibleMoves, x, y):
         print(possibleMoves)
         for i in range(len(possibleMoves)):
@@ -255,6 +284,7 @@ class board():
                     tile.setSelected(True)
                     self.setTile(tile, x, possibleMoves[i])
 
+    # check tiles around a player, return a list of moves [x-1,x+1,y-1,y+1] [False,False,False,False] when not possible
     def lookAround(self, x, y):
         possibleMoves = [x - 1, x + 1, y - 1, y + 1]
         print(possibleMoves)
@@ -284,9 +314,11 @@ class board():
         self.possibleMoves = possibleMoves
         return possibleMoves
 
+    # return a tile fromm board
     def getTile(self, x, y):
         return self.board[y, x]
 
+    # set a tile to board
     def setTile(self, tile, x, y):
         self.board[y, x] = tile
 
@@ -296,12 +328,8 @@ class board():
             # roll dice class function goes here!
             currentPlayer = self.getCurrentPlayer()
             if not currentPlayer.getRolled():
-                print("roll dice")  # 222 x 81.6
-                number = randrange(12) + 1
-
-                moves = number  # Dice(number, self.screen).rolldice()
-
-                print("current Player ", currentPlayer.getPlayerID())
+                moves = randrange(1, 12) + 1
+                Dice(moves, self.screen).rolldice()
                 currentPlayer.setMoves(moves)
                 self.setPlayer(currentPlayer)
                 self.movePlayer()
@@ -319,15 +347,24 @@ class board():
             currentPlayer.setRolled(False)
             self.setPlayer(currentPlayer)
             isTurnComplete = True
+            self.showCardsState = False
+            print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
-            print("guess")  # 222 x 81.6
+            player = self.getCurrentPlayer()
+            j, k = player.getLocation()
+            player.setRoom(self.getTile(j, k).getRoom())
+            if self.getTile(j, k).getRoom() != "tile":
+                Guess(self.Players).screenDisplay(self.getCurrentPlayer())
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
             print("accuse")  # 222 x 81.6
+            Accuse(self.getCurrentPlayer(), self.deck.getEnvelope()).displayScreen()
+            
 
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
             print("show cards")
+            self.showCardsState = not(self.showCardsState)
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
             print("menu")
@@ -336,6 +373,7 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             # notepad.notepad()
             currentPlayer = self.getCurrentPlayer()
+
             notepad = currentPlayer.getNotepad()
             notepad.initNotepad()
             print("Notepad")
@@ -363,23 +401,18 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             self.screen.blit(self.buttonNotepadSelected, (860, 812))
 
-    def gameLogic(self, turn):
-        # Alex Code Here
-        # if player().getIsTurn and buttonGuess()
-        #   guess
-        # been reworking other code to fit
-        turnCounter = 0
-        return None
-
+    # Return the current player
     def getCurrentPlayer(self):
         return self.Players[self.playersTurn]
 
+    # set a player to the Players array
     def setPlayer(self, player):
         for i in range(len(self.Players)):
             if self.Players[i].getPlayerID() == player.getPlayerID():
-                print("success")
+                #print("success")
                 self.Players[i] = player
 
+    # Unset the selected tiles after a move and at end of the time
     def unsetPossibleMoves(self, x, y):
         possibleMoves = self.possibleMoves
         for i in range(len(possibleMoves)):
@@ -399,7 +432,7 @@ class board():
             for c in r:
                 c.setSelected(False)
                 c.setPossibleMove(False)
-
+    #finds player moves by combining possible moves to select tiles
     def movePlayer(self):
         player = self.getCurrentPlayer()
         x, y = player.getLocation()
@@ -411,13 +444,13 @@ class board():
             print(possibleMoves)
         else:
             for rooms in self.rooms:
-                print("motherfucker")
                 if rooms.getName() == self.getTile(x, y).getRoom():
                     for door in rooms.getDoors():
                         j, k = door
                         possibleMoves = self.lookAround(j, k)
                         self.selectTiles(possibleMoves, j, k)
-
+                        
+    #moves the player to a new tile and unsets moves once moved.
     def movePlayerTile(self, x, y):
         currentPlayer = self.getCurrentPlayer()
         j, k = currentPlayer.getLocation()
@@ -452,12 +485,11 @@ class board():
                         tile.setPlayer(0)
                         self.setTile(tile, j, k)
                         self.unsetPossibleMoves(j, k)
-
+                        currentPlayer.setMoves(0)
                         currentPlayer.setLocation(x, y)
                         self.setPlayer(currentPlayer)
                         for rooms in self.rooms:
                             if rooms.getName() == self.getTile(x, y).getRoom():
-
                                 rooms.setPlayer(self.playersTurn)
 
             if currentPlayer.getMoves() == 0:
@@ -466,25 +498,51 @@ class board():
                 self.possibleMoves = self.lookAround(x, y)
                 self.unsetPossibleMoves(x, y)
         else: # player is in a room move to a tile
-            if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
-                tile = self.getTile(x, y)
-                tile.setPlayer(currentPlayer.getPlayerID())
-                tile.setSelected(False)
-                tile.setPossibleMove(False)
-                print(self.getTile(x, y).getPlayer())
-                self.setTile(tile, x, y)
-                currentPlayer.setMoves(currentPlayer.getMoves() - 1)
-                currentPlayer.setLocation(x, y)
-                self.setPlayer(currentPlayer)
-                self.movePlayer()
+            t = self.getTile(x, y)
+            if not t.getHiddenPassage():
+                if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+                    tile = self.getTile(x, y)
+                    tile.setPlayer(currentPlayer.getPlayerID())
+                    tile.setSelected(False)
+                    tile.setPossibleMove(False)
+                    print(self.getTile(x, y).getPlayer())
+                    self.setTile(tile, x, y)
+                    currentPlayer.setMoves(currentPlayer.getMoves() - 1)
+                    currentPlayer.setLocation(x, y)
+                    self.setPlayer(currentPlayer)
+                    self.unsetPossibleMoves(x, y)
+                    self.movePlayer()
+
+
+            else: # move player room to room
+                if currentPlayer.getMoves() > 0:
+                    passageLocation = self.getTile(x, y).getHiddenPassage()
+
+                    self.unsetPossibleMoves(x, y)
+                    j,k = passageLocation
+                    currentPlayer.setMoves(0)
+                    currentPlayer.setLocation(j, k)
+                    self.setPlayer(currentPlayer)
+                #self.movePlayer()
+
+    def AI(self):
+        currentPlayer = self.getCurrentPlayer()
+        moves = randrange(1, 12) + 1
+        currentPlayer.setMoves(moves)
+        self.setPlayer(currentPlayer)
+        self.movePlayer()
+        currentPlayer = self.getCurrentPlayer()
+        currentPlayer.setRolled(True)
+        self.setPlayer(currentPlayer)
+        moves = []
+        for row in range(25):
+            for column in range(24):
+                if board(row, column).getSelected() and c.getPossibleMove():
+                    moves.append([row, column])
+        #todo for move in moves.
 
 
 
-
-
-
-
-        # TODO DOne
 
     def main(self):
         done = False
@@ -550,20 +608,60 @@ class board():
             self.screen.blit(self.background, (self.GRIDBUFFX, self.GRIDBUFFY))
             self.screen.blit(self.title, (((950 / 2 - (int(563 * .45) / 2)) - 110), 7))
             self.screen.blit(self.textBoxPreviousTurn, (600, 20))
+            
+            if self.getCurrentPlayer().getName() != False:
+                if self.getCurrentPlayer().getName().upper() == "AI":
+                    #run AI Code
+                    self.AI()
+
+
+            if turnComplete:
+                turnCount += 1
+                if self.playersTurn > maxPlayer:
+                    self.playersTurn = 0
+                else:
+                    self.playersTurn += 1
+
+                #print("current Player ", turnCount)
+                turnComplete = False
+
 
             # v menu
             if self.PLAYER1 != False:
-                self.screen.blit(self.imgPlayer1, (730, 100))
+                if self.playersTurn == 0:
+                    self.screen.blit(self.imgPlayer1_current, (730, 100))
+                else: 
+                    self.screen.blit(self.imgPlayer1, (730, 100))
+                    
             if self.PLAYER2 != False:
-                self.screen.blit(self.imgPlayer2, (840, 100))
+                if self.playersTurn == 1:
+                    self.screen.blit(self.imgPlayer2_current, (840, 100))
+                else:
+                    self.screen.blit(self.imgPlayer2, (840, 100))
+                    
             if self.PLAYER3 != False:
-                self.screen.blit(self.imgPlayer3, (730, 200))
+                if self.playersTurn == 2:
+                    self.screen.blit(self.imgPlayer3_current, (730, 200))
+                else:
+                    self.screen.blit(self.imgPlayer3, (730, 200))
+                    
             if self.PLAYER4 != False:
-                self.screen.blit(self.imgPlayer4, (840, 200))
+                if self.playersTurn == 3:
+                    self.screen.blit(self.imgPlayer4_current, (840, 200))
+                else:
+                    self.screen.blit(self.imgPlayer4, (840, 200))
+                    
             if self.PLAYER5 != False:
-                self.screen.blit(self.imgPlayer5, (730, 300))
+                if self.playersTurn == 4:
+                    self.screen.blit(self.imgPlayer5_current, (730, 300))
+                else:
+                    self.screen.blit(self.imgPlayer5, (730, 300))
+                    
             if self.PLAYER6 != False:
-                self.screen.blit(self.imgPlayer6, (840, 300))
+                if self.playersTurn == 5:
+                    self.screen.blit(self.imgPlayer6_current, (840, 300))
+                else:
+                    self.screen.blit(self.imgPlayer6, (840, 300))
 
             self.screen.blit(self.buttonRollDice, (720, 400))
             self.screen.blit(self.buttonNextTurn, (720, 500))
@@ -574,7 +672,6 @@ class board():
             self.screen.blit(self.textBoxPreviousTurn, (690, 20))
 
             # h menu
-            self.screen.blit(self.buttonShowCards, (12, 812))
             self.screen.blit(self.cardBlank, (102, 812))  # 1
             self.screen.blit(self.cardBlank, (185, 812))  # 2
             self.screen.blit(self.cardBlank, (268, 812))  # 3
@@ -584,6 +681,44 @@ class board():
             self.screen.blit(self.cardBlank, (600, 812))  # 7
             self.screen.blit(self.cardBlank, (683, 812))  # 8
             self.screen.blit(self.cardBlank, (766, 812))  # 9
+            self.screen.blit(self.buttonShowCards, (12, 812))
+            
+            cardsToShow = [False, False, False, False, False, False, False, False, False]
+            currentCards = self.getCurrentPlayer().getCards()
+
+            for i in range(len(currentCards)):
+                cardsToShow[i] = currentCards[i]
+
+            if self.showCardsState:
+                if cardsToShow[0] != False:
+                    card1 = pygame.image.load(cardsToShow[0].getImgName())
+                    self.screen.blit(card1, (102, 812))  #1
+                if cardsToShow[1] != False:
+                    card2 = pygame.image.load(cardsToShow[1].getImgName())
+                    self.screen.blit(card2, (185, 812))  # 2
+                if cardsToShow[2] != False:
+                    card3 = pygame.image.load(cardsToShow[2].getImgName())
+                    self.screen.blit(card3, (268, 812))  # 3
+                if cardsToShow[3] != False:
+                    card4 = pygame.image.load(cardsToShow[3].getImgName())
+                    self.screen.blit(card4, (351, 812))  # 4
+                if cardsToShow[4] != False:
+                    card5 = pygame.image.load(cardsToShow[4].getImgName())
+                    self.screen.blit(card5, (434, 812))  # 5
+                if cardsToShow[5] != False:
+                    card6 = pygame.image.load(cardsToShow[5].getImgName())
+                    self.screen.blit(card6, (517, 812))  # 6
+                if cardsToShow[6] != False:
+                    card7 = pygame.image.load(cardsToShow[6].getImgName())
+                    self.screen.blit(card7, (600, 812))  # 7
+                if cardsToShow[7] != False:
+                    card8 = pygame.image.load(cardsToShow[7].getImgName())
+                    self.screen.blit(card8, (683, 812))  # 8
+                if cardsToShow[8] != False:
+                    card9 = pygame.image.load(cardsToShow[8].getImgName())
+                    self.screen.blit(card9, (766, 812))  # 9            
+
+
 
             # notepad
             self.screen.blit(self.buttonNotepad, (860, 812))
@@ -595,24 +730,9 @@ class board():
             # Draw the grid
             self.drawGrid(self.board)
 
-            self.gameLogic(turnCount)
-            # currentPlayer = self.getCurrentPlayer()
-            # if currentPlayer.getMoves() == 0:
-            #     player = self.getCurrentPlayer()
-            #     x, y = player.getLocation()
-            #     self.possibleMoves = self.lookAround(x, y)
-            clock.tick(60)  # set to 30 to half cycle speeds / reduce processing requirements
             pygame.display.flip()
 
-            if turnComplete:
-                turnCount += 1
-                if self.playersTurn > maxPlayer:
-                    self.playersTurn = 0
-                else:
-                    self.playersTurn += 1
 
-                print("current Player ", turnCount)
-                turnComplete = False
 
         # pygame.quit()
 
@@ -626,7 +746,8 @@ class board():
         # player6 = players[5]
 
         """
-            there are 27 possible tile states.
+            there are 31 possible tile states.
+            
             str = study (room)
             har = hall (room)
             lor = lounge (room)
@@ -655,59 +776,39 @@ class board():
             ww4 = walkway player 4
             ww5 = walkway player 5
             ww6 = walkway player 6
+
+            cvh = conservatory (hidden passage)
+            kih = kitchen (hidden passage)
+            sth = study (hidden passage)
+            loh = lounge (hidden passage)
             """
 
         grid = [
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har",
-             "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["str", "str", "str", "str", "str", "str", "std", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "had", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har",
-             "wwe", "wwe", "lod", "lor", "lor", "lor", "lor", "lor", "lor"],
-            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "had", "had", "har", "har",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lid", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drd", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["blk", "lir", "lir", "lid", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bid", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drd", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe",
-             "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bid", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
-            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe",
-             "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
-            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brd", "brr", "brr", "brr", "brr", "brd",
-             "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
-            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
-            ["blk", "cvr", "cvr", "cvr", "cvd", "wwe", "wwe", "wwe", "brd", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brd", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr",
-             "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe",
-             "wwe", "wwe", "brr", "kir", "kir", "kir", "kir", "kir", "kir"],
-            ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe",
-             "brr", "brr", "brr", "kir", "kir", "kir", "kir", "kir", "kir"]]
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "blk", "blk", "har", "har", "har", "har", "har", "blk", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["str", "str", "str", "str", "str", "str", "str", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["sth", "str", "str", "str", "str", "str", "std", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "had", "har", "har", "har", "har", "har", "wwe", "wwe", "lor", "lor", "lor", "lor", "lor", "lor", "lor"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "har", "har", "har", "har", "har", "har", "wwe", "wwe", "lod", "lor", "lor", "lor", "lor", "lor", "loh"],
+            ["blk", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "har", "har", "had", "had", "har", "har", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lid", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["lir", "lir", "lir", "lir", "lir", "lir", "lir", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drd", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "lir", "lir", "lid", "lir", "lir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bid", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drd", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "blk", "blk", "blk", "blk", "blk", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bid", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "drr", "drr", "drr", "drr", "drr"],
+            ["bir", "bir", "bir", "bir", "bir", "bir", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "blk"],
+            ["blk", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brd", "brr", "brr", "brr", "brr", "brd", "brr", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe"],
+            ["wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kid", "kir", "kir", "kir", "brr"],
+            ["blk", "cvh", "cvr", "cvr", "cvd", "wwe", "wwe", "wwe", "brd", "brr", "brr", "brr", "brr", "brr", "brr", "brd", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "wwe", "wwe", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "brr", "wwe", "wwe", "kir", "kir", "kir", "kir", "kir", "kir"],
+            ["cvr", "cvr", "cvr", "cvr", "cvr", "cvr", "blk", "wwe", "wwe", "wwe", "brr", "brr", "brr", "brr", "wwe", "wwe", "wwe", "brr", "kih", "kir", "kir", "kir", "kir", "kir"],
+            ["blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "blk", "wwe", "blk", "blk", "blk", "blk", "wwe", "brr", "brr", "brr", "blk", "blk", "blk", "blk", "blk", "blk"]]
 
         for p in self.Players:
 
@@ -801,7 +902,6 @@ class board():
         for row in range(25):
             for column in range(24):
                 # doors
-                print(row, column)
                 if grid[row][column] == "std":
                     board[row, column] = tile(room="study", door=True, isTile=False)
 
@@ -874,6 +974,24 @@ class board():
                         if rooms.getName() == board[row, column].getRoom():
                             print("setdoor")
                             rooms.setDoors(column, row)
+                # hidden passages
+
+                if grid[row][column] == "cvh":
+                    board[row, column] = tile(room="conservatory", hiddenPassage = [23, 5])
+
+
+                if grid[row][column] == "kih":
+                    board[row, column] = tile(room="kitchen", hiddenPassage = [0, 3])
+
+
+                if grid[row][column] == "sth":
+                    board[row, column] = tile(room="study", hiddenPassage = [18, 23])
+
+
+                if grid[row][column] == "loh":
+                    board[row, column] = tile(room="lounge", hiddenPassage = [1, 20])
+
+                
 
                 # walkways
                 if grid[row][column] == "wwe":

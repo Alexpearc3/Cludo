@@ -13,7 +13,7 @@ class Weapon_cards:
         self.weapon_cards = []
         for card_name in self.getNames():
             # print(card_name)
-            img_name = '../Image/' + self.procStr(card_name) + '.jpg'
+            img_name = '../Image/' + self.procStr(card_name) + '.png'
 
             self.setCards(self.procStr(img_name), card_name)
 

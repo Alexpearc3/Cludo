@@ -108,8 +108,8 @@ class MainMenu(StartMenu):
             self.draw_text('gg bro', 20, 30, 30)
             self.window.blit(self.display, (0,0))
             pygame.display.update()
-    while self.running:
-        StartMenu.curr_menu.display_startMenu()
-        MainMenu.game_loop()
+        while self.running:
+            StartMenu.curr_menu.display_startMenu()
+            MainMenu.game_loop()
 #need to run display.startmenu somewhere idk where
 #i think it needs to be run within a game state
