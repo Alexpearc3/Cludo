@@ -50,7 +50,7 @@ class Dice():
         while not self.done:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:  # If user clicked close
-                    this.done = True  # Flag that we are done so we exit this loop
+                    self.done = True  # Flag that we are done so we exit this loop
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # User clicks the mouse. Get the position
                     pos = pygame.mouse.get_pos()

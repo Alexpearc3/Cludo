@@ -12,7 +12,7 @@ class Suspect_cards:
     def __init__(self):
         self.suspect_cards = []
         for card_name in self.getNames():
-            img_name = '../Image/' + self.procStr(card_name) + '.jpg'
+            img_name = '../Image/' + self.procStr(card_name) + '.png'
             self.setCards(self.procStr(img_name), card_name)
 
     def getNames(self):
