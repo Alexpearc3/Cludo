@@ -347,7 +347,7 @@ class board():
             print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
-            Guess(self.screen, self.playerTList).screenDisplay(self.getCurrentPlayer())
+            Guess(self.playerTList).screenDisplay(self.getCurrentPlayer())
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
@@ -357,7 +357,10 @@ class board():
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
             print("accuse")  # 222 x 81.6
-            Accuse(self.screen, self.getCurrentPlayer(), self.deck.getEnvelope()).displayScreen()
+            Accuse(self.getCurrentPlayer(), self.deck.getEnvelope()).displayScreen()
+            
+                      
+
 
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
             print("show cards")
@@ -602,7 +605,7 @@ class board():
 
             # v menu
             if self.PLAYER1 != False:
-                if self.playersTurn == 0:
+                if self.playersTurn =   = 0:
                     self.screen.blit(self.imgPlayer1_current, (730, 100))
                 else: 
                     self.screen.blit(self.imgPlayer1, (730, 100))
@@ -839,7 +842,6 @@ class board():
         for row in range(25):
             for column in range(24):
                 # doors
-                print(row, column)
                 if grid[row][column] == "std":
                     board[row, column] = tile(room="study", door=True, isTile=False)
 
