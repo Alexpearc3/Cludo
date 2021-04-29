@@ -6,9 +6,9 @@ from tile import tile
 import Player
 import room
 import notepad
+import accuse
 
-# from newDice import Dice
-# from notepad import notepad
+from dice import Dice
 
 
 class board():
@@ -322,12 +322,8 @@ class board():
             # roll dice class function goes here!
             currentPlayer = self.getCurrentPlayer()
             if not currentPlayer.getRolled():
-                print("roll dice")  # 222 x 81.6
-                number = randrange(1,12) + 1
-
-                moves = number  # Dice(number, self.screen).rolldice()
-
-                print("current Player ", currentPlayer.getPlayerID())
+                moves = randrange(1,12) + 1
+                Dice(moves, self.screen).rolldice()
                 currentPlayer.setMoves(moves)
                 self.setPlayer(currentPlayer)
                 self.movePlayer()
@@ -348,7 +344,6 @@ class board():
             print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
-            print("guess")  # 222 x 81.6
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
@@ -358,6 +353,7 @@ class board():
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
             print("accuse")  # 222 x 81.6
+            accuse.Accuse(self.getCurrentPlayer(), self.deck.getEnvelope())
 
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
             print("show cards")
@@ -405,7 +401,7 @@ class board():
     def setPlayer(self, player):
         for i in range(len(self.Players)):
             if self.Players[i].getPlayerID() == player.getPlayerID():
-                print("success")
+                #print("success")
                 self.Players[i] = player
 
     # Unset the selected tiles after a move and at end of the time
@@ -440,12 +436,12 @@ class board():
             print(possibleMoves)
         else:
             for rooms in self.rooms:
-                print("motherfucker")
                 if rooms.getName() == self.getTile(x, y).getRoom():
                     for door in rooms.getDoors():
                         j, k = door
                         possibleMoves = self.lookAround(j, k)
                         self.selectTiles(possibleMoves, j, k)
+                        
     #moves the player to a new tile and unsets moves once moved.
     def movePlayerTile(self, x, y):
         currentPlayer = self.getCurrentPlayer()
@@ -596,12 +592,11 @@ class board():
                 else:
                     self.playersTurn += 1
 
-                print("current Player ", turnCount)
+                #print("current Player ", turnCount)
                 turnComplete = False
 
 
             # v menu
-            print(turnCount)
             if self.PLAYER1 != False:
                 if self.playersTurn == 0:
                     self.screen.blit(self.imgPlayer1_current, (730, 100))
