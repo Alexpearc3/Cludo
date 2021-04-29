@@ -8,7 +8,7 @@ class Menu1:
         self.run_display = True
         self.cursor_rect = pygame.Rect(0, 0, 20, 20)#20 x 20 square as cursor
         self.offset = -100
-
+        self.background_image = pygame.image.load("../Image/CluedoMenu.jpg")
 
     def draw_cursor(self):
         self.menu_run.draw_text('^', 15, self.cursor_rect.x, self.cursor_rect.y)
@@ -34,6 +34,7 @@ class MainMenu(Menu1):
         self.run_display = True
         while self.run_display:
             self.menu_run.display.fill(self.menu_run.BLACK)
+            self.menu_run.display.blit(self.background_image, [-530, 0])
             self.menu_run.check_events()  # gather player inputs
             self.input_check()  # check what the inputs were
             self.menu_run.draw_text('Start Menu', 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height / 2 - 30)
@@ -97,6 +98,7 @@ class OptionsMenu(Menu1):
             self.menu_run.check_events()
             self.input_check()
             self.menu_run.display.fill(self.menu_run.BLACK)
+            self.menu_run.display.blit(self.background_image, [-530, 0])
             self.menu_run.draw_text('Options', 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height / 2 - 30)
             self.menu_run.draw_text('Save Game', 20, self.savex, self.savey)
             self.menu_run.draw_text('Load Game', 20, self.loadx, self.loady)
@@ -149,6 +151,7 @@ class CreditsMenu(Menu1):
                 self.menu_run.curr_menu = self.menu_run.main_menu
                 self.run_display = False
             self.menu_run.display.fill(self.menu_run.BLACK)
+            self.menu_run.display.blit(self.background_image, [-530, 0])
             self.menu_run.draw_text("Credits", 40, self.menu_run.Display_Width/2, self.menu_run.Display_Height - 900)
             self.menu_run.draw_text("Made by:", 20, self.menu_run.Display_Width/2, self.menu_run.Display_Height - 900 + 40)
             self.menu_run.draw_text("Shakir Abdul Aziz", 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 900 + 80)
@@ -162,16 +165,16 @@ class CustoMenu(Menu1):
     def __init__(self, menu_run):
         Menu1.__init__(self, menu_run)
         self.state = 'one'
-        self.onex, self.oney = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 860)
-        self.twox, self.twoy = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 840)
-        self.threex, self.threey = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 820)
-        self.fourx, self.foury = (self.menu_run.Display_Width / 2 + 173, self.menu_run.Display_Height - 800)
-        self.fivex, self.fivey = (self.menu_run.Display_Width / 2 + 173, self.menu_run.Display_Height - 780)
-        self.sixx, self.sixy = (self.menu_run.Display_Width / 2 + 173, self.menu_run.Display_Height - 760)
-        self.Ax, self.Ay = (self.menu_run.Display_Width / 2 + 95, self.menu_run.Display_Height - 700)
-        self.Bx, self.By = (self.menu_run.Display_Width / 2 + 95, self.menu_run.Display_Height - 675)
-        self.changeNamesx, self.changeNamesy = (self.menu_run.Display_Width / 2 + 130, self.menu_run.Display_Height - 575)
-        self.cursor_rect.midtop = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 860)
+        self.onex, self.oney = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 860 +280)
+        self.twox, self.twoy = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 840+280)
+        self.threex, self.threey = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 820+280)
+        self.fourx, self.foury = (self.menu_run.Display_Width / 2 + 173, self.menu_run.Display_Height - 800+280)
+        self.fivex, self.fivey = (self.menu_run.Display_Width / 2 + 173, self.menu_run.Display_Height - 780+280)
+        self.sixx, self.sixy = (self.menu_run.Display_Width / 2 + 173, self.menu_run.Display_Height - 760+280)
+        self.Ax, self.Ay = (self.menu_run.Display_Width / 2 + 95, self.menu_run.Display_Height - 700+300)
+        self.Bx, self.By = (self.menu_run.Display_Width / 2 + 95, self.menu_run.Display_Height - 675+330)
+        self.changeNamesx, self.changeNamesy = (self.menu_run.Display_Width / 2 + 130, self.menu_run.Display_Height - 575+270)
+        self.cursor_rect.midtop = (self.menu_run.Display_Width/2 + 173, self.menu_run.Display_Height - 860+270)
 
         self.boardType = 1
         self.playerArr = ['Miss Scarlet','Mrs White','Colonel Mustard','Reverend Green','Professor Plum','Mrs Peacock']
@@ -185,15 +188,16 @@ class CustoMenu(Menu1):
             #     self.menu_run.curr_menu = self.menu_run.main_menu
             #     self.run_display = False
             self.menu_run.display.fill(self.menu_run.BLACK)
-            self.menu_run.draw_text("Customisation", 40, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 900)
-            self.menu_run.draw_text("choose number of players:", 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 860)
+            self.menu_run.display.blit(self.background_image, [-530, 0])
+            self.menu_run.draw_text("Customisation", 40, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 900+280)
+            self.menu_run.draw_text("choose number of players:", 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 860+260)
             self.menu_run.draw_text("1", 20, self.menu_run.Display_Width/2 + 150, self.oney)
             self.menu_run.draw_text("2", 20, self.menu_run.Display_Width / 2 + 150, self.twoy)
             self.menu_run.draw_text("3", 20, self.menu_run.Display_Width / 2 + 150, self.threey)
             self.menu_run.draw_text("4", 20, self.menu_run.Display_Width / 2 + 150, self.foury)
             self.menu_run.draw_text("5", 20, self.menu_run.Display_Width / 2 + 150, self.fivey)
             self.menu_run.draw_text("6", 20, self.menu_run.Display_Width / 2 + 150, self.sixy)
-            self.menu_run.draw_text("Board type:", 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 700)
+            self.menu_run.draw_text("Board type:", 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 700+270)
             self.menu_run.draw_text("A", 20, self.menu_run.Display_Width / 2 + 70, self.Ay)
             self.menu_run.draw_text("B", 20, self.menu_run.Display_Width / 2 + 70, self.By)
             self.menu_run.draw_text("change player names", 20, self.menu_run.Display_Width / 2, self.changeNamesy)
@@ -329,7 +333,7 @@ class PlayerNamesMenu(Menu1):
         self.endMsg = ''
         self.base_font = pygame.font.Font(None, 20)
                                 #x,y coordinates. size of rect
-        self.inputRect1 = pygame.Rect(self.menu_run.Display_Width / 2 -50, self.menu_run.Display_Height - 860, 140, 32)
+        self.inputRect1 = pygame.Rect(self.menu_run.Display_Width / 2 -50, self.menu_run.Display_Height - 450, 140, 32)
 
     def display_menu(self):
         self.run_display = True
@@ -337,21 +341,20 @@ class PlayerNamesMenu(Menu1):
             self.menu_run.check_events()
             self.input_check()
             self.menu_run.display.fill(self.menu_run.BLACK)
-            self.menu_run.draw_text("Player Names", 40, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 900)
-            self.menu_run.draw_text(("Enter Player " + str(self.plNum) + " name"), 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 860)
-            self.menu_run.draw_text(self.name1, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 780)
-            self.menu_run.draw_text(self.name2, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 750)
-            self.menu_run.draw_text(self.name3, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 720)
-            self.menu_run.draw_text(self.name4, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 690)
-            self.menu_run.draw_text(self.name5, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 660)
-            self.menu_run.draw_text(self.name6, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 630)
-            self.menu_run.draw_text(self.endMsg, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 600)
-            print(self.CustoMenu.playerNum )
+            self.menu_run.display.blit(self.background_image, [-530, 0])
+            self.menu_run.draw_text("Player Names", 40, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 500)
+            self.menu_run.draw_text(("Enter Player " + str(self.plNum) + " name"), 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 465)
+            self.menu_run.draw_text(self.name1, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 780+500)
+            self.menu_run.draw_text(self.name2, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 750+500)
+            self.menu_run.draw_text(self.name3, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 720+500)
+            self.menu_run.draw_text(self.name4, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 690+500)
+            self.menu_run.draw_text(self.name5, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 660+500)
+            self.menu_run.draw_text(self.name6, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 630+500)
+            self.menu_run.draw_text(self.endMsg, 20, self.menu_run.Display_Width / 2, self.menu_run.Display_Height - 600+500)
             pygame.draw.rect(self.menu_run.display, (255, 0, 0), self.inputRect1, 2)
             text_surface1 = self.base_font.render(self.plNameEntry, True, (255, 255, 255))
             self.menu_run.display.blit(text_surface1, (self.inputRect1.x +5, self.inputRect1.y + 5))
             self.inputRect1.w = max(100, text_surface1.get_width() + 10)
-            print(self.plNameEntry)
             self.blit_screen()
 
     def input_check(self):
@@ -410,5 +413,9 @@ class PlayerNamesMenu(Menu1):
             self.CustoMenu.playerArr[5] = self.name6
             self.endMsg = 'confirm and exit?'
             self.state ='end'
+
+            # self.menu_run.curr_menu = self.menu_run.custo
+
         elif self.menu_run.START_KEY and self.state == 'end':
+            self.run_display = False
             self.menu_run.curr_menu = self.menu_run.custo
