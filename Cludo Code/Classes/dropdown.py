@@ -8,16 +8,17 @@ import Player as player
 
 class DropDown():
     def __init__(self, color_menu, color_option, x, y, w, h, font, main, options):
-        self.color_menu = color_menu
-        self.color_option = color_option
-        self.rect = pg.Rect(x, y, w, h)
-        self.font = font
-        self.main = main
-        self.options = options
+        self.color_menu = color_menu # colour options
+        self.color_option = color_option # more colour options
+        self.rect = pg.Rect(x, y, w, h) #dimentions and placement
+        self.font = font # font
+        self.main = main #str on the dropdown
+        self.options = options # what the dropdown is filled with
         self.draw_menu = False
         self.menu_active = False
         self.active_option = -1
 
+#this funtion draws the dropdown on screen
     def draw(self, surf):
         pg.draw.rect(surf, self.color_menu[self.menu_active], self.rect, 0)
         msg = self.font.render(self.main, 1, (0, 0, 0))

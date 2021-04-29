@@ -7,11 +7,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="notepad update">
+    <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="Added icon and background">
+      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/guesstest.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/winScreen.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Cludo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cludo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_26-Apr-21_6_26_PM__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/accuse.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/accuse.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/button.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/button.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/button2.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/button2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/dropdown.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/dropdown.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/guess.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/guess.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -129,7 +134,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="menu_main" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="guess" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -141,7 +146,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/menu_main.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/guess.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -150,7 +155,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="notepad" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="winScreen" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Cludo" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -162,7 +167,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/notepad.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Cludo Code/Classes/winScreen.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -174,10 +179,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.accuse" />
+        <item itemvalue="Python.winScreen" />
+        <item itemvalue="Python.guess" />
         <item itemvalue="Python.accuse_test" />
         <item itemvalue="Python.board" />
-        <item itemvalue="Python.notepad" />
-        <item itemvalue="Python.menu_main" />
       </list>
     </recent_temporary>
   </component>
@@ -403,7 +408,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619567724586</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Added icon and background">
+      <created>1619573170930</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1619573170930</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -458,13 +470,13 @@
     <MESSAGE value="Deck and card classes complete." />
     <MESSAGE value="Player.py functional. MainTest.py for testing" />
     <MESSAGE value="updating classes to be proper" />
-    <MESSAGE value="Added icon and background" />
     <MESSAGE value="update Board.py" />
     <MESSAGE value="notepad Complete" />
     <MESSAGE value="added some comments" />
     <MESSAGE value="players now have own instance of notepad" />
     <MESSAGE value="hidden passage update" />
     <MESSAGE value="notepad update" />
-    <option name="LAST_COMMIT_MESSAGE" value="notepad update" />
+    <MESSAGE value="Added icon and background" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added icon and background" />
   </component>
 </project>

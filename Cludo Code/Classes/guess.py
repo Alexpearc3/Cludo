@@ -16,15 +16,17 @@ class Guess:
         self.playerHandover = ""
 
 
-
+#this function is to be used when someone has made a guess. the function goes around the players looking for the
+    #guessed cards. once matching cards have been found it will either automatically show the card to the player
+    #or give the player who has multiple of the cards the choice of which to choose
     def check_for_match(self, list1, list2, list3, screen):
         check = False
         cards = []
-        option1 = list1.active_option
-        option2 = list2.active_option
-        option3 = list3.active_option
+        option1 = list1.active_option #the dropdown for room cards
+        option2 = list2.active_option # the dropdown for weapon cards
+        option3 = list3.active_option # the dropdown for suspect cards
         while check == False:
-            for player in self.players:
+            for player in self.players: # going through all the players
                 hand = player.getCards()
                 #this if statement checks if the next players have the cards being guessed
                 if hand == option1 or hand == option2 or hand == option3:
@@ -35,7 +37,8 @@ class Guess:
                         if hand == option1 and hand == option2:
                             cards = cards + option1
                             cards = cards + option2
-                            check = True #todo need to pass turn over to that player
+                            check = True
+                            #this will draw up some buttons for this player to show their card to the original player
                             self.playerHandover = player
                             self.optionRoom = option1
                             self.optionWea = option2
@@ -75,7 +78,7 @@ class Guess:
                             self.buttonWea.draw(screen)
                             self.buttonSus.draw(screen)
                             self.buttonPla.draw(screen)
-                    else:# auto show card at the cluedo space on board
+                    else:# thid auto shows card at the cluedo space on board
                         if hand == option1:
                             cards = cards + option1
                             check = True
@@ -95,12 +98,13 @@ class Guess:
                 else:# no one had the cards chosen or player did not choose cards to guess
                     check = True
                     self.buttonNoToSee.draw(screen)
-        return cards #todo next turn, no cards shown
+        return cards # next turn, no cards shown
 
     d = Deck.Deck()
     pg.init()
     font = pg.font.SysFont(None, 30)
 
+#this is the function to be used to run the class
     def screenDisplay(self, player):
         clock = pg.time.Clock()
         screen = pg.display.set_mode((960, 950))
@@ -115,6 +119,7 @@ class Guess:
         COLOR_ACTIVE_CONFIRM = (0, 200, 0)
         COLOR_INACTIVE_CONFIRM = (100, 80, 255)
 
+#suspect dropdown menu
         list1 = dropdown.DropDown(
             [COLOR_INACTIVE, COLOR_ACTIVE],
             [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
@@ -122,14 +127,14 @@ class Guess:
             pg.font.SysFont(None, 30),
             "Select Suspect", #sus.getNames(sus))
              player.getRoom()) #this should get the player location and auto select it for the dropdown
-
+#weapon dropdown menu
         list2 = dropdown.DropDown(
             [COLOR_INACTIVE, COLOR_ACTIVE],
             [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
             375, 100, 200, 50,
             pg.font.SysFont(None, 30),
             "Select Weapon", wea.getNames(wea))
-
+#room dropdown menu
         list3 = dropdown.DropDown(
             [COLOR_INACTIVE, COLOR_ACTIVE],
             [COLOR_LIST_INACTIVE, COLOR_LIST_ACTIVE],
@@ -144,27 +149,31 @@ class Guess:
                 150, 50,
                 "Guess")
 
+        #this button shows the guessed room card
         buttonRoom = button.Button(
             COLOR_INACTIVE,
-            300, 300,
+            100, 300,
             150, 50,
             "" + self.optionRoom
         )
 
+        # this button shows the guessed weapon card
         buttonWea = button.Button(
             COLOR_INACTIVE,
-            400, 300,
+            375, 300,
             150, 50,
             "" + self.optionWea
         )
 
+        # this button shows the guessed suspect card
         buttonSus = button.Button(
             COLOR_INACTIVE,
-            500, 300,
+            650, 300,
             150, 50,
             "" + self.optionSus
         )
 
+        # this button shows which player needs to choose a card to show
         buttonPla = button.Button(
             COLOR_INACTIVE,
             400, 200,
@@ -172,6 +181,7 @@ class Guess:
             "Player " + self.playerHandover + "Choose a card to display"
         )
 
+        # this button confirms the player has seen the matched guess card
         buttonSeen = button.Button(
             COLOR_INACTIVE,
             600, 600,
@@ -179,6 +189,7 @@ class Guess:
             "I have seen card"
         )
 
+        # this button confirms the player understands no one had a match
         buttonNoToSee = button.Button(
             COLOR_INACTIVE,
             600, 600,

@@ -11,6 +11,7 @@ class Button:
             self.text = text
             self.pressed = pressed
 
+        # Call this method to draw the button on the screen
         def draw(self, screen, outline=None):
             if outline:
                 pg.draw.rect(screen, outline, (self.x - 2, self.y - 2, self.width + 4, self.height + 4), 0)
@@ -23,6 +24,7 @@ class Button:
                 screen.blit(text, (
                 self.x + (self.width / 2 - text.get_width() / 2), self.y + (self.height / 2 - text.get_height() / 2)))
 
+        # this function is what happens if a button is pressed
         def event(self, screen, event):
             pos = pg.mouse.get_pos()
             if event.type == pg.MOUSEBUTTONDOWN:
@@ -35,5 +37,4 @@ class Button:
                     self.pressed = True
                     return True
 
-        # def button_pressed(self):
-        #     return self.pressed
+
