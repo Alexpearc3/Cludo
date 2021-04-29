@@ -605,7 +605,7 @@ class board():
 
             # v menu
             if self.PLAYER1 != False:
-                if self.playersTurn =   = 0:
+                if self.playersTurn == 0:
                     self.screen.blit(self.imgPlayer1_current, (730, 100))
                 else: 
                     self.screen.blit(self.imgPlayer1, (730, 100))
