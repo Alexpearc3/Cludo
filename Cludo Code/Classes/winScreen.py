@@ -43,8 +43,9 @@ class winScreen:
             # myfont = pg.font.SysFont(None, 60)
             #
             # winText = myfont.render('BIG WIN', False, (0, 0, 0))
-
+            background_image = pg.image.load("../Image/winPic.png")
             screen.fill((102, 0, 102))
+            screen.blit(background_image, [0, 0])
             screen.blit(text, textRect)
             buttonNewGame.draw(screen)
             buttonNewGame.event(screen, event)

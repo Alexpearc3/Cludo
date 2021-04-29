@@ -219,8 +219,12 @@ class Guess:
             if selected_option >= 0:
                 list3.main = list3.options[selected_option]
 
+            background_image = pg.image.load("../Image/clue_back.png")
 
             screen.fill((102, 0, 102))
+
+            screen.blit(background_image, [0, 0])
+
             list1.draw(screen)
             list2.draw(screen)
             list3.draw(screen)
