@@ -689,7 +689,10 @@ class board():
         turnCount = 0
         player = 0
         maxPlayer = len(playerIds) - 1
-
+        carda = self.deck.getEnvelope()
+        for i in range(len(carda)):
+            print(carda[i].getName())
+        
         # game loop
         while not self.done:
             playerObj = self.getCurrentPlayer()
@@ -1100,6 +1103,6 @@ class board():
         for r in self.rooms:
             print(r.getName(), " doors:", r.getDoors())
         return board
-playerList = ["Alex", "Shakir", "Michelle", "Tom", "Abby", "AI" ]
+#playerList = ["Alex", "Shakir", "Michelle", "Tom", "Abby", "AI" ]
 #playerList = ["AI", "AI", "AI", "AI", "AI", "AI" ]
-b = board(playerList, 2).main()
+#b = board(playerList, 2).main()
