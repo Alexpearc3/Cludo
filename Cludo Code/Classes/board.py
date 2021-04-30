@@ -307,7 +307,6 @@ class board():
                     tile.setSelected(True)
                     self.setTile(tile, possibleMoves[i], y)
                 else:  # possible move is in y direction
-                    print(i)
                     tile = self.getTile(x, possibleMoves[i])
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
@@ -328,7 +327,6 @@ class board():
                 possibleMoves (list): list of possible moves
         """
         possibleMoves = [x - 1, x + 1, y - 1, y + 1]
-        print(possibleMoves)
         if possibleMoves[0] < 0 or not self.getTile(possibleMoves[0], y).getIsTile():  # cant go left
             if not self.getTile(possibleMoves[0], y).getDoor():
                 possibleMoves[0] = False
@@ -416,7 +414,6 @@ class board():
             self.setPlayer(currentPlayer)
             isTurnComplete = True
             self.showCardsState = False
-            print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6): #guess
             player = self.getCurrentPlayer()
@@ -433,8 +430,9 @@ class board():
             self.showCardsState = not(self.showCardsState)
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 20): #menu
-            #(x >= 10 and x <= 142 and y >= 10 and y <= 87.2) #todo:
-            self.done = True
+            d = "donothing"
+            #(x >= 10 and x <= 142 and y >= 10 and y <= 87.2)
+            #self.done = True
 
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937): #notepad
             currentPlayer = self.getCurrentPlayer()
@@ -515,7 +513,6 @@ class board():
                     tile.setSelected(False)
                     self.setTile(tile, possibleMoves[i], y)
                 else:  # possible move is in y direction
-                    print(i)
                     tile = self.getTile(x, possibleMoves[i])
                     tile.setPossibleMove(False)
                     tile.setSelected(False)
@@ -537,7 +534,6 @@ class board():
             self.selectTiles(possibleMoves, x, y)
             self.setPlayer(player)
 
-            print(possibleMoves)
         elif self.getTile(x,y).getRoom() != "blank":
             for rooms in self.rooms:
                 if rooms.getName() == self.getTile(x, y).getRoom():
@@ -558,13 +554,10 @@ class board():
         currentPlayer = self.getCurrentPlayer()
         j, k = currentPlayer.getLocation()
         if self.getTile(j, k).getRoom() == "tile": # check player is not in a room
-            print("ok")
             #check if its a possible move, and not a player and if a player has moves
-            if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
-                print("okok")
+            if self.getTile(x, y).getPossibleMove() == True and self.getTile(x, y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
                 #check if target is a door
                 if self.getTile(x, y).getPossibleMove() and not self.getTile(x, y).getDoor():
-                    print("okokok")
                     j, k = currentPlayer.getLocation()  # j,k = players x y coords. actual x y is where we are moving to/ target destination
                     tile = self.getTile(j, k)
                     tile.setSelected(False)
@@ -577,7 +570,6 @@ class board():
                     tile.setPlayer(currentPlayer.getPlayerID())
                     tile.setSelected(False)
                     tile.setPossibleMove(False)
-                    print(self.getTile(x, y).getPlayer(), "get player ")
                     self.setTile(tile, x, y)
                     currentPlayer.setMoves(currentPlayer.getMoves() - 1)
                     currentPlayer.setLocation(x, y)
@@ -594,9 +586,9 @@ class board():
                         currentPlayer.setMoves(0)
                         currentPlayer.setLocation(x, y)
                         self.setPlayer(currentPlayer)
-                        for rooms in self.rooms:
-                            if rooms.getName() == self.getTile(x, y).getRoom():
-                                rooms.setPlayer(self.playersTurn)
+                        # for rooms in self.rooms:
+                        #     if rooms.getName() == self.getTile(x, y).getRoom():
+                        #         rooms.setPlayers(self.playersTurn)
 
             if currentPlayer.getMoves() == 0:
                 player = self.getCurrentPlayer()
@@ -611,7 +603,6 @@ class board():
                     tile.setPlayer(currentPlayer.getPlayerID())
                     tile.setSelected(False)
                     tile.setPossibleMove(False)
-                    print(self.getTile(x, y).getPlayer())
                     self.setTile(tile, x, y)
                     currentPlayer.setMoves(currentPlayer.getMoves() - 1)
                     currentPlayer.setLocation(x, y)
@@ -633,7 +624,7 @@ class board():
 
     def AI(self):
         """
-        ##############################################.
+        ###########################################.
 
             Returns:
                 bool: True once turn over?
@@ -651,17 +642,16 @@ class board():
             for row in range(24):
                 for col in range(23):
                     tile = self.board[row, col]
-                    if tile.getPossibleMove() and tile.getIsTile():
-                        moves.append([row, col])
+                    if tile.getPossibleMove():
+                        if tile.getIsTile() or tile.getDoor():
+                            moves.append([row, col])
             i = 0
             if len(moves) >= 2:
                 i = randrange(0, len(moves))
 
-            print(i, "   ", moves[i][0], "     ",moves[i][1])
             k = moves[i][0]
             j = moves[i][1]
             self.movePlayerTile(j, k)
-            #currentPlayer.setMoves(currentPlayer.getMoves()-1)
             self.setPlayer(currentPlayer)
             self.unsetPossibleMoves(x, y)
 
@@ -746,7 +736,7 @@ class board():
                 turnComplete = False
 
             if self.getCurrentPlayer().getName() != False:
-                if self.getCurrentPlayer().getName().upper() == "AI":
+                if self.getCurrentPlayer().getName() == "AI":
                     # run AI Code
                     turnComplete = self.AI()
 
@@ -1015,73 +1005,55 @@ class board():
                     board[row, column] = tile(room="study", door=True, isTile=False)
 
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "had":
                     board[row, column] = tile(room="hall", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "lod":
                     board[row, column] = tile(room="lounge", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "drd":
                     board[row, column] = tile(room="dinning room", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "kid":
                     board[row, column] = tile(room="kitchen", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "brd":
                     board[row, column] = tile(room="ball room", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "cvd":
                     board[row, column] = tile(room="conservatory", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "bid":
                     board[row, column] = tile(room="billiards room", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
 
                 if grid[row][column] == "lid":
                     board[row, column] = tile(room="library", door=True, isTile=False)
                     for rooms in self.rooms:
-                        print(rooms.getName())
                         if rooms.getName() == board[row, column].getRoom():
-                            print("setdoor")
                             rooms.setDoors(column, row)
                 # hidden passages
                 if grid[row][column] == "cvh":
@@ -1128,6 +1100,6 @@ class board():
         for r in self.rooms:
             print(r.getName(), " doors:", r.getDoors())
         return board
-
-#playerList = ["shakir", "bob", "abby", "tom", "alex", "AI" ]
-#b = board(playerList, 2).main()
+playerList = ["Alex", "Shakir", "Michelle", "Tom", "Abby", "AI" ]
+#playerList = ["AI", "AI", "AI", "AI", "AI", "AI" ]
+b = board(playerList, 2).main()

@@ -2,21 +2,23 @@ import numpy as np
 import pygame as py
 import copy
 
+
 class tile():
     """
     A Class to be used as an instance to hold attributes and functions
     of tile
     """
+
     def __init__(self,
-                 room = "blank",
-                 door = False,
-                 isTile = False,
-                 selected = False,
-                 hover = False,
-                 blank = False ,
-                 player = 0,
-                 possibleMove = False,
-                 hiddenPassage = False):
+                 room="blank",
+                 door=False,
+                 isTile=False,
+                 selected=False,
+                 hover=False,
+                 blank=False,
+                 player=0,
+                 possibleMove=False,
+                 hiddenPassage=False):
         """
         init function for tile, here 9 parameters are passed through:
 
@@ -30,19 +32,18 @@ class tile():
                 player (int)
                 possibleMove (bool)
                 hiddenPassage (int, bool)
-        """   
-        
-        self.room = room                    # name of room, default is blank
-        self.door = door                    # is it a door? (bool)
-        self.isTile = isTile                # is this a walkway (tile) (bool)
-        self.selected = selected            # if tile selected (bool)
-        self.hover = hover                  # is mouse over (bool)
-        self.blank = blank                  # is tile not part of playable board (bool)
-        self.player = player                # player number 1-6, 0 = no player
-        self.possibleMove = possibleMove    # are there possible moves (bool)
-        self.hiddenPassage = hiddenPassage  # is tile a hidden passage, if not, coordinates
-                                            #   of linked passage
+        """
 
+        self.room = room  # name of room, default is blank
+        self.door = door  # is it a door? (bool)
+        self.isTile = isTile  # is this a walkway (tile) (bool)
+        self.selected = selected  # if tile selected (bool)
+        self.hover = hover  # is mouse over (bool)
+        self.blank = blank  # is tile not part of playable board (bool)
+        self.player = player  # player number 1-6, 0 = no player
+        self.possibleMove = possibleMove  # are there possible moves (bool)
+        self.hiddenPassage = hiddenPassage  # is tile a hidden passage, if not, coordinates
+        #   of linked passage
 
     def getRoom(self):
         """
@@ -53,7 +54,6 @@ class tile():
         """
         return self.room
 
-
     def getDoor(self):
         """
         gets door
@@ -62,7 +62,6 @@ class tile():
                 door (bool): is it a door?
         """
         return self.door
-
 
     def getIsTile(self):
         """
@@ -73,7 +72,6 @@ class tile():
         """
         return self.isTile
 
-
     def getSelected(self):
         """
         gets selected
@@ -82,7 +80,6 @@ class tile():
                 selected (bool): is this tile selected
         """
         return self.selected
-
 
     def getHover(self):
         """
@@ -93,7 +90,6 @@ class tile():
         """
         return self.hover
 
-
     def getBlank(self):
         """
         gets blank
@@ -102,7 +98,6 @@ class tile():
                 blank (bool): is tile blank
         """
         return self.blank
-
 
     def getPlayer(self):
         """
@@ -113,7 +108,6 @@ class tile():
         """
         return self.player
 
-
     def setSelected(self, boolean):
         """
         sets selected
@@ -122,7 +116,6 @@ class tile():
                 boolean (bool): state of selected
         """
         self.selected = boolean
-
 
     def getPossibleMove(self):
         """
@@ -133,7 +126,6 @@ class tile():
         """
         return self.possibleMove
 
-
     def setPossibleMove(self, possibleMove):
         """
         sets possible moves
@@ -141,8 +133,7 @@ class tile():
             Parameter:
                 boolean (bool): state of selected
         """
-        self.boolean = possibleMove
-
+        self.possibleMove = possibleMove
 
     def setPlayer(self, i):
         """
@@ -153,7 +144,6 @@ class tile():
         """
         self.player = i
 
-
     def getHiddenPassage(self):
         """
         gets geHiddenPassage
@@ -162,4 +152,3 @@ class tile():
                 hiddenPassage (bool): if hidden passage or coordinates
         """
         return self.hiddenPassage
-
