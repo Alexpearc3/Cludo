@@ -452,7 +452,6 @@ class board():
             Parameters:
                 x (int): x coordinate of board where mouse was clicked
                 y (int): y coordinate of board where mouse was clicked
-
         """
         if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6):
             self.screen.blit(self.buttonRollDiceSelected, (720, 400))
@@ -482,7 +481,6 @@ class board():
 
             Returns:
                 player (player): the current player who's turn it is.
-
         """
         return self.Players[self.playersTurn]
 
@@ -493,15 +491,21 @@ class board():
 
             Parameters:
                 player (player): the player to be assigned
-
         """
         for i in range(len(self.Players)):
             if self.Players[i].getPlayerID() == player.getPlayerID():
                 #print("success")
                 self.Players[i] = player
 
-    # Unset the selected tiles after a move and at end of the time
+
     def unsetPossibleMoves(self, x, y):
+        """
+        Unset the selected tiles after a move and at end of the time
+
+            Parameters:
+                x (int): x coordinate of to-be-unselected tile
+                y (int): y coordinate of to-be-unselected tile
+        """
         possibleMoves = self.possibleMoves
         for i in range(len(possibleMoves)):
             if possibleMoves[i] != False:
@@ -520,8 +524,12 @@ class board():
             for c in r:
                 c.setSelected(False)
                 c.setPossibleMove(False)
-    #finds player moves by combining possible moves to select tiles
+
+
     def movePlayer(self):
+        """
+        finds player moves by combining possible moves to select tiles
+        """
         player = self.getCurrentPlayer()
         x, y = player.getLocation()
         if self.getTile(x, y).getIsTile():
@@ -538,8 +546,15 @@ class board():
                         possibleMoves = self.lookAround(j, k)
                         self.selectTiles(possibleMoves, j, k)
                         
-    #moves the player to a new tile and unsets moves once moved.
+                        
     def movePlayerTile(self, x, y):
+        """
+        moves the player to a new tile and unsets moves once moved.
+
+            Parameters:
+                x (int): x coordinate of new tile
+                y (int): y coordinate of new tile
+        """
         currentPlayer = self.getCurrentPlayer()
         j, k = currentPlayer.getLocation()
         if self.getTile(j, k).getRoom() == "tile": # check player is not in a room
@@ -604,7 +619,6 @@ class board():
                     self.unsetPossibleMoves(x, y)
                     self.movePlayer()
 
-
             else: # move player room to room
                 if currentPlayer.getMoves() > 0:
                     passageLocation = self.getTile(x, y).getHiddenPassage()
@@ -616,13 +630,20 @@ class board():
                     self.setPlayer(currentPlayer)
                 #self.movePlayer()
 
+
     def AI(self):
+        """
+        ##############################################.
+
+            Returns:
+                bool: True once turn over?
+        """
         currentPlayer = self.getCurrentPlayer()
         moves = randrange(1, 12) + 1
         currentPlayer.setMoves(moves)
         currentPlayer.setRolled(True)
         self.setPlayer(currentPlayer)
-        while currentPlayer.getMoves() != 0:
+        while currentPlayer.getMoves() > 0:
             x, y = currentPlayer.getLocation()
             self.movePlayer()
             self.setPlayer(currentPlayer)
@@ -632,28 +653,26 @@ class board():
                     tile = self.board[row, col]
                     if tile.getPossibleMove() and tile.getIsTile():
                         moves.append([row, col])
+            i = 0
             if len(moves) >= 2:
-                i = randrange(0, len(moves)-1)
-            else:
-                i = len(moves)-1
-            print(moves)
-            k, j = moves[i]
-            self.movePlayerTile(j, k)
+                i = randrange(0, len(moves))
 
-            currentPlayer.setMoves(currentPlayer.getMoves()-1)
-            print("allgood")
+            print(i, "   ", moves[i][0], "     ",moves[i][1])
+            k = moves[i][0]
+            j = moves[i][1]
+            self.movePlayerTile(j, k)
+            #currentPlayer.setMoves(currentPlayer.getMoves()-1)
             self.setPlayer(currentPlayer)
             self.unsetPossibleMoves(x, y)
 
         return True
 
 
-
-
-
-
-
     def main(self):
+        """
+        main game loop, where pygame will keep looping until player either wins, window closed
+        or button to go to menu is called.
+        """
         clock = pygame.time.Clock()
         pygame.display.set_icon(self.imgPlayer1)
         playerIds = []
@@ -689,7 +708,6 @@ class board():
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:  # If user clicked close
                     self.done = True  # Flag that we are done so we exit this loop
-
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # User clicks the mouse. Get the position
                     pos = pygame.mouse.get_pos()
@@ -698,16 +716,13 @@ class board():
                     column = (pos[1] - self.GRIDBUFFY) // self.HEIGHT
                     turnComplete = self.isButtonClicked(pos[0], pos[1])
                     currentPlayer = self.getCurrentPlayer()
-
+                    
                     if currentPlayer.getMoves() == 0:
                         x, y = currentPlayer.getLocation()
                         self.unsetPossibleMoves(x, y)
                     # Changes tile to selected / unselected
                     try:
                         self.movePlayerTile(int(row), int(column))
-
-                        # self.board[int(column), int(row)].setSelected(not self.board[int(column), int(row)].getSelected())
-
                     except:
                         pass
 
@@ -735,43 +750,39 @@ class board():
                     # run AI Code
                     turnComplete = self.AI()
 
-            # v menu
+            # v menu (to show players who are playing
             if self.PLAYER1 != False:
                 if self.playersTurn == 0:
                     self.screen.blit(self.imgPlayer1_current, (730, 100))
                 else: 
                     self.screen.blit(self.imgPlayer1, (730, 100))
-                    
             if self.PLAYER2 != False:
                 if self.playersTurn == 1:
                     self.screen.blit(self.imgPlayer2_current, (840, 100))
                 else:
-                    self.screen.blit(self.imgPlayer2, (840, 100))
-                    
+                    self.screen.blit(self.imgPlayer2, (840, 100))                
             if self.PLAYER3 != False:
                 if self.playersTurn == 2:
                     self.screen.blit(self.imgPlayer3_current, (730, 200))
                 else:
-                    self.screen.blit(self.imgPlayer3, (730, 200))
-                    
+                    self.screen.blit(self.imgPlayer3, (730, 200))                    
             if self.PLAYER4 != False:
                 if self.playersTurn == 3:
                     self.screen.blit(self.imgPlayer4_current, (840, 200))
                 else:
-                    self.screen.blit(self.imgPlayer4, (840, 200))
-                    
+                    self.screen.blit(self.imgPlayer4, (840, 200))                   
             if self.PLAYER5 != False:
                 if self.playersTurn == 4:
                     self.screen.blit(self.imgPlayer5_current, (730, 300))
                 else:
-                    self.screen.blit(self.imgPlayer5, (730, 300))
-                    
+                    self.screen.blit(self.imgPlayer5, (730, 300))                    
             if self.PLAYER6 != False:
                 if self.playersTurn == 5:
                     self.screen.blit(self.imgPlayer6_current, (840, 300))
                 else:
                     self.screen.blit(self.imgPlayer6, (840, 300))
 
+            #displays buttons on board (non-selected state)
             self.screen.blit(self.buttonRollDice, (720, 400))
             self.screen.blit(self.buttonNextTurn, (720, 500))
             self.screen.blit(self.buttonGuess, (720, 600))
@@ -780,7 +791,7 @@ class board():
             self.screen.blit(self.textPreviousTurn, (550, 10))
             self.screen.blit(self.textBoxPreviousTurn, (690, 20))
 
-            # h menu
+            #Displays blank card for when cards are not shown
             self.screen.blit(self.cardBlank, (102, 812))  # 1
             self.screen.blit(self.cardBlank, (185, 812))  # 2
             self.screen.blit(self.cardBlank, (268, 812))  # 3
@@ -798,7 +809,7 @@ class board():
             for i in range(len(currentCards)):
                 cardsToShow[i] = currentCards[i]
 
-            if self.showCardsState:
+            if self.showCardsState: #displays cards if button to show cards is pressed
                 if cardsToShow[0] != False:
                     card1 = pygame.image.load(cardsToShow[0].getImgName())
                     self.screen.blit(card1, (102, 812))  #1
@@ -827,8 +838,6 @@ class board():
                     card9 = pygame.image.load(cardsToShow[8].getImgName())
                     self.screen.blit(card9, (766, 812))  # 9            
 
-
-
             # notepad
             self.screen.blit(self.buttonNotepad, (860, 812))
 
@@ -840,22 +849,13 @@ class board():
             self.drawGrid(self.board)
 
             pygame.display.flip()
+            
 
-
-
-        # pygame.quit()
-
-    # can we use initiate board to move the positions of a player when a new tile is selected to move to?
     def initiateBoard(self):
-        # player1 = players[0]
-        # player2 = players[1]
-        # player3 = players[2]
-        # player4 = players[3]
-        # player5 = players[4]
-        # player6 = players[5]
-
         """
-            there are 31 possible tile states.
+        function used to initially populate the grid, used to populate an array of board objects
+
+        there are 31 possible tile states:
             
             str = study (room)
             har = hall (room)
@@ -1084,7 +1084,6 @@ class board():
                             print("setdoor")
                             rooms.setDoors(column, row)
                 # hidden passages
-
                 if grid[row][column] == "cvh":
                     board[row, column] = tile(room="conservatory", hiddenPassage = [23, 5])
 
@@ -1099,8 +1098,6 @@ class board():
 
                 if grid[row][column] == "loh":
                     board[row, column] = tile(room="lounge", hiddenPassage = [1, 20])
-
-                
 
                 # walkways
                 if grid[row][column] == "wwe":
@@ -1131,7 +1128,6 @@ class board():
         for r in self.rooms:
             print(r.getName(), " doors:", r.getDoors())
         return board
-
 
 #playerList = ["shakir", "bob", "abby", "tom", "alex", "AI" ]
 #b = board(playerList, 2).main()
