@@ -11,17 +11,11 @@ import loseScreen
 
 
 class Accuse:
-    def __init__(self,  player1, envelope, list1, list2, list3):
+    def __init__(self,  player1, envelope):
 
         self.player = player1
         self.envelope = envelope
         self.lost = False
-        sus = suspect_cards.Suspect_cards().getNames()
-        room = room_cards.Room_cards().getNames()
-        wea = weapon_cards.Weapon_cards().getNames()
-        self.option1 = sus[list1.active_option]  # the dropdown for room cards
-        self.option2 = wea[list2.active_option]  # the dropdown for weapon cards
-        self.option3 = room[list3.active_option]
 
     pg.init()
     font = pg.font.SysFont(None, 30)
@@ -31,7 +25,7 @@ class Accuse:
         if button1.pressed == True:
             count = 0
             for card in self.envelope:
-                if (card.getName() == self.option1 or card.getName() == self.option2 or card.getName() == self.option3):
+                if (card.getName() == list1.active_option or card.getName() == list2.active_option or card.getName() == list3.active_option):
                     count = count + 1
         if count == 3:
             player.Player.setWin(player)
