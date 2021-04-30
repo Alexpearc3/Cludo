@@ -15,6 +15,10 @@ from dice import Dice
 
 
 class board():
+    """
+    A Class to hold the main game logic and GUI of the game Cluedo
+
+    """
     player = Player.Player
     Players = []
     deck = Deck.Deck()
@@ -22,6 +26,14 @@ class board():
 
     # passing through players array as well as customisation setting (1 or 2)
     def __init__(self, Players, customNo):
+        """
+        init for the board class.
+
+            Parameters:
+                Players (list): A list of players to play the game
+                customNo (int): 1 for normal game look, 2 for custom board
+        """
+        
         self.customNo = customNo
         self.PLAYER1 = Players[0]
         self.PLAYER2 = Players[1]
@@ -219,10 +231,17 @@ class board():
 
     done = False
 
-    def grid(self, x, y):
-        self.screen.blit(self.tileImg, (x, y))
+
 
     def drawGrid(self, board):
+        """
+        function for drawing the board, this will check attributes of each object and display relevant tiles
+
+            Parameters:
+                board (linked list): passes through an array of objects
+
+            
+        """
         for row in range(self.BOARDWIDTH):
             for column in range(self.BOARDHEIGHT):
                 x, y = pygame.mouse.get_pos()
@@ -269,9 +288,17 @@ class board():
                     self.screen.blit(self.tileImg,
                                      (column * self.WIDTH + self.GRIDBUFFX, self.HEIGHT * row + self.GRIDBUFFY))
 
-    # selects tiles and sets possiblemove on tiles where a player can move to
+
     def selectTiles(self, possibleMoves, x, y):
-        print(possibleMoves)
+        """
+        selects tiles and sets possiblemove on tiles where a player can move to
+
+            Parameters:
+                possibleMoves (list): list of possible moves
+                x (int): x coordinate of board
+                y (int): y coordinate of board
+        """
+        #print(possibleMoves)
         for i in range(len(possibleMoves)):
             if possibleMoves[i] != False:
                 if i <= 1:  # check if possible move is in x direction
@@ -285,9 +312,21 @@ class board():
                     tile.setPossibleMove(True)
                     tile.setSelected(True)
                     self.setTile(tile, x, possibleMoves[i])
+                    
 
-    # check tiles around a player, return a list of moves [x-1,x+1,y-1,y+1] [False,False,False,False] when not possible
+    
     def lookAround(self, x, y):
+        """
+        check tiles around a player, return a list of moves [x-1,x+1,y-1,y+1]
+        [False,False,False,False] when not possible
+
+            Parameters:
+                x (int): x coordinate of board
+                y (int): y coordinate of board
+
+            Returns:
+                possibleMoves (list): list of possible moves
+        """
         possibleMoves = [x - 1, x + 1, y - 1, y + 1]
         print(possibleMoves)
         if possibleMoves[0] < 0 or not self.getTile(possibleMoves[0], y).getIsTile():  # cant go left
@@ -315,19 +354,46 @@ class board():
                     possibleMoves[3] = False
         self.possibleMoves = possibleMoves
         return possibleMoves
+    
 
-    # return a tile fromm board
+    
     def getTile(self, x, y):
+        """
+        return a tile from board
+
+            Parameters:
+                x (int): x coordinate of board
+                y (int): y coordinate of board
+        """
         return self.board[y, x]
 
-    # set a tile to board
-    def setTile(self, tile, x, y):
+
+    def setTile(self, tile, x, y):]
+        """
+        set a tile to board
+
+            Parameters:
+                tile(tile) : tile object which will be assigned at x, y on board
+                x (int): x coordinate of board
+                y (int): y coordinate of board
+        """
         self.board[y, x] = tile
 
+
     def isButtonClicked(self, x, y):
+        """
+        if a mouse click event occurs, the x, y coordinates are passed through this
+        function to see if the click happened over a button.
+
+            Parameters:
+                x (int): x coordinate of board where mouse was clicked
+                y (int): y coordinate of board where mouse was clicked
+
+            Returns:
+                isTurnComplete (bool) : True is turn is completed
+        """
         isTurnComplete = False
-        if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6):
-            # roll dice class function goes here!
+        if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6): #roll dice
             currentPlayer = self.getCurrentPlayer()
             if not currentPlayer.getRolled():
                 moves = randrange(1, 12) + 1
@@ -339,7 +405,7 @@ class board():
                 currentPlayer.setRolled(True)
                 self.setPlayer(currentPlayer)
 
-        if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6):
+        if (x >= 720 and x <= 942 and y >= 500 and y <= 581.6): #next turn
             print("next turn")  # 222 x 81.6
             player = self.getCurrentPlayer()
             x, y = player.getLocation()
@@ -352,37 +418,42 @@ class board():
             self.showCardsState = False
             print(currentPlayer)
 
-        if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
-            print("guess")
+        if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6): #guess
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
             if self.getTile(j, k).getRoom() != "tile":
                 Guess(self.Players).screenDisplay(self.getCurrentPlayer())
 
-        if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
-            print("accuse")  # 222 x 81.6
+        if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6): #accuse
             Accuse(self.getCurrentPlayer(), self.deck.getEnvelope()).displayScreen()
             
 
-        if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
-            print("show cards")
+        if (x >= 12 and x <= 92 and y >= 812 and y <= 937): #show cards
             self.showCardsState = not(self.showCardsState)
 
-        if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
-            print("menu")
-            #self.done = True
+        if (x >= 10 and x <= 142 and y >= 10 and y <= 20): #menu
+            #(x >= 10 and x <= 142 and y >= 10 and y <= 87.2) #todo:
+            self.done = True
 
-        if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
-            # notepad.notepad()
+        if (x >= 860 and x <= 927 and y >= 812 and y <= 937): #notepad
             currentPlayer = self.getCurrentPlayer()
-
             notepad = currentPlayer.getNotepad()
             notepad.initNotepad()
-            print("Notepad")
         return isTurnComplete
 
+
     def isButtonSelected(self, x, y):
+        """
+        this function is checked with every game loop cycle, if the x, y
+        coordinates of the mouse full above any of the buttons, their image
+        is displayed with a different image to indicate the mouse is hovering
+
+            Parameters:
+                x (int): x coordinate of board where mouse was clicked
+                y (int): y coordinate of board where mouse was clicked
+
+        """
         if (x >= 720 and x <= 942 and y >= 400 and y <= 481.6):
             self.screen.blit(self.buttonRollDiceSelected, (720, 400))
 
@@ -404,12 +475,26 @@ class board():
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             self.screen.blit(self.buttonNotepadSelected, (860, 812))
 
-    # Return the current player
+
     def getCurrentPlayer(self):
+        """
+        Return the current player
+
+            Returns:
+                player (player): the current player who's turn it is.
+
+        """
         return self.Players[self.playersTurn]
 
-    # set a player to the Players array
+    
     def setPlayer(self, player):
+        """
+        set a player to the Players array
+
+            Parameters:
+                player (player): the player to be assigned
+
+        """
         for i in range(len(self.Players)):
             if self.Players[i].getPlayerID() == player.getPlayerID():
                 #print("success")
@@ -569,7 +654,6 @@ class board():
 
 
     def main(self):
-        done = False
         clock = pygame.time.Clock()
         pygame.display.set_icon(self.imgPlayer1)
         playerIds = []
@@ -630,10 +714,10 @@ class board():
             # Set the screen background
             self.screen.fill(self.GREEN)
             self.screen.blit(self.background, (self.GRIDBUFFX, self.GRIDBUFFY))
+            if self.customNo == 2:
+                self.screen.blit(self.background_alt, (self.GRIDBUFFX, self.GRIDBUFFY))         
             self.screen.blit(self.title, (((950 / 2 - (int(563 * .45) / 2)) - 110), 7))
             self.screen.blit(self.textBoxPreviousTurn, (600, 20))
-            
-
 
 
             if turnComplete:

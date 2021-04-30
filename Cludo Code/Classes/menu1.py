@@ -71,7 +71,7 @@ class MainMenu(Menu1):
             if self.state == 'Start':
                 #self.menu_run.playing = True #put in toms code her
                 playerList = self.CustoMenu.playerArr
-                b = board(playerList, 2).main()
+                b = board(playerList, self.CustoMenu.boardType).main()
                 #print("the board type is " + str(self.CustoMenu.boardType))
                 
             elif self.state == 'Options':
