@@ -1,4 +1,5 @@
 import pygame as pg
+import menu_run
 
 class Button:
         def __init__(self, color, x, y, width, height, text, pressed = False):
@@ -54,3 +55,18 @@ class Button:
                     self.text = "I have seen the card. Exit screen"
                     self.draw(screen, outline=None)
                     return True
+
+        def eventWin(self, screen, event):
+
+            pos = pg.mouse.get_pos()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                if self.rectg.collidepoint(pos):
+                    self.color = (250, 10, 0)
+                    self.width = 450
+                    self.x = 450
+                    self.text = "Confirmed, please exit to leave"
+                    self.draw(screen, outline=None)
+                    pg.quit()
+                    exit()
+                    return True
+            return False

@@ -18,7 +18,7 @@ class loseScreen:
             (0, 128, 128),
             550, 600,
             350, 50,
-            "Press to start a new game"
+            "Press to exit"
         )
 
         run = True
@@ -49,7 +49,7 @@ class loseScreen:
             display_surface.blit(text, textRect)
 
             buttonNewGame.draw(screen)
-            buttonNewGame.event(screen, event)
+            buttonNewGame.eventWin(screen, event)
             pg.display.update()
 
-loseScreen.has_lost(loseScreen)
+#loseScreen.has_lost(loseScreen)

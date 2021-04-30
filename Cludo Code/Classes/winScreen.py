@@ -7,18 +7,18 @@ class winScreen:
 
     def __init__(self):
         pass
-
+#the player has won
     def has_won(self):
 
         clock = pg.time.Clock()
         screen = pg.display.set_mode((960, 950))
 
-
+#this will start a new game
         buttonNewGame = button.Button(
             (0, 128, 128),
             550, 600,
             350, 50,
-            "Press to start a new game"
+            "You Have Won, press to exit"
         )
 
         run = True
@@ -50,7 +50,7 @@ class winScreen:
             textRect.center = (475, 200)
             display_surface.blit(text, textRect)
             buttonNewGame.draw(screen)
-            buttonNewGame.event(screen, event)
+            buttonNewGame.eventWin(screen, event)
             pg.display.update()
 
-# winScreen.has_won(winScreen)
+#winScreen.has_won(winScreen)
