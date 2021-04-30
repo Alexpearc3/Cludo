@@ -11,6 +11,9 @@ youveRolledA = pygame.image.load("../Image/text_you've_rolled_a.png")
 GREEN = (141, 197, 137)
 
 class Dice():
+    """
+    A Class to display the roll of a dice
+    """
     def __init__(self, number, s):
         """
         init for the Dice class.
