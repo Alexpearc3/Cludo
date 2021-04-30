@@ -368,7 +368,7 @@ class board():
         return self.board[y, x]
 
 
-    def setTile(self, tile, x, y):]
+    def setTile(self, tile, x, y):
         """
         set a tile to board
 
@@ -427,8 +427,8 @@ class board():
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6): #accuse
             Accuse(self.getCurrentPlayer(), self.deck.getEnvelope()).displayScreen()
-            
 
+            
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937): #show cards
             self.showCardsState = not(self.showCardsState)
 
