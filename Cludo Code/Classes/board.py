@@ -624,10 +624,10 @@ class board():
 
     def AI(self):
         """
-        ##############################################.
+        ###########################################.
 
             Returns:
-                bool: True once turn over?
+                bool: True once AI turn is over
         """
         currentPlayer = self.getCurrentPlayer()
         moves = randrange(1, 12) + 1
