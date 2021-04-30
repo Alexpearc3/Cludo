@@ -26,6 +26,7 @@ class Accuse:
                     count = count + 1
                 else:
                     #go back to game next players turn, things did not match
+                    player.Player.accuse()
                     pass
         if count == 3:
             player.Player.setWin(player)
