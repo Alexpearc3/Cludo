@@ -436,13 +436,13 @@ class board():
     def movePlayer(self):
         player = self.getCurrentPlayer()
         x, y = player.getLocation()
-        if self.getTile(x, y).getRoom() == "tile":
+        if self.getTile(x, y).getIsTile():
             possibleMoves = self.lookAround(x, y)
             self.selectTiles(possibleMoves, x, y)
             self.setPlayer(player)
 
             print(possibleMoves)
-        else:
+        elif self.getTile(x,y).getRoom() != "blank":
             for rooms in self.rooms:
                 if rooms.getName() == self.getTile(x, y).getRoom():
                     for door in rooms.getDoors():
@@ -455,10 +455,13 @@ class board():
         currentPlayer = self.getCurrentPlayer()
         j, k = currentPlayer.getLocation()
         if self.getTile(j, k).getRoom() == "tile": # check player is not in a room
+            print("ok")
             #check if its a possible move, and not a player and if a player has moves
             if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+                print("okok")
                 #check if target is a door
                 if self.getTile(x, y).getPossibleMove() and not self.getTile(x, y).getDoor():
+                    print("okokok")
                     j, k = currentPlayer.getLocation()  # j,k = players x y coords. actual x y is where we are moving to/ target destination
                     tile = self.getTile(j, k)
                     tile.setSelected(False)
@@ -471,7 +474,7 @@ class board():
                     tile.setPlayer(currentPlayer.getPlayerID())
                     tile.setSelected(False)
                     tile.setPossibleMove(False)
-                    print(self.getTile(x, y).getPlayer())
+                    print(self.getTile(x, y).getPlayer(), "get player ")
                     self.setTile(tile, x, y)
                     currentPlayer.setMoves(currentPlayer.getMoves() - 1)
                     currentPlayer.setLocation(x, y)
@@ -519,7 +522,7 @@ class board():
                     passageLocation = self.getTile(x, y).getHiddenPassage()
 
                     self.unsetPossibleMoves(x, y)
-                    j,k = passageLocation
+                    j, k = passageLocation
                     currentPlayer.setMoves(0)
                     currentPlayer.setLocation(j, k)
                     self.setPlayer(currentPlayer)
@@ -529,17 +532,35 @@ class board():
         currentPlayer = self.getCurrentPlayer()
         moves = randrange(1, 12) + 1
         currentPlayer.setMoves(moves)
-        self.setPlayer(currentPlayer)
-        self.movePlayer()
-        currentPlayer = self.getCurrentPlayer()
         currentPlayer.setRolled(True)
         self.setPlayer(currentPlayer)
-        moves = []
-        for row in range(25):
-            for column in range(24):
-                if board(row, column).getSelected() and c.getPossibleMove():
-                    moves.append([row, column])
-        #todo for move in moves.
+        while currentPlayer.getMoves() != 0:
+            x, y = currentPlayer.getLocation()
+            self.movePlayer()
+            self.setPlayer(currentPlayer)
+            moves = []
+            for row in range(24):
+                for col in range(23):
+                    tile = self.board[row, col]
+                    if tile.getPossibleMove() and tile.getIsTile():
+                        moves.append([row, col])
+            if len(moves) >= 2:
+                i = randrange(0, len(moves)-1)
+            else:
+                i = len(moves)-1
+            print(moves)
+            k, j = moves[i]
+            self.movePlayerTile(j, k)
+
+            currentPlayer.setMoves(currentPlayer.getMoves()-1)
+            print("allgood")
+            self.setPlayer(currentPlayer)
+            self.unsetPossibleMoves(x, y)
+
+        return True
+
+
+
 
 
 
@@ -609,15 +630,12 @@ class board():
             self.screen.blit(self.title, (((950 / 2 - (int(563 * .45) / 2)) - 110), 7))
             self.screen.blit(self.textBoxPreviousTurn, (600, 20))
             
-            if self.getCurrentPlayer().getName() != False:
-                if self.getCurrentPlayer().getName().upper() == "AI":
-                    #run AI Code
-                    self.AI()
+
 
 
             if turnComplete:
                 turnCount += 1
-                if self.playersTurn > maxPlayer:
+                if self.playersTurn == 5:
                     self.playersTurn = 0
                 else:
                     self.playersTurn += 1
@@ -625,6 +643,10 @@ class board():
                 #print("current Player ", turnCount)
                 turnComplete = False
 
+            if self.getCurrentPlayer().getName() != False:
+                if self.getCurrentPlayer().getName().upper() == "AI":
+                    # run AI Code
+                    turnComplete = self.AI()
 
             # v menu
             if self.PLAYER1 != False:
@@ -829,12 +851,12 @@ class board():
                 p.setLocation(9, 24)
 
             if p.getName() != False and p.getPlayerID() == 5:
-                grid[5][0] = "ww5"
-                p.setLocation(0, 5)
+                grid[18][0] = "ww5"
+                p.setLocation(0, 18)
 
             if p.getName() != False and p.getPlayerID() == 6:
-                grid[18][0] = "ww6"
-                p.setLocation(0, 18)
+                grid[5][0] = "ww6"
+                p.setLocation(0, 5)
 
         rows, columns = 25, 24
 
@@ -1024,5 +1046,5 @@ class board():
         return board
 
 
-playerList = ["shakir", "bob", "abby", "tom", "alex", False, ]
+playerList = ["shakir", "bob", "abby", "tom", "alex", "AI" ]
 b = board(playerList, 2).main()
