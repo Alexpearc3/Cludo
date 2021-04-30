@@ -17,6 +17,8 @@ class DropDown():
         self.draw_menu = False
         self.menu_active = False
         self.active_option = -1
+        self.selectedOption = ""
+
 
 #this funtion draws the dropdown on screen
     def draw(self, surf):
@@ -36,12 +38,14 @@ class DropDown():
         mpos = pg.mouse.get_pos()
         self.menu_active = self.rect.collidepoint(mpos)
 
-        self.active_option = -1
+        #self.active_option = -1
         for i in range(len(self.options)):
             rect = self.rect.copy()
             rect.y += (i + 1) * self.rect.height
-            if rect.collidepoint(mpos):
+            if rect.collidepoint(mpos) and self.draw_menu == True:
                 self.active_option = i
+
+                # print(self.options)
                 break
 
         if not self.menu_active and self.active_option == -1:
