@@ -33,6 +33,7 @@ class Menu_Run():
             self.window.blit(self.display, (0,0)) #aliging display with the window
             pygame.display.update()
             self.reset_keys()
+        
     #checks the events in terms of what keypresses are taken in
     def check_events(self):
         for event in pygame.event.get():
@@ -54,6 +55,7 @@ class Menu_Run():
                         self.plName.plNameEntry = self.plName.plNameEntry[:-1]
                     else:
                         self.plName.plNameEntry += event.unicode
+        
 
     def reset_keys(self): #self is reference to menu_run so we have access to all the variables
         self.UP_KEY, self.DOWN_KEY, self.START_KEY, self.BACK_KEY = False, False, False, False
