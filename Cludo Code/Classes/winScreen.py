@@ -17,7 +17,7 @@ class winScreen:
         buttonNewGame = button.Button(
             (0, 128, 128),
             550, 600,
-            350, 50,
+            400, 50,
             "You Have Won, press to exit"
         )
 

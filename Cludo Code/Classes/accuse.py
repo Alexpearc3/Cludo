@@ -27,15 +27,14 @@ class Accuse:
             for card in self.envelope:
                 if (card.getName() == list1.active_option or card.getName() == list2.active_option or card.getName() == list3.active_option):
                     count = count + 1
-                else:
-                    #go back to game next players turn, things did not match
-                    self.lost = True
-                    self.player.accuse()
-                    loseScreen.loseScreen.has_lost(loseScreen)
         if count == 3:
             player.Player.setWin(player)
             #the player is taken to winscreen
             winScreen.winScreen.has_won(winScreen)
+        else:#go back to game next players turn, things did not match
+            self.lost = True
+            self.player.accuse()
+            loseScreen.loseScreen.has_lost(loseScreen)
 
 #this shows when the player made a wrong accusation
     def lostAccuse(self, screen):
