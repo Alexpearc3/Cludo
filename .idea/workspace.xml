@@ -8,10 +8,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1ece5fa2-68b7-4d52-af02-e6f741d5a340" name="Default Changelist" comment="notepad update">
-      <change afterPath="$PROJECT_DIR$/Cludo Code/Classes/notepad2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Cludo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Cludo.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/board.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/board.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/menu1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/menu1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/dice.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/dice.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/room_cards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/suspect_cards.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" beforeDir="false" afterPath="$PROJECT_DIR$/Cludo Code/Classes/weapon_cards.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -173,9 +177,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.menu_main" />
+        <item itemvalue="Python.board" />
         <item itemvalue="Python.accuse" />
         <item itemvalue="Python.accuse_test" />
-        <item itemvalue="Python.board" />
         <item itemvalue="Python.notepad" />
       </list>
     </recent_temporary>

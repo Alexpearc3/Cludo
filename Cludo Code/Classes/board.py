@@ -214,6 +214,9 @@ class board():
     imgPlayer6_currentx, imgPlayer6_currenty = imgPlayer6_current.get_size()
     imgPlayer6_current = pygame.transform.scale(imgPlayer6_current, (int(imgPlayer6_currentx * .3), int(imgPlayer6_currenty * .3)))
 
+    # if True, cards will be visable to players
+    showCardsState = False
+
     def grid(self, x, y):
         self.screen.blit(self.tileImg, (x, y))
 
@@ -325,7 +328,7 @@ class board():
             # roll dice class function goes here!
             currentPlayer = self.getCurrentPlayer()
             if not currentPlayer.getRolled():
-                moves = randrange(1,12) + 1
+                moves = randrange(1, 12) + 1
                 Dice(moves, self.screen).rolldice()
                 currentPlayer.setMoves(moves)
                 self.setPlayer(currentPlayer)
@@ -344,16 +347,15 @@ class board():
             currentPlayer.setRolled(False)
             self.setPlayer(currentPlayer)
             isTurnComplete = True
+            self.showCardsState = False
             print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
-            Guess(self.playerTList).screenDisplay(self.getCurrentPlayer())
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
             if self.getTile(j, k).getRoom() != "tile":
-                # call guess
-                g = "guess"
+                Guess(self.Players).screenDisplay(self.getCurrentPlayer())
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
             print("accuse")  # 222 x 81.6
@@ -362,6 +364,7 @@ class board():
 
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
             print("show cards")
+            self.showCardsState = not(self.showCardsState)
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
             print("menu")
@@ -487,7 +490,6 @@ class board():
                         self.setPlayer(currentPlayer)
                         for rooms in self.rooms:
                             if rooms.getName() == self.getTile(x, y).getRoom():
-
                                 rooms.setPlayer(self.playersTurn)
 
             if currentPlayer.getMoves() == 0:
@@ -524,7 +526,23 @@ class board():
                 #self.movePlayer()
 
     def AI(self):
-        d = "dick"
+        currentPlayer = self.getCurrentPlayer()
+        moves = randrange(1, 12) + 1
+        currentPlayer.setMoves(moves)
+        self.setPlayer(currentPlayer)
+        self.movePlayer()
+        currentPlayer = self.getCurrentPlayer()
+        currentPlayer.setRolled(True)
+        self.setPlayer(currentPlayer)
+        moves = []
+        for row in range(25):
+            for column in range(24):
+                if board(row, column).getSelected() and c.getPossibleMove():
+                    moves.append([row, column])
+        #todo for move in moves.
+
+
+
 
     def main(self):
         done = False
@@ -654,7 +672,6 @@ class board():
             self.screen.blit(self.textBoxPreviousTurn, (690, 20))
 
             # h menu
-            self.screen.blit(self.buttonShowCards, (12, 812))
             self.screen.blit(self.cardBlank, (102, 812))  # 1
             self.screen.blit(self.cardBlank, (185, 812))  # 2
             self.screen.blit(self.cardBlank, (268, 812))  # 3
@@ -664,6 +681,44 @@ class board():
             self.screen.blit(self.cardBlank, (600, 812))  # 7
             self.screen.blit(self.cardBlank, (683, 812))  # 8
             self.screen.blit(self.cardBlank, (766, 812))  # 9
+            self.screen.blit(self.buttonShowCards, (12, 812))
+            
+            cardsToShow = [False, False, False, False, False, False, False, False, False]
+            currentCards = self.getCurrentPlayer().getCards()
+
+            for i in range(len(currentCards)):
+                cardsToShow[i] = currentCards[i]
+
+            if self.showCardsState:
+                if cardsToShow[0] != False:
+                    card1 = pygame.image.load(cardsToShow[0].getImgName())
+                    self.screen.blit(card1, (102, 812))  #1
+                if cardsToShow[1] != False:
+                    card2 = pygame.image.load(cardsToShow[1].getImgName())
+                    self.screen.blit(card2, (185, 812))  # 2
+                if cardsToShow[2] != False:
+                    card3 = pygame.image.load(cardsToShow[2].getImgName())
+                    self.screen.blit(card3, (268, 812))  # 3
+                if cardsToShow[3] != False:
+                    card4 = pygame.image.load(cardsToShow[3].getImgName())
+                    self.screen.blit(card4, (351, 812))  # 4
+                if cardsToShow[4] != False:
+                    card5 = pygame.image.load(cardsToShow[4].getImgName())
+                    self.screen.blit(card5, (434, 812))  # 5
+                if cardsToShow[5] != False:
+                    card6 = pygame.image.load(cardsToShow[5].getImgName())
+                    self.screen.blit(card6, (517, 812))  # 6
+                if cardsToShow[6] != False:
+                    card7 = pygame.image.load(cardsToShow[6].getImgName())
+                    self.screen.blit(card7, (600, 812))  # 7
+                if cardsToShow[7] != False:
+                    card8 = pygame.image.load(cardsToShow[7].getImgName())
+                    self.screen.blit(card8, (683, 812))  # 8
+                if cardsToShow[8] != False:
+                    card9 = pygame.image.load(cardsToShow[8].getImgName())
+                    self.screen.blit(card9, (766, 812))  # 9            
+
+
 
             # notepad
             self.screen.blit(self.buttonNotepad, (860, 812))
