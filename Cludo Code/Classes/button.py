@@ -44,3 +44,13 @@ class Button:
                         self.color = (250, 10, 0)
                         self.draw(screen, outline=None)
                         return True
+
+        def HaveSeenCard(self, screen, event):
+            pos = pg.mouse.get_pos()
+            if event.type == pg.MOUSEBUTTONDOWN:
+                if self.rectg.collidepoint(pos):
+                    self.color = (250, 10, 0)
+                    self.width = 450
+                    self.text = "I have seen the card. Exit screen"
+                    self.draw(screen, outline=None)
+                    return True

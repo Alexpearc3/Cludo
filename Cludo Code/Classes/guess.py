@@ -23,7 +23,7 @@ class Guess:
         self.Senario6 = False
         self.Senario7 = False
         self.playerNext = player
-
+        self.buttonSeen = False
 
 
         cardRoomImage = ""
@@ -37,7 +37,8 @@ class Guess:
         COLOR_ACTIVE = (100, 200, 255)
         COLOR_LIST_INACTIVE = (255, 100, 100)
         COLOR_LIST_ACTIVE = (255, 150, 150)
-        cards = []
+        cards = 0
+        hands = []
         sus = suspect_cards.Suspect_cards().getNames()
         room = room_cards.Room_cards().getNames()
         wea = weapon_cards.Weapon_cards().getNames()
@@ -48,7 +49,7 @@ class Guess:
         self.buttonRoom = button.Button(
             COLOR_INACTIVE,
             600, 300,
-            150, 50,
+            200, 50,
             str(self.option1)
         )
         # print(str(self.optionRoom))
@@ -56,8 +57,8 @@ class Guess:
         # this button shows the guessed weapon card
         self.buttonWea = button.Button(
             COLOR_INACTIVE,
-            375, 300,
-            150, 50,
+            350, 300,
+            200, 50,
             str(self.option2)
         )
 
@@ -65,7 +66,7 @@ class Guess:
         self.buttonSus = button.Button(
             COLOR_INACTIVE,
             100, 300,
-            150, 50,
+            200, 50,
             str(self.option3)
         )
 
@@ -73,45 +74,75 @@ class Guess:
         playerz = self.playerNext
         self.buttonPla = button.Button(
             COLOR_INACTIVE,
-            400, 200,
-            200, 50,
-            "Player playerz Choose a card to display"
+            200, 200,
+            550, 50,
+            "Player " + str(self.playerNext) + " Choose a card to display"
         )
-        check = False
-        while check == False:
+
+        self.buttonSeenB = button.Button(
+            COLOR_INACTIVE,
+            450, 700,
+            250, 50,
+            "I have seen card"
+        )
+
+        # this button confirms the player understands no one had a match
+        self.buttonNoToSee = button.Button(
+            COLOR_INACTIVE,
+            600, 600,
+            150, 50,
+            "No card to be shown, continue"
+        )
+
+        self.check = False
+        while self.check == False:
+            fail = True
             for player in self.players:
                 handlist = player.getCards()
                 for hand in handlist:
-                    if hand == self.option1:
-                        cards = cards + self.option1
-                    elif hand == self.option2:
-                        cards = cards + self.option2
-                    elif hand == self.option3:
-                        cards = self.option3
-                if len(cards) == 1:
-                    if hand == self.option1:
+                    print("hello")
+                    print(hand.getName())
+                    print(self.option1)
+                    if hand.getName() == self.option1:
+                        hands.append(self.option1)
+                        cards = cards + 1
+                    elif hand.getName() == self.option2:
+                        cards = cards + 1
+                        hands.append(self.option2)
+                    elif hand.getName() == self.option3:
+                        cards = cards + 1
+                        hands.append(self.option3)
+                if cards == 1:
+                    print("hey")
+                    if hand.getName() == self.option1:
                         self.Senario1
-                    if hand == self.option2:
+                    if hand.getName() == self.option2:
                         self.Senario2
-                    if hand == self.option3:
+                    if hand.getName() == self.option3:
                         self.Senario3
-                    self.playerNext = player.getName()
-                    check = True
-                if len(cards) == 2:
-                    if self.option1 and self.option2 in cards:
+                    self.playerNext = player.getPlayerID
+                    self.check = True
+                    fail = False
+                if cards == 2:
+                    print("help")
+                    if self.option1 and self.option2 in hands:
                         self.Senario6 = True
-                    if self.option1 and self.option3 in cards:
+                    if self.option1 and self.option3 in hands:
                         self.Senario7 + True
-                    if self.option2 and self.option3 in cards:
+                    if self.option2 and self.option3 in hands:
                         self.Senario5 = True
-                    self.playerNext = player.getName()
-                    check = True
-                if len(cards) == 3:
+                    self.playerNext = player.getPlayerID()
+                    self.check = True
+                    fail = False
+                if cards == 3:
+                    print("i cry")
                     self.Senario4 = True
-                    self.playerNext = player.getName()
-                    check = True
-            self.failScreen = True
-            check = True
+                    self.playerNext = player.getPlayerID()
+                    self.check = True
+                    fail = False
+            if fail == True:
+                self.failScreen = True
+            self.check = True
 
 
 
@@ -283,26 +314,49 @@ class Guess:
         textRect.center = (475, 200)
         screen.blit(text, textRect)
 
-    def showSenario4(self, screen):
+    def showSenario4(self, screen, event):
         self.buttonRoom.draw(screen)
         self.buttonWea.draw(screen)
         self.buttonSus.draw(screen)
         self.buttonPla.draw(screen)
+        if self.buttonSus.eventChoose(screen, event) == True:
+            self.buttonSeen = True
+        if self.buttonWea.eventChoose(screen, event) == True:
+            self.buttonSeen = True
+        if self.buttonRoom.eventChoose(screen, event) == True:
+            self.buttonSeen = True
 
-    def showSenario5(self, screen):
+    def showSenario5(self, screen, event):
         self.buttonRoom.draw(screen)
         self.buttonWea.draw(screen)
         self.buttonPla.draw(screen)
+        if self.buttonWea.eventChoose(screen, event) == True:
+            self.buttonSeen = True
+        if self.buttonRoom.eventChoose(screen, event) == True:
+            self.buttonSeen = True
 
-    def showSenario6(self, screen):
+    def showSenario6(self, screen, event):
         self.buttonSus.draw(screen)
         self.buttonWea.draw(screen)
         self.buttonPla.draw(screen)
+        if self.buttonSus.eventChoose(screen, event) == True:
+            self.buttonSeen = True
+        if self.buttonWea.eventChoose(screen, event) == True:
+            self.buttonSeen = True
 
-    def showSenario7(self, screen):
+    def showSenario7(self, screen, event):
         self.buttonSus.draw(screen)
         self.buttonRoom.draw(screen)
         self.buttonPla.draw(screen)
+        if self.buttonSus.eventChoose(screen, event) == True:
+            self.buttonSeen = True
+        if self.buttonRoom.eventChoose(screen, event) == True:
+            self.buttonSeen = True
+
+    def showButtonSeen(self, screen, event):
+        self.buttonSeenB.draw(screen)
+        if self.buttonSeenB.HaveSeenCard(screen, event):
+            pass
 
 #this is the function to be used to run the class
     def screenDisplay(self, player):
@@ -384,20 +438,7 @@ class Guess:
         )
 
         # this button confirms the player has seen the matched guess card
-        buttonSeen = button.Button(
-            COLOR_INACTIVE,
-            600, 600,
-            150, 50,
-            "I have seen card"
-        )
 
-        # this button confirms the player understands no one had a match
-        buttonNoToSee = button.Button(
-            COLOR_INACTIVE,
-            600, 600,
-            150, 50,
-            "No card to be shown, continue"
-        )
 
         run = True
         while run:
@@ -428,30 +469,29 @@ class Guess:
                 self.showFail(screen)
 
             if self.Senario1 == True:
-                self.showSenario1(screen)
+                self.showSenario1(screen,event)
 
             if self.Senario2 == True:
-                self.showSenario2(screen)
+                self.showSenario2(screen, event)
 
             if self.Senario3 == True:
-                self.showSenario3(screen)
+                self.showSenario3(screen,event)
 
             if self.Senario4 == True:
-                self.showSenario4(screen)
+                self.showSenario4(screen, event)
 
             if self.Senario5 == True:
-                self.showSenario5(screen)
+                self.showSenario5(screen, event)
 
             if self.Senario6 == True:
-                self.showSenario6(screen)
+                self.showSenario6(screen,event)
 
             if self.Senario7 == True:
-                self.showSenario7(screen)
+                self.showSenario7(screen,event)
 
-            if self.Senario7 == True:
-                self.showSenario7(screen)
-            #screen.fill((102, 0, 102))
 
+            if self.buttonSeen == True:
+                self.showButtonSeen(screen, event)
 
             list1.draw(screen)
             list2.draw(screen)
@@ -468,15 +508,7 @@ class Guess:
             # buttonSeen.event(screen, event)
             # buttonNoToSee.event(screen, event)
 
-
-
-            # if buttonSus.eventChoose(screen,event) == True:
-            #     buttonSeen.draw(screen)
-            # if buttonWea.eventChoose(screen,event) == True:
-            #     buttonSeen.draw(screen)
-            # if buttonRoom.eventChoose(screen,event) == True:
-            #     buttonSeen.draw(screen)
-
+            #
             # if buttonNoToSee(screen, event) == True:
             #     run = False
             # if buttonSeen(screen, event) == True:
