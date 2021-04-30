@@ -53,4 +53,4 @@ class winScreen:
             buttonNewGame.event(screen, event)
             pg.display.update()
 
-winScreen.has_won(winScreen)
+# winScreen.has_won(winScreen)

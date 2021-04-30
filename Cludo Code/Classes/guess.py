@@ -502,18 +502,6 @@ class Guess:
             if button1.event(screen, event) == True:
                 self.check_for_match( list1, list2, list3, screen)
 
-            # buttonWea.eventChoose(screen, event)
-            # buttonPla.eventChoose(screen, event)
-            # buttonRoom.eventChoose(screen, event)
-            # buttonSeen.event(screen, event)
-            # buttonNoToSee.event(screen, event)
-
-            #
-            # if buttonNoToSee(screen, event) == True:
-            #     run = False
-            # if buttonSeen(screen, event) == True:
-            #     run = False
-
 
             pg.display.flip()
 
