@@ -8,7 +8,7 @@ import dropdown
 import button
 
 class Guess:
-    def __init__(self, players,optionRoom = "Room", optionWea = "weapon", optionSus = "suspect"):
+    def __init__(self, players, optionRoom = "Room", optionWea = "weapon", optionSus = "suspect"):
         self.players = players
         self.optionRoom = optionRoom
         self.optionWea = optionWea
@@ -16,8 +16,13 @@ class Guess:
         self.playerHandover = ""
         self.failScreen = False
         self.Senario1 = False
-        self.playerNext = ""
-        self.playerHandover = player
+        self.Senario2 = False
+        self.Senario3 = False
+        self.Senario4 = False
+        self.Senario5 = False
+        self.Senario6 = False
+        self.Senario7 = False
+        self.playerNext = player
 
 
 
@@ -27,7 +32,7 @@ class Guess:
 
 
     def check_for_match(self, list1, list2, list3, screen):
-        check = False
+
         COLOR_INACTIVE = (100, 80, 255)
         COLOR_ACTIVE = (100, 200, 255)
         COLOR_LIST_INACTIVE = (255, 100, 100)
@@ -39,6 +44,7 @@ class Guess:
         self.option1 = sus[list1.active_option]  # the dropdown for room cards
         self.option2 = wea[list2.active_option]  # the dropdown for weapon cards
         self.option3 = room[list3.active_option] # suspect cards?
+
         self.buttonRoom = button.Button(
             COLOR_INACTIVE,
             600, 300,
@@ -64,12 +70,14 @@ class Guess:
         )
 
         # this button shows which player needs to choose a card to show
+        playerz = self.playerNext
         self.buttonPla = button.Button(
             COLOR_INACTIVE,
             400, 200,
             200, 50,
-            "Player " + self.playerNext + " Choose a card to display"
+            "Player playerz Choose a card to display"
         )
+        check = False
         while check == False:
             for player in self.players:
                 handlist = player.getCards()
@@ -82,27 +90,28 @@ class Guess:
                         cards = self.option3
                 if len(cards) == 1:
                     if hand == self.option1:
-                        self.showSenario1(screen)
+                        self.Senario1
                     if hand == self.option2:
-                        self.showSenario2(screen)
+                        self.Senario2
                     if hand == self.option3:
-                        self.showSenario3(screen)
+                        self.Senario3
                     self.playerNext = player.getName()
                     check = True
                 if len(cards) == 2:
                     if self.option1 and self.option2 in cards:
-                        self.showSenario6()
+                        self.Senario6 = True
                     if self.option1 and self.option3 in cards:
-                        self.showSenario7()
+                        self.Senario7 + True
                     if self.option2 and self.option3 in cards:
-                        self.showSenario5()
+                        self.Senario5 = True
                     self.playerNext = player.getName()
                     check = True
                 if len(cards) == 3:
-                    self.showSenario4()
+                    self.Senario4 = True
                     self.playerNext = player.getName()
                     check = True
-            self.showFail(screen)
+            self.failScreen = True
+            check = True
 
 
 
@@ -236,7 +245,7 @@ class Guess:
     #                 else:# no one had the cards chosen or player did not choose cards to guess
     #                     check = True
     #                     self.playerNext = player.getName
-    #                     self.failScreen=True
+
     #         return cards # next turn, no cards shown
 
     d = Deck.Deck()
@@ -416,14 +425,31 @@ class Guess:
                 list3.main = list3.options[selected_option]
 
             if self.failScreen == True:
-                self.showSenario4(screen, list1, list2, list3)
+                self.showFail(screen)
 
             if self.Senario1 == True:
                 self.showSenario1(screen)
 
+            if self.Senario2 == True:
+                self.showSenario2(screen)
 
+            if self.Senario3 == True:
+                self.showSenario3(screen)
 
+            if self.Senario4 == True:
+                self.showSenario4(screen)
 
+            if self.Senario5 == True:
+                self.showSenario5(screen)
+
+            if self.Senario6 == True:
+                self.showSenario6(screen)
+
+            if self.Senario7 == True:
+                self.showSenario7(screen)
+
+            if self.Senario7 == True:
+                self.showSenario7(screen)
             #screen.fill((102, 0, 102))
 
 
