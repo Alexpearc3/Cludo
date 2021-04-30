@@ -214,6 +214,9 @@ class board():
     imgPlayer6_currentx, imgPlayer6_currenty = imgPlayer6_current.get_size()
     imgPlayer6_current = pygame.transform.scale(imgPlayer6_current, (int(imgPlayer6_currentx * .3), int(imgPlayer6_currenty * .3)))
 
+    # if True, cards will be visable to players
+    showCardsState = False
+
     def grid(self, x, y):
         self.screen.blit(self.tileImg, (x, y))
 
@@ -325,7 +328,7 @@ class board():
             # roll dice class function goes here!
             currentPlayer = self.getCurrentPlayer()
             if not currentPlayer.getRolled():
-                moves = randrange(1,12) + 1
+                moves = randrange(1, 12) + 1
                 Dice(moves, self.screen).rolldice()
                 currentPlayer.setMoves(moves)
                 self.setPlayer(currentPlayer)
@@ -344,16 +347,15 @@ class board():
             currentPlayer.setRolled(False)
             self.setPlayer(currentPlayer)
             isTurnComplete = True
+            self.showCardsState = False
             print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
-            Guess(self.Players).screenDisplay(self.getCurrentPlayer())
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
             if self.getTile(j, k).getRoom() != "tile":
-                # call guess
-                g = "guess"
+                Guess(self.Players).screenDisplay(self.getCurrentPlayer())
 
         if (x >= 720 and x <= 942 and y >= 700 and y <= 781.6):
             print("accuse")  # 222 x 81.6
@@ -362,6 +364,7 @@ class board():
 
         if (x >= 12 and x <= 92 and y >= 812 and y <= 937):
             print("show cards")
+            self.showCardsState = not(self.showCardsState)
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
             print("menu")
@@ -433,13 +436,13 @@ class board():
     def movePlayer(self):
         player = self.getCurrentPlayer()
         x, y = player.getLocation()
-        if self.getTile(x, y).getRoom() == "tile":
+        if self.getTile(x, y).getIsTile():
             possibleMoves = self.lookAround(x, y)
             self.selectTiles(possibleMoves, x, y)
             self.setPlayer(player)
 
             print(possibleMoves)
-        else:
+        elif self.getTile(x,y).getRoom() != "blank":
             for rooms in self.rooms:
                 if rooms.getName() == self.getTile(x, y).getRoom():
                     for door in rooms.getDoors():
@@ -452,10 +455,13 @@ class board():
         currentPlayer = self.getCurrentPlayer()
         j, k = currentPlayer.getLocation()
         if self.getTile(j, k).getRoom() == "tile": # check player is not in a room
+            print("ok")
             #check if its a possible move, and not a player and if a player has moves
             if self.getTile(x, y).getPossibleMove() == True and self.getTile(x,y).getPlayer() == 0 and currentPlayer.getMoves() >= 1:
+                print("okok")
                 #check if target is a door
                 if self.getTile(x, y).getPossibleMove() and not self.getTile(x, y).getDoor():
+                    print("okokok")
                     j, k = currentPlayer.getLocation()  # j,k = players x y coords. actual x y is where we are moving to/ target destination
                     tile = self.getTile(j, k)
                     tile.setSelected(False)
@@ -468,7 +474,7 @@ class board():
                     tile.setPlayer(currentPlayer.getPlayerID())
                     tile.setSelected(False)
                     tile.setPossibleMove(False)
-                    print(self.getTile(x, y).getPlayer())
+                    print(self.getTile(x, y).getPlayer(), "get player ")
                     self.setTile(tile, x, y)
                     currentPlayer.setMoves(currentPlayer.getMoves() - 1)
                     currentPlayer.setLocation(x, y)
@@ -487,7 +493,6 @@ class board():
                         self.setPlayer(currentPlayer)
                         for rooms in self.rooms:
                             if rooms.getName() == self.getTile(x, y).getRoom():
-
                                 rooms.setPlayer(self.playersTurn)
 
             if currentPlayer.getMoves() == 0:
@@ -517,14 +522,48 @@ class board():
                     passageLocation = self.getTile(x, y).getHiddenPassage()
 
                     self.unsetPossibleMoves(x, y)
-                    j,k = passageLocation
+                    j, k = passageLocation
                     currentPlayer.setMoves(0)
                     currentPlayer.setLocation(j, k)
                     self.setPlayer(currentPlayer)
                 #self.movePlayer()
 
     def AI(self):
-        d = "dick"
+        currentPlayer = self.getCurrentPlayer()
+        moves = randrange(1, 12) + 1
+        currentPlayer.setMoves(moves)
+        currentPlayer.setRolled(True)
+        self.setPlayer(currentPlayer)
+        while currentPlayer.getMoves() != 0:
+            x, y = currentPlayer.getLocation()
+            self.movePlayer()
+            self.setPlayer(currentPlayer)
+            moves = []
+            for row in range(24):
+                for col in range(23):
+                    tile = self.board[row, col]
+                    if tile.getPossibleMove() and tile.getIsTile():
+                        moves.append([row, col])
+            if len(moves) >= 2:
+                i = randrange(0, len(moves)-1)
+            else:
+                i = len(moves)-1
+            print(moves)
+            k, j = moves[i]
+            self.movePlayerTile(j, k)
+
+            currentPlayer.setMoves(currentPlayer.getMoves()-1)
+            print("allgood")
+            self.setPlayer(currentPlayer)
+            self.unsetPossibleMoves(x, y)
+
+        return True
+
+
+
+
+
+
 
     def main(self):
         done = False
@@ -591,15 +630,12 @@ class board():
             self.screen.blit(self.title, (((950 / 2 - (int(563 * .45) / 2)) - 110), 7))
             self.screen.blit(self.textBoxPreviousTurn, (600, 20))
             
-            if self.getCurrentPlayer().getName() != False:
-                if self.getCurrentPlayer().getName().upper() == "AI":
-                    #run AI Code
-                    self.AI()
+
 
 
             if turnComplete:
                 turnCount += 1
-                if self.playersTurn > maxPlayer:
+                if self.playersTurn == 5:
                     self.playersTurn = 0
                 else:
                     self.playersTurn += 1
@@ -607,6 +643,10 @@ class board():
                 #print("current Player ", turnCount)
                 turnComplete = False
 
+            if self.getCurrentPlayer().getName() != False:
+                if self.getCurrentPlayer().getName().upper() == "AI":
+                    # run AI Code
+                    turnComplete = self.AI()
 
             # v menu
             if self.PLAYER1 != False:
@@ -654,7 +694,6 @@ class board():
             self.screen.blit(self.textBoxPreviousTurn, (690, 20))
 
             # h menu
-            self.screen.blit(self.buttonShowCards, (12, 812))
             self.screen.blit(self.cardBlank, (102, 812))  # 1
             self.screen.blit(self.cardBlank, (185, 812))  # 2
             self.screen.blit(self.cardBlank, (268, 812))  # 3
@@ -664,6 +703,44 @@ class board():
             self.screen.blit(self.cardBlank, (600, 812))  # 7
             self.screen.blit(self.cardBlank, (683, 812))  # 8
             self.screen.blit(self.cardBlank, (766, 812))  # 9
+            self.screen.blit(self.buttonShowCards, (12, 812))
+            
+            cardsToShow = [False, False, False, False, False, False, False, False, False]
+            currentCards = self.getCurrentPlayer().getCards()
+
+            for i in range(len(currentCards)):
+                cardsToShow[i] = currentCards[i]
+
+            if self.showCardsState:
+                if cardsToShow[0] != False:
+                    card1 = pygame.image.load(cardsToShow[0].getImgName())
+                    self.screen.blit(card1, (102, 812))  #1
+                if cardsToShow[1] != False:
+                    card2 = pygame.image.load(cardsToShow[1].getImgName())
+                    self.screen.blit(card2, (185, 812))  # 2
+                if cardsToShow[2] != False:
+                    card3 = pygame.image.load(cardsToShow[2].getImgName())
+                    self.screen.blit(card3, (268, 812))  # 3
+                if cardsToShow[3] != False:
+                    card4 = pygame.image.load(cardsToShow[3].getImgName())
+                    self.screen.blit(card4, (351, 812))  # 4
+                if cardsToShow[4] != False:
+                    card5 = pygame.image.load(cardsToShow[4].getImgName())
+                    self.screen.blit(card5, (434, 812))  # 5
+                if cardsToShow[5] != False:
+                    card6 = pygame.image.load(cardsToShow[5].getImgName())
+                    self.screen.blit(card6, (517, 812))  # 6
+                if cardsToShow[6] != False:
+                    card7 = pygame.image.load(cardsToShow[6].getImgName())
+                    self.screen.blit(card7, (600, 812))  # 7
+                if cardsToShow[7] != False:
+                    card8 = pygame.image.load(cardsToShow[7].getImgName())
+                    self.screen.blit(card8, (683, 812))  # 8
+                if cardsToShow[8] != False:
+                    card9 = pygame.image.load(cardsToShow[8].getImgName())
+                    self.screen.blit(card9, (766, 812))  # 9            
+
+
 
             # notepad
             self.screen.blit(self.buttonNotepad, (860, 812))
@@ -774,12 +851,12 @@ class board():
                 p.setLocation(9, 24)
 
             if p.getName() != False and p.getPlayerID() == 5:
-                grid[5][0] = "ww5"
-                p.setLocation(0, 5)
+                grid[18][0] = "ww5"
+                p.setLocation(0, 18)
 
             if p.getName() != False and p.getPlayerID() == 6:
-                grid[18][0] = "ww6"
-                p.setLocation(0, 18)
+                grid[5][0] = "ww6"
+                p.setLocation(0, 5)
 
         rows, columns = 25, 24
 
@@ -969,5 +1046,5 @@ class board():
         return board
 
 
-playerList = ["shakir", "bob", "abby", "tom", "alex", False, ]
+playerList = ["shakir", "bob", "abby", "tom", "alex", "AI" ]
 b = board(playerList, 2).main()
