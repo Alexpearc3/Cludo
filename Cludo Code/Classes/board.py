@@ -689,7 +689,10 @@ class board():
         turnCount = 0
         player = 0
         maxPlayer = len(playerIds) - 1
-
+        carda = self.deck.getEnvelope()
+        for i in range(len(carda)):
+            print(carda[i].getName())
+        
         # game loop
         while not self.done:
             playerObj = self.getCurrentPlayer()
