@@ -71,13 +71,14 @@ class Guess:
         )
 
         # this button shows which player needs to choose a card to show
-        playerz = self.playerNext
+
         self.buttonPla = button.Button(
             COLOR_INACTIVE,
             200, 200,
             550, 50,
             "Player " + str(self.playerNext) + " Choose a card to display"
         )
+
         #this button confirms the player has seen the selected card
         self.buttonSeenB = button.Button(
             COLOR_INACTIVE,
@@ -103,9 +104,6 @@ class Guess:
             for player in self.players:
                 handlist = player.getCards()
                 for hand in handlist:
-                    print("hello")
-                    print(hand.getName())
-                    print(self.option1)
                     if hand.getName() == self.option1:
                         hands.append(self.option1)
                         cards = cards + 1
@@ -116,7 +114,6 @@ class Guess:
                         cards = cards + 1
                         hands.append(self.option3)
                 if cards == 1:
-                    print("hey")
                     if hand.getName() == self.option1:
                         self.Senario1
                     if hand.getName() == self.option2:
@@ -124,10 +121,10 @@ class Guess:
                     if hand.getName() == self.option3:
                         self.Senario3
                     self.playerNext = player.getPlayerID
+                    print(self.playerNext)
                     self.check = True
                     fail = False
                 if cards == 2:
-                    print("help")
                     if self.option1 and self.option2 in hands:
                         self.Senario6 = True
                     if self.option1 and self.option3 in hands:
@@ -135,12 +132,13 @@ class Guess:
                     if self.option2 and self.option3 in hands:
                         self.Senario5 = True
                     self.playerNext = player.getPlayerID()
+                    print(self.playerNext)
                     self.check = True
                     fail = False
                 if cards == 3:
-                    print("i cry")
                     self.Senario4 = True
                     self.playerNext = player.getPlayerID()
+                    print(str(self.playerNext))
                     self.check = True
                     fail = False
             if fail == True:
