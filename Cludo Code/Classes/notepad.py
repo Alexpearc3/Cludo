@@ -46,7 +46,10 @@ class Notepad:
         self.notepad(screen)
 
     def notepad(self, screenx):
-
+        '''
+             :param screenx: displaying screen of window
+             :return: screen
+             '''
         red = (255, 0, 0)
         flag = True
         while flag:
@@ -88,6 +91,11 @@ class Notepad:
                 pygame.display.update()
 
     def drawNotePad(self, lines, screen):
+        '''
+        :param lines: list
+        :param screen: screen of the game window
+        :return:screen
+        '''
         pygame.display.init()
         # define the RGB value
         gray = (130, 130, 130)
