@@ -6,6 +6,7 @@ import weapon_cards
 import Player as player
 import dropdown
 import button2
+import winScreen
 
 
 class Accuse:
@@ -13,12 +14,13 @@ class Accuse:
 
         self.player = player1
         self.envelope = envelope
+        self.lost = False
 
     pg.init()
     font = pg.font.SysFont(None, 30)
 
     #this function compares the cards in the envelope to the cards the player has accused
-    def check_envolope(self, button1, list1, list2, list3):
+    def check_envolope(self, button1, list1, list2, list3, screen):
         if button1.pressed == True:
             count = 0
             for card in self.envelope:
@@ -26,10 +28,18 @@ class Accuse:
                     count = count + 1
                 else:
                     #go back to game next players turn, things did not match
-                    pass
+                    self.lost = True
+                    self.player.accuse()
         if count == 3:
             player.Player.setWin(player)
+            winScreen.winScreen.has_won(winScreen)
 
+    def lostAccuse(self, screen):
+        font = pg.font.Font(None, 60)
+        text = font.render('Your accusation was wrong', True, (102, 0, 102), (0, 128, 128))
+        textRect = text.get_rect()
+        textRect.center = (475, 200)
+        screen.blit(text, textRect)
 
 #similar to guess, this also runs the class and displays the screen
     def displayScreen(self):
@@ -96,18 +106,24 @@ class Accuse:
             if selected_option >= 0:
                 list3.main = list3.options[selected_option]
 
+
             background_image = pg.image.load("../Image/accuseBack1.png")
 
             screen.fill((102, 0, 102))
             screen.blit(background_image, [0, 0])
+
+            if self.lost == True:
+                self.lostAccuse(screen)
+
             list1.draw(screen)
             list2.draw(screen)
             list3.draw(screen)
             button1.draw(screen)
             button1.event(screen, event)
 #calls check envelope when the player has made an accusation
+
             if button1.event(screen, event) == True:
-                self.check_envolope(button1, list1, list2, list3)
+                self.check_envolope(button1, list1, list2, list3, screen)
 
             pg.display.flip()
 
