@@ -217,6 +217,8 @@ class board():
     # if True, cards will be visable to players
     showCardsState = False
 
+    done = False
+
     def grid(self, x, y):
         self.screen.blit(self.tileImg, (x, y))
 
@@ -351,6 +353,7 @@ class board():
             print(currentPlayer)
 
         if (x >= 720 and x <= 942 and y >= 600 and y <= 681.6):
+            print("guess")
             player = self.getCurrentPlayer()
             j, k = player.getLocation()
             player.setRoom(self.getTile(j, k).getRoom())
@@ -368,7 +371,7 @@ class board():
 
         if (x >= 10 and x <= 142 and y >= 10 and y <= 87.2):
             print("menu")
-            done = True
+            #self.done = True
 
         if (x >= 860 and x <= 927 and y >= 812 and y <= 937):
             # notepad.notepad()
@@ -595,13 +598,13 @@ class board():
         maxPlayer = len(playerIds) - 1
 
         # game loop
-        while not done:
+        while not self.done:
             playerObj = self.getCurrentPlayer()
             if playerObj.getName() == False:
                 turnComplete = True
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:  # If user clicked close
-                    done = True  # Flag that we are done so we exit this loop
+                    self.done = True  # Flag that we are done so we exit this loop
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     # User clicks the mouse. Get the position
@@ -1046,5 +1049,5 @@ class board():
         return board
 
 
-playerList = ["shakir", "bob", "abby", "tom", "alex", "AI" ]
-b = board(playerList, 2).main()
+#playerList = ["shakir", "bob", "abby", "tom", "alex", "AI" ]
+#b = board(playerList, 2).main()

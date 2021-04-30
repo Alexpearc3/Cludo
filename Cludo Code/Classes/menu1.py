@@ -69,15 +69,11 @@ class MainMenu(Menu1):
         self.cursor_move()
         if self.menu_run.START_KEY:
             if self.state == 'Start':
-                #Dice(12, pygame.display.set_mode([950, 960])).rolldice()
                 #self.menu_run.playing = True #put in toms code her
                 playerList = self.CustoMenu.playerArr
                 b = board(playerList, 2).main()
-                #self.CustoMenu.boardType
                 #print("the board type is " + str(self.CustoMenu.boardType))
-                #Notepad.notepad(self)
-
-                #Notepad_Main.notepadRun()
+                
             elif self.state == 'Options':
                 self.menu_run.curr_menu = self.menu_run.options
             elif self.state == 'Credits':
