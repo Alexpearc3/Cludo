@@ -1100,6 +1100,6 @@ class board():
         for r in self.rooms:
             print(r.getName(), " doors:", r.getDoors())
         return board
-playerList = ["Alex", "Shakir", "Michelle", "Tom", "Abby", "AI" ]
+#playerList = ["Alex", "Shakir", "Michelle", "Tom", "Abby", "AI" ]
 #playerList = ["AI", "AI", "AI", "AI", "AI", "AI" ]
-b = board(playerList, 2).main()
+#b = board(playerList, 2).main()
